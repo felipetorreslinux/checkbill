@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.HomeActivity">
+    <item
+        android:id="@+id/action_teste_speed"
+        android:orderInCategory="100"
+        android:title="@string/teste_sua_velocidade"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Configurações"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_report"
+        android:orderInCategory="100"
+        android:title="Colabore/Ajuda"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_rate"
+        android:orderInCategory="100"
+        android:title="Avaliar CheckBill"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_quer_reclamar"
+        android:orderInCategory="100"
+        android:title="Quer reclamar?"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_reclame"
+        android:orderInCategory="100"
+        android:title="Registre divergência"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_auditoria"
+        android:orderInCategory="100"
+        android:title="Comprar auditoria"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_teste"
+        android:orderInCategory="100"
+        android:title="Acesso testador"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="Sair"
+        app:showAsAction="never" />
+</menu>

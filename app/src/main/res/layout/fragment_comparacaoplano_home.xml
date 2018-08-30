@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Card onde sera exibido as informaçõs básicas do meu plano -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- Informações sobre o seu plano "/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+    <android.support.v7.widget.CardView
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="4dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/md_white_1000">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nome_plano"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Meu Plano"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:padding="10dp"
+                android:gravity="center_horizontal"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/md_grey_800"
+                android:background="@color/md_orange_200"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Modalidade"
+                        android:layout_weight="0.5"
+                        style="@android:style/TextAppearance.Small"/>
+
+                    <TextView
+                        android:id="@+id/modalidade_plano"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Pré-pago"
+                        android:layout_weight="0.6"
+                        style="@android:style/TextAppearance.Small"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Operadora"
+                        android:layout_weight="0.5"
+                        style="@android:style/TextAppearance.Small"/>
+
+                    <TextView
+                        android:id="@+id/nome_operadora"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Claro"
+                        android:layout_weight="0.6"
+                        style="@android:style/TextAppearance.Small"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Preço"
+                        android:layout_weight="0.5"
+                        style="@android:style/TextAppearance.Small"/>
+
+                    <TextView
+                        android:id="@+id/preco_plano"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="R$ 20,00"
+                        android:layout_weight="0.6"
+                        style="@android:style/TextAppearance.Small"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <!-- Radio Group -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- Opções para a avaliação "/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+    <RadioGroup
+        android:id="@+id/homeRadioButtonGroup"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/homeRadioButtonGroup_Radio0"
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usar 'Meu Plano' como parâmetro" />
+        <RadioButton
+            android:id="@+id/homeRadioButtonGroup_Radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Definir parâmetros manualmente"/>
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="bottom|center"
+        android:layout_weight="0.1">
+        <Button
+            android:id="@+id/homeMainActionButton"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button_green_shape"
+            android:textColor="@color/md_white_1000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continuar"/>
+    </LinearLayout>
+</LinearLayout>

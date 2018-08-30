@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_weight="0.9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@android:style/TextAppearance.Small"
+                android:text="4° semana de maio"/>
+
+            <LinearLayout
+                android:id="@+id/itemGsm_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <android.support.v7.widget.CaredView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/md_white_1000">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:background="@color/md_grey_100"
+                            android:weightSum="1"
+                            android:padding="10dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.2">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/tower"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="GSM"
+                                    android:gravity="center_horizontal"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/md_grey_400"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="0dp"
+                                android:layout_weight="0.005"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.3"
+                                android:layout_gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/tvwGsmOperadora_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="TIM"
+                                    android:textSize="30px"
+                                    android:textColor="@color/md_black_1000"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Operadora"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5"
+                                android:layout_gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/tvwGsmSinal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Forte"
+                                    style="@android:style/TextAppearance.Large"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Força média"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingBottom="20dp"
+                            android:paddingRight="20dp"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Registros"
+                                android:textAppearance="@android:style/TextAppearance.Small"
+                                android:textColor="@color/md_grey_800"
+                                android:visibility="gone"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/md_grey_300"
+                                android:layout_marginBottom="5dp"
+                                android:visibility="gone"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/data_icon"
+                                        android:layout_weight="0.2"
+                                        android:layout_marginRight="10dp"/>
+
+                                    <TextView
+                                        android:id="@+id/tvwGsmData"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="38.64 Mb"
+                                        android:layout_weight="0.8"
+                                        android:layout_gravity="center_vertical"
+                                        style="@android:style/TextAppearance.Large"/>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Dados consumidos"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/unavailability_icon"
+                                        android:layout_weight="0.2"
+                                        android:layout_marginRight="10dp"/>
+
+                                    <TextView
+                                        android:id="@+id/tvwUnavailability"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="1.3 mins"
+                                        android:layout_weight="0.8"
+                                        android:layout_gravity="center_vertical"
+                                        style="@android:style/TextAppearance.Large"/>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Tempo indisponível"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="10dp"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/tower"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/txt_signal_label"
+                                        android:text="Muito Bom"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/md_blue_A700"
+                                        android:textAppearance="@android:style/TextAppearance.Large"
+                                        android:textSize="30dp"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:text="-87"
+                                        android:id="@+id/dbm"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/md_grey_600"
+                                        android:textAppearance="@android:style/TextAppearance.Small"/>
+
+                                    <TextView
+                                        android:text="dbm"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/md_grey_600"
+                                        android:textAppearance="@android:style/TextAppearance.Small"
+                                        android:layout_marginRight="10dp"/>
+
+                                    <TextView
+                                        android:text="87"
+                                        android:id="@+id/asu"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/md_grey_600"
+                                        android:textAppearance="@android:style/TextAppearance.Small"/>
+
+                                    <TextView
+                                        android:text="asu"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/md_grey_600"
+                                        android:textAppearance="@android:style/TextAppearance.Small"
+                                        android:layout_marginRight="10dp"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/opera_mcc_mnc"
+                                        android:text="Tim - 724/02"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/md_grey_600"
+                                        android:textAppearance="@android:style/TextAppearance.Small"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/cell_cid_lac"
+                                        android:text="Cell - 55671"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/md_grey_600"
+                                        android:textAppearance="@android:style/TextAppearance.Small"/>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+                </android.support.v7.widget.CaredView>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@android:style/TextAppearance.Small"
+                android:text="3° semana de maio"
+                android:layout_marginTop="15dp"/>
+
+            <LinearLayout
+                android:id="@+id/itemGsm_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/md_white_1000">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:background="@color/md_grey_100"
+                            android:weightSum="1"
+                            android:padding="10dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.2">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/tower"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="GSM"
+                                    android:gravity="center_horizontal"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/md_grey_400"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="0dp"
+                                android:layout_weight="0.005"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.3"
+                                android:layout_gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/tvwGsmOperadora_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="TIM"
+                                    android:textSize="30px"
+                                    android:textColor="@color/md_black_1000"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Operadora"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5"
+                                android:layout_gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Fraco"
+                                    style="@android:style/TextAppearance.Large"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Força média"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingBottom="20dp"
+                            android:paddingRight="20dp"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Registros"
+                                android:textAppearance="@android:style/TextAppearance.Small"
+                                android:textColor="@color/md_grey_800"
+                                android:visibility="gone"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/md_grey_300"
+                                android:layout_marginBottom="5dp"
+                                android:visibility="gone"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/data_icon"
+                                        android:layout_weight="0.2"
+                                        android:layout_marginRight="10dp"/>
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="66.01 Mb"
+                                        android:layout_weight="0.8"
+                                        android:layout_gravity="center_vertical"
+                                        style="@android:style/TextAppearance.Large"/>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Dados consumidos"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/unavailability_icon"
+                                        android:layout_weight="0.2"
+                                        android:layout_marginRight="10dp"/>
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="5.1 mins"
+                                        android:layout_weight="0.8"
+                                        android:layout_gravity="center_vertical"
+                                        style="@android:style/TextAppearance.Large"/>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Tempo indisponível"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

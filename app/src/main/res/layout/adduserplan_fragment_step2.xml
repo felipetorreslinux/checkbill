@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/step1_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Mesma Operadora:"
+            android:layout_weight="0.7"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Minutos"
+            android:layout_weight="0.4"
+            android:ems="10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/mo_minutos" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:id="@+id/mo_ilimitado"
+            android:scaleX="0.80"
+            android:scaleY="0.80"
+            android:text="Ilimitado"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Outra Operadora:"
+            android:layout_weight="0.7"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Minutos"
+            android:layout_weight="0.4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:ems="10"
+            android:id="@+id/oo_minutos" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:id="@+id/oo_ilimitado"
+            android:scaleX="0.80"
+            android:scaleY="0.80"
+            android:text="Ilimitado"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Fixo:"
+            android:layout_weight="0.7"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Minutos"
+            android:layout_weight="0.4"
+            android:ems="10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/fixo_minutos" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:id="@+id/fixo_ilimitado"
+            android:scaleX="0.80"
+            android:scaleY="0.80"
+            android:text="Ilimitado"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Inter-Urbano:"
+            android:layout_weight="0.7"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Minutos"
+            android:layout_weight="0.4"
+            android:ems="10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/iu_minutos" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:id="@+id/iu_ilimitado"
+            android:scaleX="0.80"
+            android:scaleY="0.80"
+            android:text="Ilimitado"/>
+    </LinearLayout>
+
+</LinearLayout>

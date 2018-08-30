@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Label/Info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resultado da pesquisa:"/>
+        <TextView
+            android:id="@+id/labelItemCountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginLeft="3dp"
+            android:text="00 itens encontrados."/>
+    </LinearLayout>
+
+    <!-- Content View Pager -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/contentViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:clipToPadding="false"
+        android:layout_gravity="center"
+        android:overScrollMode="ifContentScrolls"
+        android:clipChildren="false"
+        android:visibility="visible">
+    </android.support.v4.view.ViewPager>
+
+    <!-- Content a ser exibido quando não houver dados... -->
+    <LinearLayout
+        android:id="@+id/errorTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center"
+        android:padding="40dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_warning_amber"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Não foi encontrado dados para os parâmetros definidos."/>
+    </LinearLayout>
+
+    <!-- Layout a ser exibido durante o loading -->
+    <LinearLayout
+        android:id="@+id/loadingLayoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progress_bar"
+            android:layout_margin="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Processando, aguarde..."/>
+    </LinearLayout>
+
+    <!-- Content Page Indicator -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:gravity="bottom">
+
+        <com.layer_net.stepindicator.StepIndicator
+            android:id="@+id/viewPagerIndicator"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

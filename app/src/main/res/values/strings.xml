@@ -1,0 +1,223 @@
+<resources>
+    <string name="app_name">CheckBill</string>
+
+    <!-- Titles-->
+    <string name="title_welcome_activity">CheckBill</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_create_account">Criar Conta</string>
+    <string name="facebook_app_id">1062891877126993</string>
+    <string name="app_title">Navegue. Avalie. Economize</string>
+
+    <!--Messages -->
+    <string name="sem_conexao">Conexão com a internet indisponível!</string>
+    <string name="error_conexao">Não foi possível acessar o servidor! Verifique sua rede e tente novamente.</string>
+    <string name="nao_foi_possivel_acessar_o_ranking">Não foi possível acessar o rankling, tente mais tarde.</string>
+    <string name="gps_disable">Seu GPS parece estar desativado, quer ativá-lo?</string>
+    <string name="cadastrado_com_sucesso">Cadastrado com sucesso :D</string>
+    <string name="txt_phone_number_error">Obrigatório 9 digitos (EX: 996090238)</string>
+    <string name="txt_phone_ddd_error">Obrigatório 2 digitos (EX: 81)</string>
+    <string name="txt_email_error">O email inserido está inválido :/</string>
+    <string name="txt_name_error">Obrigatório</string>
+    <string name="complete_seu_cadastro">Complete seu cadastro</string>
+    <string name="info_additional">Nós tomamos o cuidado de criptografar suas informações e não compartilhamos elas com terceiros</string>
+    <string name="txt_phone_ddd_hint">DDD (81)</string>
+    <string name="txt_phone_number_hint">Telefone (996090238)</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="home">Início</string>
+    <string name="minhas_medicoes">Minhas medições</string>
+    <string name="cobertura_de_sinal">Cobertura de sinal</string>
+    <string name="planos_de_telefonia">Planos de telefonia</string>
+    <string name="pessimo">Péssimo</string>
+    <string name="muito_fraco">Muito Fraco</string>
+    <string name="fraco">Fraco</string>
+    <string name="normal">Normal</string>
+    <string name="bom">Bom</string>
+    <string name="muito_bom">Muito Bom</string>
+    <string name="excelente">Excelente</string>
+    <string name="meu_sinal_agora">Meu sinal agora</string>
+    <string name="indisponibilidade">Indisponibilidade</string>
+    <string name="estamos_terminando">Estamos terminando, aguarde :D</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="informacoes">SINAL</string>
+    <string name="mapa">Mapa</string>
+    <string name="plano">Plano</string>
+    <string name="teste">Teste</string>
+    <string name="ranking">Ranking</string>
+    <string name="campo_obrigatorio">Esse campo é obrigatório</string>
+    <string name="seja_bem_vindo">Seja bem-vindo :D</string>
+    <string name="login_cancelado">Login não efetuado</string>
+    <string name="pconsumo_noplan">[Não há plano]</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_name">Nome</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">Contacts permissions are needed for providing email completions.</string>
+
+    <!-- Intent Action -->
+    <string name="intent_action_traffic_monitor_midnight_reset">checkmybill.intent.action.TRAFFIC_MONITOR_MIDNIGHT_ALARM</string>
+    <string name="intent_action_traffic_monitor">checkmybill.intent.action.TRAFFIC_MONITOR_ALARM</string>
+    <string name="intent_action_measure_signal_strength_alarm">checkmybill.intent.action.MEASURE_SIGNAL_STRENGTH_ALARM</string>
+    <string name="intent_action_unavailability_alarm">checkmybill.intent.action.UNAVAILABILITY_ALARM</string>
+    <string name="intent_action_wifi_monitor_alarm">checkmybill.intent.action.WIFI_MONITOR_ALARM</string>
+    <string name="intent_action_save_my_position_alarm">checkmybill.intent.action.SAVE_MY_POSITION_ALARM</string>
+
+    <!-- Strings preferences-->
+    <string name="prefs">prefs</string>
+
+    <string name="network_edge">Network : EDGE</string>
+    <string name="network_3g">Network : 3G</string>
+    <string name="network_detecting">Network : Detecting </string>
+
+    <string name="update_speed">kbitsec</string>
+    <string name="update_downloaded">Downloaded </string>
+    <string name="update_connectionspeed">Connection time  ms</string>
+
+    <string name="update_downloaded_complete">Downloaded  kbitsec</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_show_network">Registros de teste</string>
+    <string name="title_activity_analytics">Minhas Medições</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_settings">Configurações</string>
+    <string name="title_activity_auditoria">Auditoria</string>
+    <string name="title_activity_cadastro_plano">Cadastrando Plano</string>
+    <string name="title_activity_consulta_plano">Consultando Planos</string>
+    <string name="title_activity_ger_creditos_plano">Créditos</string>
+    <string name="title_activity_ger_pacotes">Pacotes</string>
+    <string name="title_activity_comparacao_plano">Comparação de Planos</string>
+
+    <!--Arrays -->
+    <string-array name="filters_analytics_array">
+        <item>Todas as medições</item>
+        <item>Qualidade de Sinal</item>
+        <item>Indisponibilidade</item>
+    </string-array>
+
+    <!--Arrays -->
+    <string-array name="filters_analytics_list_array">
+        <item>Rede Móvel (GSM)</item>
+        <item>Banda Larga</item>
+    </string-array>
+
+    <!--Arrays -->
+    <string-array name="filters_indispo">
+        <item>Hoje</item>
+        <item>Há 7 dias</item>
+        <item>Há 30 dias</item>
+    </string-array>
+
+    <!--Arrays -->
+    <string-array name="array_links_quer_reclamar">
+        <item>Anatel</item>
+        <item>Vivo</item>
+        <item>Tim</item>
+        <item>Oi</item>
+        <item>Claro</item>
+        <item>Nextel</item>
+    </string-array>
+
+    <!--Arrays Vencimentos do Plano-->
+    <string-array name="array_vencimentos_plano">
+        <item>Não Definido</item>
+        <item>01</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
+    <!--Arrays Limite de consumo-->
+    <string-array name="array_limite_de_consumo">
+        <item>Diário</item>
+        <item>Semanal</item>
+        <item>Mensal</item>
+    </string-array>
+
+    <!--Arrays unidade minutos-->
+    <string-array name="array_unidade_minutos">
+        <item>seg(s)</item>
+        <item>min(s)</item>
+        <item>hora(s)</item>
+    </string-array>
+
+    <!--Arrays unidade internet-->
+    <string-array name="array_unidade_internet">
+        <item>MB</item>
+        <item>GB</item>
+    </string-array>
+
+    <string-array name="array_colabore_assunto">
+        <item>Dúvida</item>
+        <item>Sugestão</item>
+        <item>Elogio</item>
+        <item>Reportar falha</item>
+        <item>Outros</item>
+    </string-array>
+
+    <!--SLIDING DRAWER -->
+    <string name="hello">Hello World, SlidingDrawerActivity!</string>
+    <string name="sliding_drawer">I am a SlidingDrawer!</string>
+    <string name="normal_tray">Normal Tray</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="title_activity_plano_details">PlanoDetailsActivity</string>
+    <string name="title_activity_help">Ajuda</string>
+    <string name="title_activity_reclame">Reclame</string>
+    <string name="title_activity_test_main">Painel teste</string>
+    <string name="menu_painel_consumo">PAINEL</string>
+    <string name="teste_sua_velocidade">Teste sua velocidade</string>
+
+    <!--URL API -->
+    <string name="url_base">@string/url_base_debug</string>
+    <string name="url_base_realese">https://services.checkbill.com.br</string>
+    <string name="url_base_debug">http://services.checkbill.com.br:1338</string>
+    <string name="entrar">Entrar</string>
+    <string name="enviar">Enviar</string>
+
+    <!-- Vertical Step Tabber Texts -->
+    <string name="vertical_form_stepper_form_confirm_button">Adicionar Plano</string>
+    <string name="vertical_form_stepper_form_continue">Avançar</string>
+    <string name="vertical_form_stepper_form_discard_cancel">Cancelar</string>
+    <string name="vertical_form_stepper_form_last_step">Confirmação</string>
+    <string name="title_activity_ranking">Ranking</string>
+
+    <string name="phoneedittext_invalid_mask_err_text">O telefone digitado é inválido</string>
+
+    <!-- Permission Info Texts -->
+    <string name="desc_permgroup_dangerous">Permissões necessárias para o correto funcionamento do CheckBill. Essas permissões inclua a capacidade de ler a lista de chamadas (para calcular a duração junto com o seu plano) entre outras.</string>
+</resources>

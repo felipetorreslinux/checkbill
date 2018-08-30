@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/step1_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Nome do Plano:"
+            android:layout_weight="0.4" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:hint="Nome do Plano"
+            android:ems="10"
+            android:id="@+id/nome_plano"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Dt. Vencimento:"
+            android:layout_weight="0.4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:entries="@array/array_vencimentos_plano"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/dt_vencimento" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Valor do Plano:"
+            android:layout_weight="0.4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text=""
+            android:hint="Valor (R$)"
+            android:ems="10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/valor_plano" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Operadora:"
+            android:layout_weight="0.4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:enabled="false"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/operadora" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="7dp"
+        android:paddingBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Modalidade:"
+            android:layout_weight="0.4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/modalidade_plano" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="7dp"
+        android:paddingBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tipo do Plano:"
+            android:layout_weight="0.4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:id="@+id/tipo_plano" />
+    </LinearLayout>
+
+</LinearLayout>

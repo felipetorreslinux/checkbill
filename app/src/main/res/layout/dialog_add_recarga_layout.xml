@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:text="Valor da Recarga:" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text=""
+            android:hint="Valor (R$)"
+            android:ems="10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:id="@+id/valor_recarga" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:text="Data da Recarga:"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/usarDataAtual_recarga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.90"
+                android:scaleY="0.90"
+                android:checked="true"
+                android:text="Usar Data Atual"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:id="@+id/manualDateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|left"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.23"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data do Carregamento:"/>
+            <DatePicker
+                android:id="@+id/datepickerDate_recarga"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.4"
+                style="@android:style/Widget.DatePicker"
+                android:layout_height="57dp">
+            </DatePicker>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

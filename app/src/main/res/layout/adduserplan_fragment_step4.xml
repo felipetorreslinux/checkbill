@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/step1_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Limite de SMS:"
+            android:layout_weight="0.5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Nº de SMS"
+            android:layout_weight="0.4"
+            android:ems="10"
+            android:id="@+id/sms_limite"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:id="@+id/sms_ilimitado"
+            android:scaleX="0.80"
+            android:scaleY="0.80"
+            android:text="Ilimitado"/>
+    </LinearLayout>
+
+</LinearLayout>

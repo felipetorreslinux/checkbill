@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/intro_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:text="Avalie sua fatura"
+            android:textColor="@android:color/white"
+            android:textSize="28sp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.2"/>
+
+        <ImageView
+            android:id="@+id/intro_img"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Com o seu histórico de sinal na palma da mão você pode conferir sua fatura de telefone e assegurar se está pagando pelo que usou de verdade"
+            android:textColor="@android:color/white"
+            android:layout_gravity="bottom|center"
+            android:maxEms="18"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:layout_weight="0.2"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1">
+
+            <Button
+                android:id="@+id/btn_prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="anterior"
+                android:visibility="invisible"
+                android:layout_alignParentLeft="true" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="entendi"
+                android:visibility="invisible"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="string/title"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_gravity="top|center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="32dp"
+            android:textSize="28sp"/>
+
+        <ImageView
+            android:id="@+id/computer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="string/description"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_gravity="bottom|center"
+            android:maxEms="18"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="32dp"
+            android:textSize="20sp"/>
+
+    </FrameLayout>
+
+    -->
+
+</FrameLayout>

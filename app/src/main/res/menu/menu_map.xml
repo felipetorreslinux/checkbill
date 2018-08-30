@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.HomeActivity">
+
+    <group android:checkableBehavior="all"
+           android:id="@+id/menu_group_item_map_view">
+
+        <item android:id="@+id/menu_item_map_user"
+            android:title="Apenas meus dados" />
+
+    </group>
+
+
+</menu>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/step1_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Limite:"
+            android:layout_weight="0.3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Valor"
+            android:layout_weight="0.3"
+            android:ems="10"
+            android:id="@+id/dados_limite"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+        <Spinner
+            android:id="@+id/tipo_unidade_internet"
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="wrap_content"
+            android:entries="@array/array_unidade_internet"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:id="@+id/dados_ilimitado"
+            android:scaleX="0.80"
+            android:scaleY="0.80"
+            android:text="Ilimitado"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    </LinearLayout>
+
+</LinearLayout>

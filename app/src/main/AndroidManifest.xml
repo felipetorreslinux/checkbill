@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.checkmybill">
+
+    <permission-group
+        android:name="com.checkbill.DANGEROUS_PERMISSIONS"
+        android:description="@string/desc_permgroup_dangerous"/>
+
+    <permission
+        android:name="android.permission.READ_PHONE_STATE"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.READ_CALL_LOG"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.READ_CONTACTS"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.READ_SMS"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.CAMERA"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.GET_ACCOUNTS"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    <permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
+        android:permissionGroup="com.checkbill.DANGEROUS_PERMISSIONS"/>
+    
+    <!-- Normal Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/title_welcome_activity"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name=".CheckBillApplication"
+        tools:replace="android:icon,android:theme,android:label">
+
+        <!-- ACTIVITIES -->
+        <activity
+            android:name=".presentation.IntroActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarThemeWelcomeActivity">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.INTRO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.SplashScreenActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarThemeWelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.LoginActivity_"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.LOGIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.CreateAccountActivity_"
+            android:label="@string/title_activity_create_account"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.CREATE_ACCOUNT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.HomeActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarThemeWelcomeActivity">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.HOME" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.PlanoFiltroActivity_"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.PLANO_FILTER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.ShowNetworkQuality_"
+            android:label="@string/title_activity_show_network"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.NETWORK_QUALITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.SettingsActivity_"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.SETTINGS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.HelpActivity_"
+            android:label="@string/title_activity_help"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.HELP" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.AccountActivity_"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.ACCOUNT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.ReclameActivity_"
+            android:label="@string/title_activity_reclame"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarThemeWelcomeActivity">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.RECLAME" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".testview.TestMainActivity"
+            android:label="@string/title_activity_test_main"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarThemeWelcomeActivity">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.TEST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.AuditoriaActivity_"
+            android:label="@string/title_activity_auditoria"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.AUDITORIA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.SpeedTestActivity_"
+            android:label="@string/teste_sua_velocidade"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarThemeWelcomeActivity">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.SPEED_TEST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".presentation.CreateUserPlanActivity_"
+            android:label="@string/title_activity_cadastro_plano"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.CREATE_USER_PLAN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.ConsultaPlanosOperadoraActivity_"
+            android:label="@string/title_activity_consulta_plano"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.CONSULTA_PLANOS_OPERADORA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.GerCreditosPlanoActivity_"
+            android:label="@string/title_activity_ger_creditos_plano"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.CREDITOS_PLANO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.GerPacotesActivity_"
+            android:label="@string/title_activity_ger_pacotes"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarThemeWelcomeActivity">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.PACOTES_PLANO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.ComparacaoPlanoActivity_"
+            android:label="@string/title_activity_comparacao_plano"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.COMPARACAO_PLANO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.RelatorioConsumoActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppFullScreenTheme">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.RELATORIO_CONSUMO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.ranking.RankingActivity_"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_ranking"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.RANKING" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--
+        <activity android:name=".presentation.AvaliePlanoActivity_">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.AVALIE_SEU_PLANO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        -->
+        <!-- RECEIVERS -->
+        <receiver android:name=".receiver.ReceiverMain">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="checkmybill.intent.action.TRAFFIC_MONITOR_MIDNIGHT_ALARM"/>
+                <action android:name="checkmybill.intent.action.TRAFFIC_MONITOR_ALARM"/>
+            </intent-filter>
+        </receiver>
+        <!-- SERVICES -->
+        <service
+            android:name=".service.ServicePhoneStateListener"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceEnviarColabore"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceSignalStrengthGET"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceNetworkQuality"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceWifiMonitor"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceConfMob"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceSMSOutgoingMonitor"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceCallMonitor"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceInitialDataReader"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceDataUploader"
+            android:exported="false" />
+        <service
+            android:name=".service.ServiceSaveMyPosition"
+            android:exported="false" />
+
+        <!-- META DATA -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+    </application>
+
+</manifest>

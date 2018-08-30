@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@color/md_white_1000">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ASSUNTO"/>
+
+        <Spinner
+            android:id="@+id/spSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/array_colabore_assunto"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MENSAGEM"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/edtMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escreva aqui sua mensagem..."
+            android:inputType="textMultiLine"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="* Caso seja uma falha do app, por favor detalhe sua mensagem para nós ajudarmos você"
+            android:textStyle="italic"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
