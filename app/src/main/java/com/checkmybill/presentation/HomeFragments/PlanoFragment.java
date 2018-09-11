@@ -10,10 +10,8 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -25,9 +23,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.checkmybill.R;
-import com.checkmybill.adapters.CustomItemClickListener;
 import com.checkmybill.entity.Plano;
-import com.checkmybill.felipecode.Views.Avaliar_Plano;
+import com.checkmybill.felipecode.Views.RankingPlano;
 import com.checkmybill.presentation.AvaliaPlanoActivity;
 import com.checkmybill.presentation.BaseFragment;
 import com.checkmybill.presentation.CreateUserPlanActivity;
@@ -49,7 +46,6 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,13 +148,15 @@ public class PlanoFragment extends BaseFragment {
         //getActivity().startActivity(it);
 
         //new NotifyWindow(mContext).showWarningMessage("Avaliar Plano", "Serviço indisponível no momento", false, true);
+        Intent it = new Intent(IntentMap.AVALIA_PLANO);
+        getActivity().startActivityForResult(it, AvaliaPlanoActivity.REQUEST_CODE);
+    }
 
-//        Intent it = new Intent(IntentMap.AVALIA_PLANO);
-//        getActivity().startActivityForResult(it, AvaliaPlanoActivity.REQUEST_CODE);
-
-
+    @Click(R.id.btnRankingPlano)
+    public void btnRankingPlano() {
         //Felipe Torres
-        Intent intent_avaliar_plano = new Intent(getActivity(), Avaliar_Plano.class);
+        //Abre activity de Ranking de Planos
+        Intent intent_avaliar_plano = new Intent(getActivity(), RankingPlano.class);
         startActivityForResult(intent_avaliar_plano, REQUEST_AVALIAR_PLANO);
     }
 

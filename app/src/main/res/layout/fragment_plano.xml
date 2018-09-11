@@ -37,7 +37,9 @@
         android:weightSum="1"
         android:orientation="vertical"
         android:visibility="gone">
-            <ScrollView
+
+
+        <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
@@ -250,17 +252,20 @@
                 </LinearLayout>
 
             </ScrollView>
+
         <LinearLayout
             android:orientation="vertical"
             android:gravity="bottom"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/bottomButtonContainer"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="56dp">
+
                 <LinearLayout
                     android:id="@+id/btnAvaliarPlano"
                     android:orientation="vertical"
@@ -278,6 +283,26 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/md_white_1000"
                         android:text="Avaliar"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnRankingPlano"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ranking_icon"
+                        android:tint="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/md_white_1000"
+                        android:text="Ranking"/>
                 </LinearLayout>
 
                 <LinearLayout
