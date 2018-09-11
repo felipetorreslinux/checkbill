@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
@@ -177,6 +178,9 @@ public class InformacoesFragment extends BaseFragment {
     @ViewById(R.id.progress)
     protected ProgressBar progressBarMediaGsm;
 
+    @ViewById(R.id.swipeRefreshLayout)
+    protected SwipeRefreshLayout swipeRefreshLayout;
+
     private RequestQueue requestQueue;
     private LocationManager locationManager;
     private MyLocationListener myLocationListener;
@@ -228,6 +232,24 @@ public class InformacoesFragment extends BaseFragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        // Setting swipe refresh layout
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                final Date[] rangeGSM = generateDateRangeFromPositionSpinner(sp_filters_gsm.getSelectedItemPosition());
+                final Date[] rangeWifi = generateDateRangeFromPositionSpinner(sp_filters_wifi.getSelectedItemPosition());
+
+                LoadCardWifi loadCardWifi = new LoadCardWifi();
+                loadCardWifi.execute(rangeWifi[0], rangeWifi[1]);
+                sendRequestMediaOperadoras_Wifi(rangeWifi[1], rangeWifi[0]);
+
+                LoadCardGsm loadCardGsm = new LoadCardGsm();
+                loadCardGsm.execute(rangeGSM[0], rangeGSM[1]);
+                sendRequestMediaOperadoras_GSM(rangeGSM[1], rangeGSM[0]);
             }
         });
         //
@@ -487,17 +509,17 @@ public class InformacoesFragment extends BaseFragment {
         switch (position) {
             //Hoje
             case ITEM_FILTER_HOJE:
-                endDate = endDate.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
+                startDate = startDate.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
                 break;
             //Há 7 dias
             case ITEM_FILTER_7_DIAS:
-                endDate = endDate.minusDays(7);
-                endDate = endDate.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
+                startDate = startDate.minusDays(7);
+                startDate = startDate.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
                 break;
             //Há 30 dias
             case ITEM_FILTER_30_Dias:
-                endDate = endDate.minusDays(30);
-                endDate = endDate.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
+                startDate = startDate.minusDays(30);
+                startDate = startDate.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
                 break;
         }
 
@@ -587,6 +609,7 @@ public class InformacoesFragment extends BaseFragment {
         }
 
         private void calcularUsoDeDados(Date start, Date end) {
+            Log.d(LOG_TAG, "Date Range -> " + start.toString() + " - " + end.toString());
             TrafficMonitor trafficMonitor = new TrafficMonitor(getContext());
             long mobUsedBytes = trafficMonitor.getTotalMobileDataTransfer(start, end);
             dataUse = TrafficMonitor.FormatBytes(getContext(), mobUsedBytes);

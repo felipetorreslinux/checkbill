@@ -348,7 +348,7 @@ public class SharedPrefsUtil {
         meuPlano.setMinMO(sharedPref.getInt(BASEKEY + "MIN_OO", 0));
         meuPlano.setMinFixo(sharedPref.getInt(BASEKEY + "MIN_FIXO", 0));
         meuPlano.setMinIU(sharedPref.getInt(BASEKEY + "MIN_IU", 0));
-        meuPlano.setSmsInclusos(sharedPref.getInt(BASEKEY + "SMS_INCLUSIVO", 0));
+        meuPlano.setSmsInclusos(sharedPref.getInt(BASEKEY + "SMS_INCLUSO", 0));
         meuPlano.setDtVencimento(sharedPref.getInt(BASEKEY + "DT_VENCIMENTO", 0));
         meuPlano.setIdPlanoReferencia(sharedPref.getInt(BASEKEY + "ID_PLANO_REFERENCIA", 0));
         meuPlano.setLimiteDadosWeb(sharedPref.getLong(BASEKEY + "LIMITE_WEB", 0));
@@ -359,7 +359,7 @@ public class SharedPrefsUtil {
         meuPlano.setObservacao(sharedPref.getString(BASEKEY + "OBSERVACAO", ""));
         meuPlano.setNomeOperadora(sharedPref.getString(BASEKEY + "NOME_OPERADORA", ""));
         meuPlano.setDescricaoTipoPlano(sharedPref.getString(BASEKEY + "DESCRICAO_TIPO_PLANO", ""));
-        meuPlano.setNomeOperadora(sharedPref.getString(BASEKEY + "DESCRICAO_MODALIDADE_PLANO", ""));
+        meuPlano.setDescricaoModalidadePlano(sharedPref.getString(BASEKEY + "DESCRICAO_MODALIDADE_PLANO", ""));
         meuPlano.setMinMOStr(sharedPref.getString(BASEKEY + "MIN_MO_STR", ""));
         meuPlano.setMinOOStr(sharedPref.getString(BASEKEY + "MIN_OO_STR", ""));
         meuPlano.setMinIUStr(sharedPref.getString(BASEKEY + "MIN_IU_STR", ""));
@@ -367,7 +367,10 @@ public class SharedPrefsUtil {
         meuPlano.setSmsInclusosStr(sharedPref.getString(BASEKEY + "SMS_INCLUSO_STR", ""));
         meuPlano.setSmsExtrasStr(sharedPref.getString(BASEKEY + "SMS_EXTRA_STR", ""));
         meuPlano.setLimiteDadosWebStr(sharedPref.getString(BASEKEY + "LIMITE_WEB_STR", ""));
-
+        meuPlano.setNumPacotes(sharedPref.getInt(BASEKEY + "NUM_PACOTES", 0));
+        meuPlano.setNumRecargas(sharedPref.getInt(BASEKEY + "NUM_RECARGAS", 0));
+        meuPlano.setValorTotalRecargas(sharedPref.getFloat(BASEKEY + "VALOR_TOTAL_RECARGAS", 0f));
+        meuPlano.setValorTotalPacotes(sharedPref.getFloat(BASEKEY + "VALOR_TOTAL_PACOTES", 0f));
         return meuPlano;
     }
 
@@ -403,6 +406,12 @@ public class SharedPrefsUtil {
         editor.putString(BASEKEY + "SMS_INCLUSO_STR", plano.getSmsInclusosStr());
         editor.putString(BASEKEY + "SMS_EXTRA_STR", plano.getSmsExtrasStr());
         editor.putString(BASEKEY + "LIMITE_WEB_STR", plano.getLimiteDadosWebStr());
+        editor.putInt(BASEKEY + "NUM_PACOTES", plano.getNumPacotes());
+        editor.putInt(BASEKEY + "NUM_RECARGAS", plano.getNumRecargas());
+        editor.putFloat(BASEKEY + "VALOR_TOTAL_RECARGAS", plano.getValorTotalRecargas());
+        editor.putFloat(BASEKEY + "VALOR_TOTAL_PACOTES", plano.getValorTotalPacotes());
         editor.commit();
+
+        Log.d(getClass().getName(), "Plano Salvo");
     }
 }

@@ -60,10 +60,29 @@ public class NotifyWindow {
         this.show();
     }
 
+    public void showConfirmMessage(final String title, final String message, int icon, final String negativeText, final String positiveText, DialogInterface.OnClickListener negativeClickListener, DialogInterface.OnClickListener positiveClickListener) {
+        this.builder.setMessage(message);
+        this.builder.setTitle(title);
+        this.builder.setIcon(icon);
+        this.builder.setPositiveButton(positiveText, positiveClickListener);
+        this.builder.setNegativeButton(negativeText, negativeClickListener);
+        this.show();
+    }
+
+    public void showConfirmMessage(final String title, final String message, final String negativeText, final String positiveText, DialogInterface.OnClickListener negativeClickListener, DialogInterface.OnClickListener positiveClickListener) {
+        this.builder.setMessage(message);
+        this.builder.setTitle(title);
+        this.builder.setCancelable(true);
+        this.builder.setPositiveButton(positiveText, positiveClickListener);
+        this.builder.setNegativeButton(negativeText, negativeClickListener);
+        this.show();
+    }
+
     public void showMessage(final String title, final String message, boolean cancelable, int icon) {
         this.builder.setCancelable(cancelable);
         this.builder.setMessage(message);
         this.builder.setTitle(title);
+        this.builder.setCancelable(true);
         this.builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

@@ -41,6 +41,7 @@ import com.checkmybill.service.TrafficMonitor;
 import com.checkmybill.tutorial.Tutorial;
 import com.checkmybill.tutorial.TutorialException;
 import com.checkmybill.tutorial.TutorialItem;
+import com.checkmybill.util.Connectivity;
 import com.checkmybill.util.DatePickers;
 import com.checkmybill.util.IntentMap;
 import com.checkmybill.util.NotifyWindow;
@@ -163,7 +164,12 @@ public class PainelConsumoFragment extends BaseFragment {
         showLoadingLayout(true);
 
         // Obtendo os dados de filtro de periodo
-        TipoPlano[] tipoPlanosArr = sharedPrefsUtil.getTipoPlanoList();
+        //TipoPlano[] tipoPlanosArr = sharedPrefsUtil.getTipoPlanoList();
+        TipoPlano[] tipoPlanosArr = new TipoPlano[] {
+            new TipoPlano(1, "Diario"),
+            new TipoPlano(2, "Semanal"),
+            new TipoPlano(3, "Mensal")
+        };
         if ( tipoPlanosArr == null ) {
             JsonObjectRequest jsonObjectRequest = ObterFiltrosRequester.prepareObterFiltrosBasePlanos(filtrosSuccessListener, errorRequestListener, "tipo_plano", mContext);
             jsonObjectRequest.setTag(getClass().getName());
@@ -171,7 +177,7 @@ public class PainelConsumoFragment extends BaseFragment {
         } else {
             initializeSettingWindowSpinner(tipoPlanosArr);
             this.meuPlano = sharedPrefsUtil.getMeuPlanoClass();
-            if ( this.meuPlano == null ) {
+            if ( this.meuPlano == null || Connectivity.isConnectedWifi(mContext) ) {
                 if ( new SharedPrefsUtil(mContext).getAccessKey() != null ) {
                     // Usuario cadastrado, obtendo o plano do usario
                     cardAlertaCadastraPlano.setVisibility(View.GONE);
@@ -185,10 +191,13 @@ public class PainelConsumoFragment extends BaseFragment {
                     meuPlano = null;
                     pconsumo_report_card.setVisibility(View.GONE);
                     cardAlertaCadastraPlano.setVisibility(View.VISIBLE);
+
+                    updateFilterDateRangeText();
                     LoadStaticsData();
                 }
             } else {
                 // All Done, executando acao para contabilizar os dados
+                updateFilterDateRangeText();
                 LoadStaticsData();
             }
         }
@@ -197,7 +206,7 @@ public class PainelConsumoFragment extends BaseFragment {
     @Override
     public void focusReceived(){
         // Checando se é a primeira visualização...
-        if ( getTabPosition() > 1 && new SharedPrefsUtil(mContext).getPConsumoIsFirstVisualization() ) {
+        if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() && new SharedPrefsUtil(mContext).getPConsumoIsFirstVisualization() ) {
             this.startTutorial();
         }
     }
@@ -391,12 +400,18 @@ public class PainelConsumoFragment extends BaseFragment {
                     meuPlano.setLimiteDadosWeb(user_plan_info.getInt("limite_net"));
 
                     // Definindo STR(String) dos limites
-                    meuPlano.setSmsInclusosStr((meuPlano.getSmsInclusos()) < 0 ? "ilimiteado" : String.valueOf(meuPlano.getSmsInclusos()));
-                    meuPlano.setMinFixoStr((meuPlano.getMinFixo()) < 0 ? "ilimiteado" : String.valueOf(meuPlano.getMinFixo()));
-                    meuPlano.setMinIUStr((meuPlano.getMinIU()) < 0 ? "ilimiteado" : String.valueOf(meuPlano.getMinIU()));
-                    meuPlano.setMinOOStr((meuPlano.getMinOO()) < 0 ? "ilimiteado" : String.valueOf(meuPlano.getMinOO()));
-                    meuPlano.setMinMOStr((meuPlano.getMinMO()) < 0 ? "ilimiteado" : String.valueOf(meuPlano.getMinMO()));
-                    meuPlano.setLimiteDadosWebStr((meuPlano.getLimiteDadosWeb()) < 0 ? "ilimiteado" : String.valueOf(meuPlano.getLimiteDadosWeb()) + " MB");
+                    meuPlano.setSmsInclusosStr((meuPlano.getSmsInclusos()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getSmsInclusos()));
+                    meuPlano.setMinFixoStr((meuPlano.getMinFixo()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getMinFixo()));
+                    meuPlano.setMinIUStr((meuPlano.getMinIU()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getMinIU()));
+                    meuPlano.setMinOOStr((meuPlano.getMinOO()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getMinOO()));
+                    meuPlano.setMinMOStr((meuPlano.getMinMO()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getMinMO()));
+                    meuPlano.setLimiteDadosWebStr((meuPlano.getLimiteDadosWeb()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getLimiteDadosWeb()) + " MB");
+
+                    // Pacotes e recargas
+                    meuPlano.setNumPacotes(user_plan_info.getInt("num_pacotes_anexados"));
+                    meuPlano.setValorTotalPacotes(Float.parseFloat(user_plan_info.getString("valor_total_pacotes")));
+                    meuPlano.setNumRecargas(user_plan_info.getInt("num_recargas_realizadas"));
+                    meuPlano.setValorTotalRecargas(Float.parseFloat(user_plan_info.getString("valor_gasto_recargas")));
 
                     // Salvando dados do plano...
                     sharedPrefsUtil.setMeuPlanoClass(meuPlano);
@@ -418,8 +433,18 @@ public class PainelConsumoFragment extends BaseFragment {
             showLoadingLayout(false);
             if ( error == null ) return;
             Log.e(LOG_TAG, "error: " + error.getMessage());
-            if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() )
-                new NotifyWindow(mContext).showErrorMessage("Erro", error.getMessage(), false);
+            if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() ){
+                String messageStr = "Não foi possível acessar o servidor. Por favor, Tente novamente.";
+                try{
+                    boolean isConnected = Connectivity.isConnected(mContext);
+                    if(!isConnected){
+                        messageStr = "Conexão com a internet indisponível.";
+                    }
+                    new NotifyWindow(mContext).showErrorMessage("Erro", messageStr, false);
+                }catch (Exception e){
+                    new NotifyWindow(mContext).showErrorMessage("Erro", messageStr, false);
+                }
+            }
         }
     };
 
@@ -499,8 +524,18 @@ public class PainelConsumoFragment extends BaseFragment {
         final ArrayAdapter<String> settingsSpinnerAdapter = new ArrayAdapter<>(mContext, R.layout.simple_spinner_string_item, tipoStringList);
         dlg_pconsumo_setting_periodo_spinner.setAdapter(settingsSpinnerAdapter);
 
+        // Definindo qual o item atualmente selecionado
+        int selectedPosition = sharedPrefsUtil.getSelectedPConsumoFilterPosition();
+        dlg_pconsumo_setting_periodo_spinner.setSelection(selectedPosition);
+
         // Definindo evento de click (para disparar ao selecionar o periodo)
         dlg_pconsumo_setting_periodo_spinner.setOnItemSelectedListener(this.dlgSettingsSpinnerEvent_OnItemSelected);
+        this.dlgSettingsSpinnerEvent_OnItemSelected.onItemSelected(
+                 null,
+                dlg_pconsumo_setting_periodo_spinner,
+                selectedPosition,
+                0
+        );
     }
 
     private AdapterView.OnItemSelectedListener dlgSettingsSpinnerEvent_OnItemSelected = new AdapterView.OnItemSelectedListener() {
@@ -564,10 +599,10 @@ public class PainelConsumoFragment extends BaseFragment {
                         dlg_pconsumo_setting_range_start_text.setText( sdf.format(Util.DatesUtil.getDecrementedMonth(1)) );
                         dlg_pconsumo_setting_range_end_text.setText( sdf.format(Util.DatesUtil.getCurrentDate()) );
                         break;
-                    case "anual":
+                    /*case "anual":
                         dlg_pconsumo_setting_range_start_text.setText( sdf.format(Util.DatesUtil.getDecrementedMonth(12)) );
                         dlg_pconsumo_setting_range_end_text.setText( sdf.format(Util.DatesUtil.getCurrentDate()) );
-                        break;
+                        break;*/
                 }
             }
 
@@ -638,7 +673,7 @@ public class PainelConsumoFragment extends BaseFragment {
             }
 
             long consumido = usedSeconds;
-            if(consumido > contrato){
+            if ( (contrato >= 0) && consumido > contrato ) {
                 layoutDadosImprecisosCall.setVisibility(View.VISIBLE);
             }
         }catch(Exception e){
@@ -703,7 +738,7 @@ public class PainelConsumoFragment extends BaseFragment {
             long contrato = (meuPlano.getLimiteDadosWeb() * 1024) * 1024;
             long consumido = usedBytes;
             Log.e("DIFFF WEB", "contratado: " + contrato + " | consumido: " + consumido);
-            if(consumido > contrato){
+            if ( (contrato >= 0) && consumido > contrato ) {
                 layoutDadosImprecisosWeb.setVisibility(View.VISIBLE);
             }
         }catch(Exception e){
@@ -734,17 +769,24 @@ public class PainelConsumoFragment extends BaseFragment {
         float percentValue;
 
         // Calculando consumo dentro deste periodo
+        Log.d(LOG_TAG, "SMS -> " + meuPlano.getSmsInclusos());
         String totalSmsText;
-        if ( PConsumoUtils.selectedModeIsSamePlanMode(dlg_pconsumo_setting_periodo_spinner.getSelectedItemPosition(), meuPlano) ) {
-            totalSmsText = meuPlano.getSmsInclusos() + String.format(" - %2d Dia(s)", diffrenceBetweenDateLimits);
-            restSms = meuPlano.getSmsInclusos() - usedSMS;
-            percentValue = PConsumoUtils.getPercentValue(meuPlano.getSmsInclusos(), usedSMS);
+        if ( meuPlano.getSmsInclusos() < 0 ) {
+            totalSmsText = meuPlano.getSmsInclusosStr();
+            percentValue = 0.1f;
+            restSms = 0;
         } else {
-            totalSmsText = Math.ceil(limiteAtDay_InSms * diffrenceBetweenDateLimits) + String.format(" - %2d Dia(s)", diffrenceBetweenDateLimits);
-            restSms = (limiteAtDay_InSms * diffrenceBetweenDateLimits) - usedSMS;
-            percentValue = PConsumoUtils.getPercentValue((limiteAtDay_InSms * diffrenceBetweenDateLimits), usedSMS);
+            if (PConsumoUtils.selectedModeIsSamePlanMode(dlg_pconsumo_setting_periodo_spinner.getSelectedItemPosition(), meuPlano)) {
+                totalSmsText = meuPlano.getSmsInclusos() + String.format(" - %2d Dia(s)", diffrenceBetweenDateLimits);
+                restSms = meuPlano.getSmsInclusos() - usedSMS;
+                percentValue = PConsumoUtils.getPercentValue(meuPlano.getSmsInclusos(), usedSMS);
+            } else {
+                totalSmsText = Math.ceil(limiteAtDay_InSms * diffrenceBetweenDateLimits) + String.format(" - %2d Dia(s)", diffrenceBetweenDateLimits);
+                restSms = (limiteAtDay_InSms * diffrenceBetweenDateLimits) - usedSMS;
+                percentValue = PConsumoUtils.getPercentValue((limiteAtDay_InSms * diffrenceBetweenDateLimits), usedSMS);
+            }
         }
-        if ( meuPlano.getSmsInclusos() < 0 ) totalSmsText = "Ilimitado";
+
         if ( restSms < 0 ) restSms = 0;
         final String consummedSmsText = String.valueOf(usedSMS);
         final String restantSmsText = String.valueOf(restSms);
@@ -758,8 +800,7 @@ public class PainelConsumoFragment extends BaseFragment {
         try{
             int contrato = meuPlano.getSmsInclusos();
             long consumido = usedSMS;
-            Log.e("DIFFF SMS", "contratado: " + contrato + " | consumido: " + consumido);
-            if(consumido > contrato){
+            if ( (contrato >= 0) && consumido > contrato ) {
                 layoutDadosImprecisosSms.setVisibility(View.VISIBLE);
             }
         }catch(Exception e){
@@ -794,7 +835,7 @@ public class PainelConsumoFragment extends BaseFragment {
             Tutorial tutorial = new Tutorial(baseActivity);
             List<TutorialItem> tutorialItemList = new ArrayList<>();
             tutorialItemList.add( new TutorialItem(getActivity(), R.id.filterSettingsLayoutContent, "Filtro do período", "Filtro para a exibição dos dados."));
-            tutorialItemList.add( new TutorialItem(getActivity(), R.id.call_header_periodo_text, "Seção/Grupo", "Cada card, é separado pr grupo, totalizando três ao todo, 'Ligação, Net e SMS'."));
+            tutorialItemList.add( new TutorialItem(getActivity(), R.id.call_header_periodo_text, "Seção/Grupo", "Cada card, é separado por grupo, totalizando três ao todo, 'Ligação, Net e SMS'."));
             tutorialItemList.add( new TutorialItem(pieView_net, "Gráfico de uso", "Representação visual do uso dos dados com base no período informado."));
             tutorialItemList.add( new TutorialItem(net_restantes, "Contéudo do card", "Aqui se encontra o contéudo do card, com as informações referentes ao grupo deste"));
             tutorial.setItemList( tutorialItemList );
@@ -883,9 +924,9 @@ public class PainelConsumoFragment extends BaseFragment {
                 PopulateSMSCard(r.totalSmsEnviados);
 
                 // Checando se é a primeira visualização...
-                if ( new SharedPrefsUtil(mContext).getPConsumoIsFirstVisualization() ) {
-                    startTutorial();
-                }
+//                if ( new SharedPrefsUtil(mContext).getPConsumoIsFirstVisualization() ) {
+//                    startTutorial();
+//                }
 
                 Log.i(LOG_TAG, "All Done");
             } catch (Exception e) {

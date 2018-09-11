@@ -32,6 +32,7 @@ public class ServiceAutoStarter {
         add( ServiceCallMonitor.class );
         add( ServiceConfMob.class );
         add( ServiceWifiMonitor.class );
+        add ( ServiceSaveMyPosition.class );
     }};
 
     public ServiceAutoStarter(Context activity) {
@@ -79,7 +80,7 @@ public class ServiceAutoStarter {
         Util.defineAlarmMeasureSignalStrength(activity);
         Util.defineUnavailability(activity);
         //Util.defineAlarmGetConfMob(activity);
-        Util.definirAlarmSaveMyPosition(activity);
+        //Util.definirAlarmSaveMyPosition(activity);
         new SharedPrefsUtil(activity).setAlarmSignalStrengthLoad(true);
     }
 }

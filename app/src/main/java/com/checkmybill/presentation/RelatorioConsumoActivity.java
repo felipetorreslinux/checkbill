@@ -123,7 +123,7 @@ public class RelatorioConsumoActivity extends AppCompatActivity {
         showLoadingLayout(true);
         try {
             Dao<MyLocationMonitor, Integer> myLocationMonitorDao = OrmLiteHelper.getInstance(this).getMyLocationMonitorDao();
-            List<MyLocationMonitor> myLastLocation = myLocationMonitorDao.queryBuilder().limit(1).orderBy("LOCATION_ID", false).query();
+            List<MyLocationMonitor> myLastLocation = myLocationMonitorDao.queryBuilder().limit(1l).orderBy("LOCATION_ID", false).query();
             if ( myLastLocation.size() <= 0 ) {
                 getMyREALPosition();
             } else {

@@ -13,6 +13,8 @@ public class Plano implements Serializable {
     private String nomePlano, observacao, nomeOperadora;
     private String descricaoTipoPlano, descricaoModalidadePlano, minMOStr, minIUStr;
     private String minOOStr, minFixoStr, smsInclusosStr, smsExtrasStr, limiteDadosWebStr;
+    private int numPacotes, numRecargas;
+    private float valorTotalPacotes, valorTotalRecargas;
 
     public int getIdPlano() {
         return idPlano;
@@ -238,4 +240,35 @@ public class Plano implements Serializable {
         this.idPlanoReferencia = idPlanoReferencia;
     }
 
+    public int getNumPacotes() {
+        return numPacotes;
+    }
+
+    public void setNumPacotes(int numPacotes) {
+        this.numPacotes = numPacotes;
+    }
+
+    public int getNumRecargas() {
+        return numRecargas;
+    }
+
+    public void setNumRecargas(int numRecargas) {
+        this.numRecargas = numRecargas;
+    }
+
+    public float getValorTotalPacotes() {
+        return valorTotalPacotes;
+    }
+
+    public void setValorTotalPacotes(float valorTotalPacotes) {
+        this.valorTotalPacotes = valorTotalPacotes;
+    }
+
+    public float getValorTotalRecargas() {
+        return valorTotalRecargas;
+    }
+
+    public void setValorTotalRecargas(float valorTotalRecargas) {
+        this.valorTotalRecargas = valorTotalRecargas;
+    }
 }

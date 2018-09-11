@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.checkmybill.BuildConfig;
 import com.checkmybill.R;
 import com.checkmybill.entity.Account;
 import com.checkmybill.util.SharedPrefsUtil;
@@ -71,6 +72,11 @@ public class AccountRequester {
                 // Log.d(TAG, "setting default password");
             }
 
+            // Anexando Informação sobre a versão do aplicativo
+            JSONObject versionInfo = new JSONObject();
+            versionInfo.put("code", BuildConfig.VERSION_CODE);
+            versionInfo.put("name", BuildConfig.VERSION_NAME);
+            jsonObject.put("version_info", versionInfo);
         } catch (JSONException e) {
             Log.e(TAG, "prepareLoginRequest | error: " + Util.getMessageErrorFromExcepetion(e));
         }

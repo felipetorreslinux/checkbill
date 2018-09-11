@@ -1,0 +1,182 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/md_white_1000">
+    <!--Adicionand o ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btn_filter_today_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GERAL"
+                                android:background="@drawable/button_green_shape"/>
+
+                            <Button
+                                android:id="@+id/btn_filter_30_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PÓS-PAGO"
+                                android:background="@drawable/btn_custom_border"/>
+
+                            <Button
+                                android:id="@+id/btn_filter_60_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CONTROLE"
+                                android:background="@drawable/btn_custom_border"/>
+
+                            <Button
+                                android:id="@+id/btn_filter_plan_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PRÉ-PAGO"
+                                android:background="@drawable/btn_custom_border"/>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                    <LinearLayout
+                        android:id="@+id/layoutErro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Não foi possivel acessar o servidor. Tente mais tarde!"
+                            android:textSize="15dp"
+                            android:textColor="@color/md_black_1000"
+                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical|center_horizontal"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutLoad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Carregando..."
+                            android:textSize="15dp"
+                            android:textColor="@color/md_black_1000"
+                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical|center_horizontal"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutNull"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Infelizmente não encontramos nenhum plano ;/"
+                            android:textSize="15dp"
+                            android:textColor="@color/md_black_1000"
+                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical|center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Comparamos o seu plano com os demais planos do mercado usando como critério o pacote de dados e o preço"
+                            android:textSize="13dp"
+                            android:gravity="center_vertical|center_horizontal"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Encontramos pra você, planos mais em conta!"
+                            android:textSize="15dp"
+                            android:textColor="@color/md_black_1000"
+                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical|center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Comparamos o seu plano com os demais planos do mercado usando como critério o pacote de dados e o preço"
+                            android:textSize="13dp"
+                            android:gravity="center_vertical|center_horizontal"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:id="@+id/recyclerView"
+                            android:layout_weight="1"
+                            android:layout_marginTop="15dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </FrameLayout>
+
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

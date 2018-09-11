@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.checkmybill.CheckBillApplication;
 import com.checkmybill.R;
@@ -21,7 +22,9 @@ import com.checkmybill.presentation.HomeFragments.CoverageMapFragment;
 import com.checkmybill.presentation.HomeFragments.CoverageMapFragment_;
 import com.checkmybill.presentation.HomeFragments.InformacoesFragment_;
 import com.checkmybill.presentation.HomeFragments.PainelConsumoFragment_;
+import com.checkmybill.presentation.HomeFragments.PlanoFragment;
 import com.checkmybill.presentation.HomeFragments.PlanoFragment_;
+import com.checkmybill.presentation.HomeFragments.SinalFragment_;
 import com.checkmybill.service.ServiceAutoStarter;
 import com.checkmybill.service.ServiceInitialDataReader;
 
@@ -34,7 +37,7 @@ import java.util.List;
 @EActivity(R.layout.activity_home)
 public class HomeActivity extends BaseActivity {
     public enum HomeTabNames {
-        PAINEL(0), SINAL(1), MAPA(2), PLANO(3);
+        PAINEL(0), MAPA(1), SINAL(2), PLANO(3);
         public int valorPanel;
         HomeTabNames(int valor) { valorPanel = valor; }
     };
@@ -84,26 +87,26 @@ public class HomeActivity extends BaseActivity {
         ServiceInitialDataReader.ObterSincronizarDadosUsuarioServidor(getBaseContext());
 
         // Criando lista de fragments ativos e armazenando-os...
-        BaseFragment painel = PainelConsumoFragment_.builder().build();
-        painel.setSectionNumber(1);
-        painel.setTabPosition(0);
-
-        BaseFragment informacoes = InformacoesFragment_.builder().build();
-        informacoes.setSectionNumber(2);
-        informacoes.setTabPosition(1);
+        BaseFragment informacoes = SinalFragment_.builder().build();
+        informacoes.setSectionNumber(1);
+        informacoes.setTabPosition(0);
 
         BaseFragment map = CoverageMapFragment_.builder().build();
-        map.setSectionNumber(3);
-        map.setTabPosition(2);
+        map.setSectionNumber(2);
+        map.setTabPosition(1);
+
+        BaseFragment painel = PainelConsumoFragment_.builder().build();
+        painel.setSectionNumber(3);
+        painel.setTabPosition(2);
 
         BaseFragment plano = PlanoFragment_.builder().build();
         plano.setSectionNumber(4);
         plano.setTabPosition(3);
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(painel);
         fragmentList.add(informacoes);
         fragmentList.add(map);
+        fragmentList.add(painel);
         fragmentList.add(plano);
     }
 
@@ -166,13 +169,13 @@ public class HomeActivity extends BaseActivity {
             int icon = 0;
             switch (i) {
                 case 0:
-                    icon = R.mipmap.ic_show_chart_white_24dp;
+                    icon = R.mipmap.ic_info_white;
                     break;
                 case 1:
-                    icon = R.mipmap.ic_settings_input_antenna_white_24dp;
+                    icon = R.mipmap.ic_map_white_24dp;
                     break;
                 case 2:
-                    icon = R.mipmap.ic_map_white_24dp;
+                    icon = R.mipmap.ic_show_chart_white_24dp;
                     break;
                 case 3:
                     icon = R.mipmap.ic_monetization_on_white_24dp;
@@ -217,11 +220,11 @@ public class HomeActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.menu_painel_consumo);
-                case 1:
                     return getString(R.string.informacoes);
-                case 2:
+                case 1:
                     return getString(R.string.mapa);
+                case 2:
+                    return getString(R.string.menu_painel_consumo);
                 case 3:
                     return getString(R.string.plano);
             }
@@ -234,24 +237,18 @@ public class HomeActivity extends BaseActivity {
         Log.d(LOG_TAG, "RequestCode: " + requestCode);
         switch (requestCode) {
             case CreateUserPlanActivity.REQUEST_CODE:
-                if ( resultCode == RESULT_OK ) {
-                    this.startPoint = 3;
-                    fragmentList.get(3).onActivityResult(requestCode, resultCode, data);
-                }
+                this.startPoint = 3;
+                fragmentList.get(3).onActivityResult(requestCode, resultCode, data);
                 break;
             case GerCreditosPlanoActivity.REQUEST_CODE:
+            case AvaliaPlanoActivity.REQUEST_CODE:
             case GerPacotesActivity.REQUEST_CODE:
                 this.startPoint = 3;
                 break;
             case CoverageMapFragment.REQUEST_CODE_LOCATION_ACTIVITY:
                 fragmentList.get(2).onActivityResult(requestCode, resultCode , data);
                 break;
-            default:
-                this.startPoint = 0;
-                break;
         }
-
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -267,5 +264,8 @@ public class HomeActivity extends BaseActivity {
         String permissionList[] = ((CheckBillApplication) getApplication()).GetUnGrantedNecessaryPermissions();
         if( permissionList.length > 0 ) ActivityCompat.requestPermissions(this,permissionList, 1);
     }
+
+
+
 }
 

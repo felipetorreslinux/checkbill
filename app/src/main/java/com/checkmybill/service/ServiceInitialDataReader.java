@@ -42,11 +42,10 @@ import java.util.List;
 
 public class ServiceInitialDataReader extends Service {
     private Context mContext;
-    private String LOG_TAG;
+    private String LOG_TAG = "DataSyncFromServer";
     private ContentResolver contentResolver;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LOG_TAG = "ServiceInitialDataReader";
         mContext = getApplicationContext();
         contentResolver = getContentResolver();
 
@@ -164,7 +163,7 @@ public class ServiceInitialDataReader extends Service {
                             JSONArray net = response.getJSONArray("net_data");
                             for ( int i = 0; i < net.length(); i++ ) {
                                 JSONObject netInfo = net.getJSONObject(i);
-                                boolean isWifi = (netInfo.getInt("network_type") == 0 ? false : true);
+                                boolean isWifi = (netInfo.getInt("network_type") != 0);
                                 if ( isWifi ) {
                                     TrafficMonitor_WiFi monData = new TrafficMonitor_WiFi();
                                     monData.setDatePeriodo(sdf.parse(netInfo.getString("net_date_time")));

@@ -27,6 +27,7 @@
     <string name="minhas_medicoes">Minhas medições</string>
     <string name="cobertura_de_sinal">Cobertura de sinal</string>
     <string name="planos_de_telefonia">Planos de telefonia</string>
+    <string name="aviao">Modo Avião</string>
     <string name="pessimo">Péssimo</string>
     <string name="muito_fraco">Muito Fraco</string>
     <string name="fraco">Fraco</string>
@@ -39,7 +40,7 @@
     <string name="estamos_terminando">Estamos terminando, aguarde :D</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
-    <string name="informacoes">SINAL</string>
+    <string name="informacoes">INÍCIO</string>
     <string name="mapa">Mapa</string>
     <string name="plano">Plano</string>
     <string name="teste">Teste</string>
@@ -94,6 +95,9 @@
     <string name="title_activity_cadastro_plano">Cadastrando Plano</string>
     <string name="title_activity_consulta_plano">Consultando Planos</string>
     <string name="title_activity_ger_creditos_plano">Créditos</string>
+    <string name="title_activity_avalia_plano">Avalia Plano</string>
+    <string name="title_activity_reclame_aqui">Reclame Aqui</string>
+    <string name="title_activity_consult_history">Histórico de Indisponibilidade</string>
     <string name="title_activity_ger_pacotes">Pacotes</string>
     <string name="title_activity_comparacao_plano">Comparação de Planos</string>
 
@@ -113,8 +117,8 @@
     <!--Arrays -->
     <string-array name="filters_indispo">
         <item>Hoje</item>
-        <item>Há 7 dias</item>
-        <item>Há 30 dias</item>
+        <item>Últimos 7 dias</item>
+        <item>Últimos 30 dias</item>
     </string-array>
 
     <!--Arrays -->

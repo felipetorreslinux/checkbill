@@ -46,7 +46,9 @@ public class AdapterDataUseTest extends RecyclerView.Adapter<DataUseTestListItem
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customItemClickListener.onItemClick(v, dataUseTestListItemHolder.getAdapterPosition());
+                if ( customItemClickListener != null ) {
+                    customItemClickListener.onItemClick(v, dataUseTestListItemHolder.getAdapterPosition());
+                }
             }
         });
 

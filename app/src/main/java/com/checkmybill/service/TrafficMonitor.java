@@ -2,6 +2,7 @@ package com.checkmybill.service;
 
 import android.content.Context;
 import android.net.TrafficStats;
+import android.provider.Settings;
 import android.text.format.Formatter;
 import android.util.Log;
 
@@ -128,12 +129,13 @@ public class TrafficMonitor {
         LocalDate today = LocalDate.now();
         long totalByteTrans = 0;
         boolean currentDate = (!today.isBefore(LocalDate.fromDateFields(period)));
+        boolean flightMode = (Settings.System.getInt(mContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,0) != 0);
         try {
             List<TrafficMonitor_WiFi> trafficList = ormLiteHelper.getTrafficMonitorWifiDao().queryBuilder()
                     .orderBy("id_wifi_monitor", true)
                     .where().eq("date_period", period)
                     .query();
-            final int size = trafficList.size() - (currentDate ? 1 : 0);
+            final int size = trafficList.size() - (currentDate && !flightMode ? 1 : 0);
             if ( size < 0 ) return 0; // Empty
 
             for ( int i = 0; i < size; i++ ) {
@@ -142,7 +144,7 @@ public class TrafficMonitor {
                 totalByteTrans += (dt.getCurrentSendedBytes_end() - dt.getCurrentSendedBytes_start());
             }
 
-            if ( currentDate ) {
+            if ( currentDate && !flightMode ) {
                 TrafficMonitor_WiFi dt = trafficList.get(size);
                 long wifiTx = TrafficStats.getTotalTxBytes() - TrafficStats.getMobileTxBytes();
                 long wifiRx = TrafficStats.getTotalRxBytes() - TrafficStats.getMobileRxBytes();
@@ -174,11 +176,12 @@ public class TrafficMonitor {
         LocalDate today = LocalDate.now();
         long totalByteTrans = 0;
         boolean currentDate = (!today.isBefore(LocalDate.fromDateFields(period)));
+        boolean flightMode = (Settings.System.getInt(mContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,0) != 0);
         try {
             List<TrafficMonitor_Mobile> trafficList = ormLiteHelper.getTrafficMonitorMobileDao().queryBuilder()
                     .orderBy("id_mob_monitor", true)
                     .where().eq("date_period", period).query();
-            final int size = trafficList.size() - (currentDate ? 1 : 0);
+            final int size = trafficList.size() - (currentDate && !flightMode ? 1 : 0);
             if ( size < 0 ) return 0; // Empty
 
             for ( int i = 0; i < size; i++ ) {
@@ -187,7 +190,7 @@ public class TrafficMonitor {
                 totalByteTrans += (dt.getCurrentSendedBytes_end() - dt.getCurrentSendedBytes_start());
             }
 
-            if ( currentDate ) {
+            if ( currentDate && !flightMode ) {
                 TrafficMonitor_Mobile dt = trafficList.get(size);
                 totalByteTrans += (TrafficStats.getMobileTxBytes() - dt.getCurrentSendedBytes_start());
                 totalByteTrans += (TrafficStats.getMobileRxBytes() - dt.getCurrentReceivedBytes_start());
@@ -230,11 +233,12 @@ public class TrafficMonitor {
         LocalDate today = LocalDate.now();
         long totalByteTrans = 0;
         boolean currentDate = (!today.isBefore(LocalDate.fromDateFields(end)));
+        boolean flightMode = (Settings.System.getInt(mContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,0) != 0);
         try {
             List<TrafficMonitor_WiFi> trafficList = ormLiteHelper.getTrafficMonitorWifiDao().queryBuilder()
                     .orderBy("id_wifi_monitor", true)
                     .where().between("date_period", periodStart, periodoEnd).query();
-            final int size = trafficList.size() - (currentDate ? 1 : 0);
+            final int size = trafficList.size() - (currentDate && !flightMode ? 1 : 0);
             if ( size < 0 ) return 0; // Empty
 
             for ( int i = 0; i < size; i++ ) {
@@ -244,7 +248,7 @@ public class TrafficMonitor {
             }
 
             Log.d(TAG, "Value0 -> " + totalByteTrans );
-            if ( currentDate ) {
+            if ( currentDate && !flightMode ) {
                 TrafficMonitor_WiFi dt = trafficList.get(size);
                 long tx = TrafficStats.getTotalTxBytes() - TrafficStats.getMobileTxBytes();
                 long rx = TrafficStats.getTotalRxBytes() - TrafficStats.getMobileRxBytes();
@@ -281,12 +285,13 @@ public class TrafficMonitor {
         LocalDate today = LocalDate.now();
         long totalByteTrans = 0;
         boolean currentDate = (!today.isBefore(LocalDate.fromDateFields(end)));
+        boolean flightMode = (Settings.System.getInt(mContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON,0) != 0);
         try {
             List<TrafficMonitor_Mobile> trafficList = ormLiteHelper.getTrafficMonitorMobileDao().queryBuilder()
                     .orderBy("id_mob_monitor", true)
                     .where().between("date_period", periodStart, periodoEnd).query();
             Log.d(TAG, "Count -> " + trafficList.size());
-            final int size = trafficList.size() - (currentDate ? 1 : 0);
+            final int size = trafficList.size() - (currentDate && !flightMode ? 1 : 0);
             if ( size < 0 ) return 0; // Empty
 
             for ( int i = 0; i < size; i++ ) {
@@ -295,7 +300,8 @@ public class TrafficMonitor {
                 totalByteTrans += (dt.getCurrentSendedBytes_end() - dt.getCurrentSendedBytes_start());
             }
 
-            if ( currentDate ) {
+            if ( currentDate && !flightMode ) {
+                Log.d(TAG, "MobTXBytes -> " + TrafficStats.getMobileTxBytes());
                 TrafficMonitor_Mobile dt = trafficList.get(size);
                 totalByteTrans += (TrafficStats.getMobileTxBytes() - dt.getCurrentSendedBytes_start());
                 totalByteTrans += (TrafficStats.getMobileRxBytes() - dt.getCurrentReceivedBytes_start());

@@ -1,6 +1,9 @@
 package com.checkmybill.presentation.CreateUserPlanSteps;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 import com.checkmybill.R;
 import com.checkmybill.entity.ModalidadePlano;
 import com.checkmybill.entity.TipoPlano;
+import com.checkmybill.presentation.HomeActivity;
+import com.checkmybill.util.NotifyWindow;
 
 import java.util.List;
 
@@ -24,8 +29,9 @@ public class Step1 extends UserPlanStepFragmentbase {
     private View layout;
     public EditText nome_plano, valor_plano, operadora;
     public Spinner modalidade_plano, tipo_plano, dt_vencimento;
+    public TextView info_tipo_plano;
 
-    public Step1(LayoutInflater mInflater, Context mContext) {
+    public Step1(LayoutInflater mInflater, final Context mContext) {
         this.mInflater = mInflater;
         this.mContext = mContext;
 
@@ -37,6 +43,25 @@ public class Step1 extends UserPlanStepFragmentbase {
         modalidade_plano = (Spinner) this.layout.findViewById(R.id.modalidade_plano);
         tipo_plano = (Spinner) this.layout.findViewById(R.id.tipo_plano);
         dt_vencimento = (Spinner) this.layout.findViewById(R.id.dt_vencimento);
+        info_tipo_plano = (TextView) this.layout.findViewById(R.id.info_tipo_plano);
+
+        info_tipo_plano.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dlgBuilder = new NotifyWindow(mContext).getBuilder();
+                dlgBuilder.setTitle("Entenda 'Tipo do plano'");
+                dlgBuilder.setMessage("Tipo do plano não é a vigência do seu contrato, caso tenha um, com a operadora. Mas sim, é o período de duração do plano. Ex: No meu plano eu tenho 1GB de internet por mês. Para esse caso o tipo do plano é mensal mas existem também as opções: diário, semanal e anual.");
+                dlgBuilder.setIcon(R.drawable.ic_warning_amber);
+                dlgBuilder.setPositiveButton("Entendi!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Fechando dialogBox
+                        dialogInterface.dismiss();
+                    }
+                });
+                dlgBuilder.create().show();
+            }
+        });
     }
 
     @Override

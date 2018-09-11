@@ -13,24 +13,27 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -38,9 +41,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -56,6 +63,7 @@ import com.checkmybill.presentation.HomeActivity;
 import com.checkmybill.presentation.ranking.RankingActivity;
 import com.checkmybill.request.OperadoraRequester;
 import com.checkmybill.request.RequesterUtil;
+import com.checkmybill.util.Connectivity;
 import com.checkmybill.util.IntentMap;
 import com.checkmybill.util.MultiSpinner;
 import com.checkmybill.util.NotifyWindow;
@@ -78,8 +86,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
@@ -93,11 +103,13 @@ import com.google.maps.android.ui.IconGenerator;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EditorAction;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,8 +125,6 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     public final static int REQUEST_CODE_LOCATION_ACTIVITY = 1;
     private static int RESULT_CODE_LOCATION_YES = -1;
     private static int RESULT_CODE_LOCATION_NO_AND_NEVER = 0;
-    private static int REQUEST_PERMISSION_SETTING = 2;
-    private static int REQUEST_LOCATION_SETTING = 3;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @ViewById(R.id.mapView) protected MapView mapView;
@@ -202,7 +212,7 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
                 .build();
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
+        mLocationRequest.setInterval(5000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
@@ -254,25 +264,30 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     // Eventos relacionado aos elementos visuais(Views), como Click, Mapa, etc...
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d(LOG_TAG, "Mapa is Ready");
         this.googleMap = googleMap;
+        final float maxZoomValue = 16f;
+        final float minZoomValue = 10f;
+
+        // Definindo o estilo do mapa com base no tipo de conexao
+        if ( Connectivity.isConnectedWifi(mContext) ) {
+            // Exibindo o mapa com mais detalhes (nome de ruas, todas as ruas, etc)
+            this.googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mContext, R.raw.gmaps_style_raw_wifi));
+        } else {
+            // Exibindo o mapa com menos detalhes
+            this.googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(mContext, R.raw.gmaps_style_raw_gsm));
+        }
 
         // Centralizando a camera e definindo o limite de zoom do mapa
         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(-8.063253f, -34.873255f));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(14.5f);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(13.0f);
         this.googleMap.moveCamera(center);
         this.googleMap.moveCamera(zoom);
-        this.googleMap.setMaxZoomPreference(16f);
-        this.googleMap.setMinZoomPreference(12f);
+        this.googleMap.setMaxZoomPreference(maxZoomValue);
+        this.googleMap.setMinZoomPreference(minZoomValue);
+        this.googleMap.getUiSettings().setZoomControlsEnabled(true);
 
-        // Definindo eventos
+        // Definindo eventos (Camera Idle Event)
         this.googleMap.setOnCameraIdleListener(this.googleMap_OnCamareraIdleListener );
-
-        // Obtendo a lista de operadoras com base no tipo de exibição atual...
-        //obterListaOperadoras();
-        // Não é necessario, pois, ao inicializar os elementos, um item sera selecionando e
-        // ira disparar o evento automaticamente(primeira execucao)... e ele ira carregar
-        // a lista de operadoras
     }
 
     private AdapterView.OnItemSelectedListener spFilterExibicao_OnItemSeLectedListener = new AdapterView.OnItemSelectedListener() {
@@ -380,8 +395,17 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
             Log.e(LOG_TAG, error.getMessage());
 
             // Exibir erro (com base no tipo de fragment visivel no momento
-            if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() )
-                new NotifyWindow(mContext).showErrorMessage("Erro", error.getMessage(), false);
+            if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() ) {
+                String errMessage;
+                if ( error instanceof NetworkError || error instanceof NoConnectionError || error instanceof TimeoutError )
+                    errMessage = "Não foi possível se conectar, verifique sua conexão.";
+                else if ( error instanceof ServerError )
+                    errMessage = "O endereço não foi localizado, tente de novo mais tarde.";
+                else
+                    errMessage = "Houve um problema ao se conectar com o servidor.";
+
+                new NotifyWindow(mContext).showErrorMessage("Erro", errMessage, false);
+            }
         }
     };
 
@@ -392,6 +416,10 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     private static final String PARAMETERS_REQUEST_NUMERO_TELEFONE = "numero_telefone";
     private static final String PARAMETER_IDS_OPERADORAS = "ids_operadoras";
     private void obterDadosMapas() {
+        // Checando se o fragment ainda esta ativo
+        if ( spFilterExibicao == null )
+            return;
+
         // cancelando todas as requisições anteriores
         requestQueue.cancelAll(getClass().getName() + "_mapa");
         final SharedPrefsUtil sharedPrefsUtil = new SharedPrefsUtil(mContext);
@@ -861,6 +889,48 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
             setUpLocation();
             return true;
         }
+    }
+
+    @EditorAction(R.id.filter_map_address)
+    public boolean searchMapLocationEditorAction(TextView view, int actionId, KeyEvent event) {
+        boolean handled = false;
+        final String addressToSearch = view.getText().toString();
+        if (actionId == EditorInfo.IME_ACTION_SEARCH ) {
+            if ( addressToSearch.length() <= 0 ) {
+                Log.d(LOG_TAG, "Endereço inválido");
+                Toast.makeText(mContext, "Digite um endereço para pesquisar", Toast.LENGTH_SHORT).show();
+            } else {
+                handled = true;
+
+                // Ocultando o teclado
+                InputMethodManager in = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(view.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                // Realizando a pesquisa
+                try {
+                    Geocoder gc = new Geocoder(mContext);
+                    if ( gc.isPresent() ) {
+                        List<Address> addresses = gc.getFromLocationName(addressToSearch, 1);
+                        if ( addresses.size() <= 0 )
+                            throw new Exception("Endereço não localizado.");
+
+                        final Address addr = addresses.get(0);
+                        final CameraUpdate topPosition = CameraUpdateFactory.newLatLng(new LatLng(addr.getLatitude(), addr.getLongitude()));
+                        this.googleMap.moveCamera(topPosition);
+                    } else {
+                        throw new Exception("GeoCoding não ativo");
+                    }
+                } catch (IOException e) {
+                    new NotifyWindow(mContext).showErrorMessage("Mapa", "Erro obtendo o endereço", false);
+                    Log.e(LOG_TAG, "GeoCoding Exception -> " + e.getMessage());
+                } catch (Exception e) {
+                    new NotifyWindow(mContext).showErrorMessage("Mapa", e.getMessage(), false);
+                    Log.e(LOG_TAG, "GeoCoding Exception -> " + e.getMessage());
+                }
+            }
+        }
+
+        return handled;
     }
 
     @TargetApi(Build.VERSION_CODES.M)

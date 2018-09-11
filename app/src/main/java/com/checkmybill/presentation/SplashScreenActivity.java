@@ -49,6 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private String LOG_TAG;
     private static int TIME_SPLASH = 2000;
     private RequestQueue requestQueue;
+    private SharedPrefsUtil sharedPrefsUtil;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-        final SharedPrefsUtil sharedPrefsUtil = new SharedPrefsUtil(this);
+        sharedPrefsUtil = new SharedPrefsUtil(this);
 
         // Checando se o aplicativo ja foi inicializado/logado...
         if ( sharedPrefsUtil.getSignFinished() ) {
@@ -81,12 +82,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 String[] permissionList = ((CheckBillApplication) getApplication()).GetUnGrantedNecessaryPermissions();
                 if ( permissionList.length > 0 ) ActivityCompat.requestPermissions(this, permissionList, 101);
             } else {
-                // Requisitando os dados atraves do Volley...
-                TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-                final String imei = telephonyManager.getDeviceId();
-                JsonObjectRequest request = AccountRequester.prepareAnonymousAccountRequest(this.successListener, this.errorListener, imei, this);
-                request.setTag(getClass().getName());
-                requestQueue.add(request);
+                initializeIntroActivityScreen();
             }
         }
     }
@@ -109,14 +105,16 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }
 
-        // ... Permissao inicial (e possivelmente, as outras) esta OK, onbtendo o IMEI e
-        // preparando o uso para o modo 'Anonymous'.
+        // ... Permissao inicial (e possivelmente, as outras)
+        initializeIntroActivityScreen();
+
+        /*// Preparando o uso para o modo 'Anonymous'.
         // - Requisitando os dados atraves do Volley...
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         final String imei = telephonyManager.getDeviceId();
         JsonObjectRequest request = AccountRequester.prepareAnonymousAccountRequest(this.successListener, this.errorListener, imei, this);
         request.setTag(getClass().getName());
-        requestQueue.add(request);
+        requestQueue.add(request);*/
     }
 
     private void initializeIntroActivityScreen() {
@@ -126,7 +124,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     // ---------------------------------------------------------------------------------------------
-    // Listener relacionados ao volley/requests...
+    /*// Listener relacionados ao volley/requests...
     private Response.Listener<JSONObject> successListener = new Response.Listener<JSONObject>() {
         @Override
         public void onResponse(JSONObject response) {
@@ -156,5 +154,5 @@ public class SplashScreenActivity extends AppCompatActivity {
         public void onErrorResponse(VolleyError error) {
             new NotifyWindow(mContext).showErrorMessage(getString(R.string.app_name), "Erro[112] inicializando aplicativo... Se o problema persistir, contate o desenvolvedor!", false);
         }
-    };
+    };*/
 }

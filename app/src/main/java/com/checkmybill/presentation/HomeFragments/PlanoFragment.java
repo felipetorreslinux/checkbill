@@ -10,17 +10,25 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.checkmybill.R;
 import com.checkmybill.adapters.CustomItemClickListener;
 import com.checkmybill.entity.Plano;
+import com.checkmybill.felipecode.Views.Avaliar_Plano;
+import com.checkmybill.presentation.AvaliaPlanoActivity;
 import com.checkmybill.presentation.BaseFragment;
 import com.checkmybill.presentation.CreateUserPlanActivity;
 import com.checkmybill.presentation.GerCreditosPlanoActivity;
@@ -30,6 +38,7 @@ import com.checkmybill.request.PlanoRequester;
 import com.checkmybill.tutorial.Tutorial;
 import com.checkmybill.tutorial.TutorialException;
 import com.checkmybill.tutorial.TutorialItem;
+import com.checkmybill.util.Connectivity;
 import com.checkmybill.util.IntentMap;
 import com.checkmybill.util.NotifyWindow;
 import com.checkmybill.util.SharedPrefsUtil;
@@ -45,13 +54,14 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
+/*
  * Created by Espe on 03/08/2016 -> 23/11/2016.
  */
+
 @EFragment(R.layout.fragment_plano)
 public class PlanoFragment extends BaseFragment {
     //@ViewById(R.id.btnAvaliarPlano) protected  Button btnAvaliarPlano;
+
     @ViewById(R.id.btnCreditos) LinearLayout btnCreditos;
     @ViewById(R.id.btnSubstituirPlano) protected LinearLayout btnSubstituirPlano;
     @ViewById(R.id.layoutNoPlan) protected LinearLayout layoutNoPlan;
@@ -72,14 +82,19 @@ public class PlanoFragment extends BaseFragment {
     @ViewById(R.id.num_recargas_realizadas) protected  TextView myPlanCard_numRecargasRealizadas;
     @ViewById(R.id.num_pacotes_anexados) protected  TextView myPlanCard_numPacotesAnexados;
 
+    private SharedPrefsUtil sharedPrefsUtil;
     private Tutorial tutorial;
     private Context mContext;
     private RequestQueue requestQueue;
     private Plano meuPlano;
-    private int currentNumPacote, currentNumRecargas;
 
     /* ------------------------------------------------------------------------------------------ */
     // Metodos da classe (Construtores/Inicializadores/Eventos da Acitivty/Layout)
+
+
+    //Felipe Torres 11/09;2018
+    static final int REQUEST_AVALIAR_PLANO = 1010;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.LOG_TAG = "PlanoFragment";
@@ -87,6 +102,8 @@ public class PlanoFragment extends BaseFragment {
 
         requestQueue = Volley.newRequestQueue(getActivity());
         mContext = getContext();
+        this.sharedPrefsUtil = new SharedPrefsUtil(mContext);
+
     }
 
 
@@ -133,7 +150,16 @@ public class PlanoFragment extends BaseFragment {
         //Intent it = new Intent(IntentMap.COMPARACAO_PLANO);
         //it.putExtra("PLANO", meuPlano);
         //getActivity().startActivity(it);
-        new NotifyWindow(mContext).showWarningMessage("Avaliar Plano", "Serviço indisponível no momento", false, true);
+
+        //new NotifyWindow(mContext).showWarningMessage("Avaliar Plano", "Serviço indisponível no momento", false, true);
+
+//        Intent it = new Intent(IntentMap.AVALIA_PLANO);
+//        getActivity().startActivityForResult(it, AvaliaPlanoActivity.REQUEST_CODE);
+
+
+        //Felipe Torres
+        Intent intent_avaliar_plano = new Intent(getActivity(), Avaliar_Plano.class);
+        startActivityForResult(intent_avaliar_plano, REQUEST_AVALIAR_PLANO);
     }
 
     @Click(R.id.btnPacotes)
@@ -167,7 +193,7 @@ public class PlanoFragment extends BaseFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Checando se deve avisar da substituicao dos pacotes & recarga
-                if ( currentNumPacote > 0 || currentNumRecargas > 0 ) {
+                if ( meuPlano.getNumPacotes() > 0 || meuPlano.getNumRecargas() > 0 ) {
                     // Avisando ao usuario sobre este ponto e questionando se ele deseja
                     // continuar a operação...
                     AlertDialog.Builder builder2 = new AlertDialog.Builder(mContext);
@@ -319,45 +345,18 @@ public class PlanoFragment extends BaseFragment {
                 meuPlano.setMinOOStr((meuPlano.getMinOO()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getMinOO()));
                 meuPlano.setMinMOStr((meuPlano.getMinMO()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getMinMO()));
                 meuPlano.setLimiteDadosWebStr((meuPlano.getLimiteDadosWeb()) < 0 ? "ilimitado" : String.valueOf(meuPlano.getLimiteDadosWeb()) + " MB");
-                new SharedPrefsUtil(mContext).setMeuPlanoClass(meuPlano);
 
-                currentNumPacote = user_plan_info.getInt("num_pacotes_anexados");
-                currentNumRecargas = user_plan_info.getInt("num_recargas_realizadas");
+                // Pacotes e recargas
+                meuPlano.setNumPacotes(user_plan_info.getInt("num_pacotes_anexados"));
+                meuPlano.setValorTotalPacotes(Float.parseFloat(user_plan_info.getString("valor_total_pacotes")));
+                meuPlano.setNumRecargas(user_plan_info.getInt("num_recargas_realizadas"));
+                meuPlano.setValorTotalRecargas(Float.parseFloat(user_plan_info.getString("valor_gasto_recargas")));
 
-                populateMyPlanCardInfo(meuPlano);
-                float totalGastoComPacotes = Float.parseFloat(user_plan_info.getString("valor_total_pacotes"));
-                String pacotesText = String.format("%s (R$ %.2f)", user_plan_info.getString("num_pacotes_anexados"), totalGastoComPacotes);
-                myPlanCard_numPacotesAnexados.setText( pacotesText );
+                // Salvando os dados de plano do usuario
+                sharedPrefsUtil.setMeuPlanoClass(meuPlano);
 
-                // Checando a modalidade do plano
-                if ( !meuPlano.getDescricaoModalidadePlano().toLowerCase().contains("pós") ) {
-                    // Planos nas modalidades 'Pré-Pago e Controle', nese modo, exite a opção
-                    // de recarga.. Exibindo a informação no Card e o botão de adicionar/remover
-                    // recargas realizadas para este plano
-
-                    float totalGastoComRecarga = Float.parseFloat(user_plan_info.getString("valor_gasto_recargas"));
-                    String recargaText = String.format("%s (R$ %.2f)", user_plan_info.getString("num_recargas_realizadas"), totalGastoComRecarga);
-                    myPlanCard_numRecargasRealizadas.setText( recargaText );
-                    myPlanCard_prepagoDetailsContainer.setVisibility(View.VISIBLE);
-                    btnCreditos.setVisibility(View.VISIBLE);
-                } else {
-                    // Plano PósPago, ocultando informações relacionados a recarga de créditos
-                    myPlanCard_prepagoDetailsContainer.setVisibility(View.GONE);
-                    btnCreditos.setVisibility(View.GONE);
-                }
-
-                // Mudando o layout a ser exibido
-                layoutNoPlan.setVisibility(View.GONE);
-                layoutWithPlan.setVisibility(View.VISIBLE);
-
-                // Checando se esta em focus...
-                if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() ) {
-                    // Checando se e a primeira visualização...
-                    Log.d(LOG_TAG, "Tutorial");
-                    if ( new SharedPrefsUtil(mContext).getPlanoIsFirstVisualization() ) {
-                        startTutorial();
-                    }
-                }
+                // Completando dados
+                PopulateScreenElements(meuPlano);
             } catch ( Exception e ) {
                 Log.e(LOG_TAG, Util.getMessageErrorFromExcepetion(e));
                 if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() )
@@ -369,7 +368,7 @@ public class PlanoFragment extends BaseFragment {
     private Response.ErrorListener verifyUserPlanErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            try {
+            /*try {
                 String errorMsg = Util.getMessageErrorFromExcepetion(error);
                 if (error.networkResponse.data != null) {
                     errorMsg += " | " + new String(error.networkResponse.data);
@@ -384,7 +383,19 @@ public class PlanoFragment extends BaseFragment {
                     new NotifyWindow(mContext).showErrorMessage("FATAL Erro", Util.getMessageErrorFromExcepetion(e), false);
 
                 Log.e(LOG_TAG, Util.getMessageErrorFromExcepetion(e));
-            }
+            }*/
+            layoutNotLogged.setVisibility(View.GONE);
+            layoutLoading.setVisibility(View.GONE);
+            layoutError.setVisibility(View.VISIBLE);
+            String errMessage;
+            if ( error instanceof NetworkError || error instanceof NoConnectionError || error instanceof TimeoutError)
+                errMessage = "Não foi possível se conectar, verifique sua conexão.";
+            else if ( error instanceof ServerError)
+                errMessage = "O endereço não foi localizado, tente de novo mais tarde.";
+            else
+                errMessage = "Houve um problema ao se conectar com o servidor.";
+
+            new NotifyWindow(mContext).showErrorMessage("Erro", errMessage, false);
         }
     };
 
@@ -424,20 +435,73 @@ public class PlanoFragment extends BaseFragment {
             return;
         }
 
-        // Modificando o layout a ser exibio
-        layoutNoPlan.setVisibility(View.GONE);
-        layoutWithPlan.setVisibility(View.GONE);
-        layoutLoading.setVisibility(View.VISIBLE);
+        // Checando o tipo de conexao (se for WiFi ou se o plano não foi obtido, baixa-lo novamente)
+        this.meuPlano = sharedPrefsUtil.getMeuPlanoClass();
+        if ( this.meuPlano == null || Connectivity.isConnectedWifi(mContext) ) {
+            // Modificando o layout a ser exibio (Exibindo o loading)
+            layoutNoPlan.setVisibility(View.GONE);
+            layoutWithPlan.setVisibility(View.GONE);
+            layoutLoading.setVisibility(View.VISIBLE);
 
-        JsonObjectRequest jsonObjectRequest = PlanoRequester.prepareObterPlanoUsuarioRequest(false, verifyUserPlanResponseListener, verifyUserPlanErrorListener, getActivity());
-        jsonObjectRequest.setTag(getClass().getName());
-        requestQueue.add(jsonObjectRequest);
+            JsonObjectRequest jsonObjectRequest = PlanoRequester.prepareObterPlanoUsuarioRequest(false, verifyUserPlanResponseListener, verifyUserPlanErrorListener, getActivity());
+            jsonObjectRequest.setTag(getClass().getName());
+            requestQueue.add(jsonObjectRequest);
+        } else {
+            // Garantindo que o Loading não está visivel
+            layoutLoading.setVisibility(View.GONE);
+
+            // Populando elementos
+            PopulateScreenElements(this.meuPlano);
+        }
     }
 
-    private void populateMyPlanCardInfo(Plano plan) {
+    private void PopulateScreenElements(Plano plan) {
         myPlanCard_nomePlano.setText( plan.getNomePlano() );
         myPlanCard_modalidadePlano.setText( plan.getDescricaoModalidadePlano() );
         myPlanCard_nomeOperadora.setText( plan.getNomeOperadora() );
         myPlanCard_precoPlano.setText( String.format("R$ %.2f", plan.getValorPlano()) );
+
+        //float totalGastoComPacotes = Float.parseFloat(user_plan_info.getString("valor_total_pacotes"));
+        String pacotesText = String.format("%s (R$ %.2f)", meuPlano.getNumPacotes(), meuPlano.getValorTotalPacotes());
+        myPlanCard_numPacotesAnexados.setText( pacotesText );
+
+        // Checando a modalidade do plano
+        if ( !meuPlano.getDescricaoModalidadePlano().toLowerCase().contains("pós") ) {
+            // Planos nas modalidades 'Pré-Pago e Controle', nese modo, exite a opção
+            // de recarga.. Exibindo a informação no Card e o botão de adicionar/remover
+            // recargas realizadas para este plano
+            String recargaText = String.format("%s (R$ %.2f)", meuPlano.getNumRecargas(), meuPlano.getValorTotalRecargas());
+            myPlanCard_numRecargasRealizadas.setText( recargaText );
+            myPlanCard_prepagoDetailsContainer.setVisibility(View.VISIBLE);
+            btnCreditos.setVisibility(View.VISIBLE);
+        } else {
+            // Plano PósPago, ocultando informações relacionados a recarga de créditos
+            myPlanCard_prepagoDetailsContainer.setVisibility(View.GONE);
+            btnCreditos.setVisibility(View.GONE);
+        }
+
+        // Mudando o layout a ser exibido
+        layoutNoPlan.setVisibility(View.GONE);
+        layoutWithPlan.setVisibility(View.VISIBLE);
+
+        // Checando se esta em focus...
+        if ( ((HomeActivity)getActivity()).getCurrentViewPageItem() == getTabPosition() ) {
+            // Checando se e a primeira visualização...
+            Log.d(LOG_TAG, "Tutorial");
+            if ( new SharedPrefsUtil(mContext).getPlanoIsFirstVisualization() ) {
+                startTutorial();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case REQUEST_AVALIAR_PLANO:
+                if(resultCode == Activity.RESULT_OK){
+
+                }
+                break;
+        }
     }
 }

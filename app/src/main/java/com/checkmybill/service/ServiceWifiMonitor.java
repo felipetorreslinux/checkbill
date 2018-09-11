@@ -1,23 +1,17 @@
 package com.checkmybill.service;
 
-import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
@@ -41,13 +35,15 @@ import org.json.JSONObject;
 import java.sql.SQLException;
 import java.util.List;
 
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
+import io.nlopez.smartlocation.location.config.LocationAccuracy;
+import io.nlopez.smartlocation.location.config.LocationParams;
+
 /**
  * Created by Victor Guerra on 10/12/2015.
  */
 public class ServiceWifiMonitor extends Service {
-
-    private MyLocationListener myLocationListener;
-    private LocationManager locationManager;
     private NetworkWifi networkWifi;
     private Context context;
 
@@ -155,78 +151,30 @@ public class ServiceWifiMonitor extends Service {
     }
 
     private void getLocationNetwork() {
-
-        if (networkWifi.getLat() == 0 || networkWifi.getLng() == 0) {
-            myLocationListener = new MyLocationListener();
-
-            if (!(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-                locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    Log.i("Start Service", "GPS ON");
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
-                            0, myLocationListener);
-                } else {
-                    Log.i("Start Service", "GPS OFF");
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        Log.d("ServiceWifiMonitor", "PERMISSIONS PROBLEM");
-                    }
-                    locationManager.removeUpdates(myLocationListener);
-                    locationManager = null;
-                    myLocationListener = null;
-
-                    stopSelf();
-                }
-            }
-        } else {
-            stopSelf();
-        }
-
-
+        SmartLocation.with(getApplicationContext())
+                .location()
+                .continuous()
+                .config(new LocationParams.Builder().setInterval(0).setDistance(0f).setAccuracy(LocationAccuracy.HIGH).build())
+                .oneFix()
+                .start(smartLocationUpdateListener);
     }
 
-    private class MyLocationListener implements LocationListener {
-
+    private OnLocationUpdatedListener smartLocationUpdateListener = new OnLocationUpdatedListener() {
         @Override
-        public void onLocationChanged(Location location) {
-            Log.i("GPS_PROVIDER Listener", "onLocationChanged: " + location.toString());
-            if (locationManager != null && location != null) {
+        public void onLocationUpdated(Location location) {
+            if ( location != null ) {
                 networkWifi.setLat(location.getLatitude());
                 networkWifi.setLng(location.getLongitude());
 
                 RuntimeExceptionDao<NetworkWifi, Integer> networkWifiRuntimeExceptionDao = OrmLiteHelper.getInstance(context).getNetworkWifiRuntimeExceptionDao();
                 networkWifiRuntimeExceptionDao.update(networkWifi);
-
-                stopLocationLsitener();
             }
+
+            // Finalizando servico
+            SmartLocation.with(getApplicationContext()).location().stop();
+            stopSelf();
         }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    }
-
-    private void stopLocationLsitener() {
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("ServiceWifiMonitor", "PERMISSIONS PROBLEM");
-        } else {
-            locationManager.removeUpdates(myLocationListener);
-        }
-        locationManager = null;
-        myLocationListener = null;
-
-        stopSelf();
-    }
+    };
 
     private void startAlarmService() {
         Util.defineWifiMonitorAlarm(context);

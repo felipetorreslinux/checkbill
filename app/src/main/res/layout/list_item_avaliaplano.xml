@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/tvwPositionCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvwPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1°"
+                android:textSize="40dp"
+                android:textColor="@color/md_black_1000"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="25dp">
+
+        <TextView
+            android:id="@+id/tvwBestPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MELHOR PREÇO!"
+            android:gravity="center_horizontal"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:textColor="@color/md_white_1000"
+            android:visibility="gone"
+            android:background="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tvwNomePlano"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vivo Toda Hora"
+                android:gravity="center_horizontal"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:textColor="@color/md_black_1000"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/tvwModalidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="pós-pago"
+                android:textSize="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/tvwValorPlano"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="42,80"
+                    android:textSize="50dp"
+                    android:textColor="@color/md_red_A700"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="0.6"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"/>
+
+                <TextView
+                    android:id="@+id/tvwDados"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="12"
+                    android:textSize="40dp"
+                    android:textColor="@color/md_orange_A700"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="0.4"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="PREÇO"
+                    android:textSize="10dp"
+                    android:textColor="@color/md_red_A700"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="0.6"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="DADOS"
+                    android:textSize="10dp"
+                    android:textColor="@color/md_orange_A700"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="0.4"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/tvwValorVariable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="R$ (reais)"
+                    android:textSize="10dp"
+                    android:textColor="@color/md_red_A700"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="0.6"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"/>
+
+                <TextView
+                    android:id="@+id/tvwDadosVariable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="GB (Gigabytes)"
+                    android:textSize="10dp"
+                    android:textColor="@color/md_orange_A700"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="0.4"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="0dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mais detalhes..."
+                android:textSize="14dp"
+                android:textColor="@color/md_black_1000"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="0dp"
+                android:layout_marginTop="13dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

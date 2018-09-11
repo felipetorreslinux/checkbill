@@ -254,6 +254,36 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".presentation.AvaliaPlanoActivity_"
+            android:label="@string/title_activity_avalia_plano"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.AVALIA_PLANO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.ReclameAquiActivity_"
+            android:label="@string/title_activity_reclame_aqui"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.RECLAME_AQUI" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.ConsultHistoryActivity_"
+            android:label="@string/title_activity_consult_history"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.checkmybill.intents.CONSULT_HISTORY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".presentation.GerPacotesActivity_"
             android:label="@string/title_activity_ger_pacotes"
             android:screenOrientation="portrait"
@@ -350,6 +380,28 @@
         <service
             android:name=".service.ServiceSaveMyPosition"
             android:exported="false" />
+
+
+
+        <!--Felipe Torres Activities-->
+        <activity android:name=".felipecode.Views.Avaliar_Plano"
+            android:theme="@style/AvaliarPlano"
+            android:screenOrientation="portrait"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- META DATA -->
         <meta-data

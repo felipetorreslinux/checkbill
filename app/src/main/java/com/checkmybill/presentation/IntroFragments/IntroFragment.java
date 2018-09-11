@@ -1,6 +1,7 @@
 package com.checkmybill.presentation.IntroFragments;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,22 +10,40 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.checkmybill.R;
+import com.checkmybill.request.AccountRequester;
 import com.checkmybill.util.IntentMap;
 import com.checkmybill.util.NotifyWindow;
 import com.checkmybill.util.SharedPrefsUtil;
+import com.checkmybill.util.Util;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static android.content.Context.TELEPHONY_SERVICE;
 
 /**
  * Created by Victor Guerra on 09/03/2016.
  */
 public class IntroFragment extends Fragment {
-
+    private static String LOG_TAG = IntroFragment.class.getName();
     private static final String BACKGROUND_COLOR = "backgroundColor";
     private static final String PAGE = "page";
 
@@ -32,6 +51,8 @@ public class IntroFragment extends Fragment {
     private ImageView intro_img;
     private Button btnJumpToLogin, btnJumpToCreateAccount, btnRunWithoutLogin;
     private boolean ignoreJumpButton;
+    private ProgressDialog loadingWindow;
+    private RequestQueue requestQueue;
 
     public static IntroFragment newInstance(int backgroundColor, int page) {
         IntroFragment frag = new IntroFragment();
@@ -45,6 +66,7 @@ public class IntroFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestQueue = Volley.newRequestQueue(getContext());
         this.ignoreJumpButton = getActivity().getIntent().getBooleanExtra("HIDDEN_JUMP_BUTTON", false);
 
         if (!getArguments().containsKey(BACKGROUND_COLOR)) throw new RuntimeException("Fragment must contain a \"" + BACKGROUND_COLOR + "\" argument!");
@@ -185,20 +207,83 @@ public class IntroFragment extends Fragment {
             dlgBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                    new SharedPrefsUtil(getContext()).setJumpLogin(true);
-                    Intent it = new Intent(IntentMap.HOME);
-                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    getActivity().startActivity(it);
+                    parepareAnonnymousAccount();
+//                    dialogInterface.dismiss();
+//                    new SharedPrefsUtil(getContext()).setJumpLogin(true);
+//                    Intent it = new Intent(IntentMap.HOME);
+//                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    getActivity().startActivity(it);
                 }
             });
             dlgBuilder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
                 }
             });
             dlgBuilder.create().show();
+        }
+    };
+
+    private void parepareAnonnymousAccount() {
+        if ( loadingWindow == null ) {
+            loadingWindow = NotifyWindow.CreateLoadingWindow(getContext(), "Modo Anônimo ", "Entrando no modo Anônimo, por favor aguarde.");
+        }
+
+        // Preparando o uso para o modo 'Anonymous'.
+        // - Requisitando os dados atraves do Volley...
+        TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(TELEPHONY_SERVICE);
+        final String imei = telephonyManager.getDeviceId();
+        JsonObjectRequest request = AccountRequester.prepareAnonymousAccountRequest(this.successListener, this.errorListener, imei, getContext());
+        request.setTag(getClass().getName());
+
+        loadingWindow.show();
+        requestQueue.add(request);
+    }
+
+    // Listener relacionados ao volley/requests...
+    private Response.Listener<JSONObject> successListener = new Response.Listener<JSONObject>() {
+        @Override
+        public void onResponse(JSONObject response) {
+            loadingWindow.dismiss();
+
+            // Checando a resposta do servidor...
+            try {
+                if ( response == null ) throw new Exception(response.getString("Null Response"));
+                else Log.d(LOG_TAG, "JSON-RCV:" + response.toString());
+
+                // Checando o status
+                if (response.getString("status").equalsIgnoreCase("success") == false) {
+                    throw new Exception(response.getString("message"));
+                }
+
+                // Salvando os dados e enviando para a interface inicial
+                final int idIMEI = response.getInt("id_imei");
+                new SharedPrefsUtil(getContext()).setIDImei(idIMEI);
+
+                // Abrindo a tela de inicial
+                new SharedPrefsUtil(getContext()).setJumpLogin(true);
+                Intent it = new Intent(IntentMap.HOME);
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(it);
+            } catch ( Exception ex ) {
+                new NotifyWindow(getContext()).showErrorMessage("FALTAL ERROR", Util.getMessageErrorFromExcepetion(ex), false);
+            }
+        }
+    };
+
+    private Response.ErrorListener errorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            loadingWindow.dismiss();
+            String errMessage;
+            if ( error instanceof NetworkError || error instanceof NoConnectionError || error instanceof TimeoutError)
+                errMessage = "Não foi possível se conectar, verifique sua conexão.";
+            else if ( error instanceof ServerError)
+                errMessage = "O endereço não foi localizado, tente de novo mais tarde.";
+            else
+                errMessage = "Houve um problema ao se conectar com o servidor.";
+
+            new NotifyWindow(getContext()).showErrorMessage("Erro", errMessage, false);
         }
     };
 }

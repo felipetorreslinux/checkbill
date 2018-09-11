@@ -1,0 +1,1098 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/md_white_1000">
+    <!--Adicionand o ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Indisponibilidade da sua operadora"
+                        android:textSize="14dp"
+                        android:textColor="@color/md_black_1000"
+                        android:layout_marginBottom="5dp"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical|center_horizontal"/>
+
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btn_filter_today_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hoje"
+                                android:background="@drawable/button_green_shape"/>
+
+                            <Button
+                                android:id="@+id/btn_filter_30_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30 dias"
+                                android:background="@drawable/btn_custom_border"/>
+
+                            <Button
+                                android:id="@+id/btn_filter_60_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="60 dias"
+                                android:background="@drawable/btn_custom_border"/>
+
+                            <Button
+                                android:id="@+id/btn_filter_plan_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Meu plano"
+                                android:background="@drawable/btn_custom_border"/>
+
+                            <Button
+                                android:id="@+id/btn_filter_total_5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total"
+                                android:background="@drawable/btn_custom_border"/>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="22/08/17 - de 00:00 até 23:59"
+                        android:textSize="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center_vertical|center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="17,76"
+                        android:textSize="80dp"
+                        android:textColor="@color/md_red_A700"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="0.5"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="0dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="INDISPONIBILIDADE TOTAL (*MIN)"
+                        android:textSize="10dp"
+                        android:textColor="@color/md_red_A700"
+                        android:gravity="center_vertical|center_horizontal"/>
+
+                    <TextView
+                        android:id="@+id/textViewDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="Quando e onde houve indisponibilidade:"
+                        android:textColor="@color/md_black_1000"
+                        android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="30px">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Quando"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Onde"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.50"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Tempo"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10px">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="08:50"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Boa Vista"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.50"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="32 seg"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10px"
+                            android:background="@color/md_grey_10">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="10:20"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Boa Vista"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.50"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="5 min"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10px">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="10:40"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Ilha do Leite"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.50"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="10 min"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10px"
+                            android:background="@color/md_grey_10">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="11:33"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Boa viagem"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.50"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="2 min"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="1"
+                            android:layout_marginTop="10px">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="13:57"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Boa Vista"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.50"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="44 seg"
+                                android:textSize="14dp"
+                                android:textColor="@color/md_black_1000"
+                                android:layout_weight="0.25"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_green_shape"
+                        android:textColor="@color/md_white_1000"
+                        android:text="RECEBER POR EMAIl"
+                        android:layout_marginTop="25dp"/>
+
+                </LinearLayout>
+
+                <!-- CARD - Indisponibilidade -->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/md_white_1000"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Header -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:background="@color/md_grey_100"
+                            android:weightSum="1"
+                            android:padding="10dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="start|center"
+                                android:layout_weight="0.2">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/unavailability_icon"/>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/md_grey_400"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="0.005"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="0.8"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_weight="0.8"
+                                    android:layout_height="wrap_content"
+                                    android:text="Indisponibilidade"
+                                    android:textSize="19dp"
+                                    android:textColor="@color/md_black_1000"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Período: "
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"/>
+                                    <Spinner
+                                        android:id="@+id/sp_filters_indisp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:padding="5dp"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Content -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <!-- GSM -->
+                            <LinearLayout
+                                android:id="@+id/sinal_indisp_gsm_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <!-- Icone da rede -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_weight="0.2">
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:src="@drawable/tower"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="GSM"
+                                        android:gravity="center_horizontal"
+                                        android:textSize="20px"
+                                        android:textColor="@color/md_grey_800"/>
+                                </LinearLayout>
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/md_grey_400"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="18dp"
+                                    android:layout_marginBottom="18dp"
+                                    android:layout_weight="0.005"/>
+                                <!-- Conteudo -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.8">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="0.5">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Este Dispostivo"
+                                            android:textSize="20px"
+                                            android:textColor="@color/md_grey_800"/>
+                                        <TextView
+                                            android:id="@+id/sinal_indisp_gsm_dispositivo"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="n/a"
+                                            android:layout_gravity="center_vertical"
+                                            style="@android:style/TextAppearance.Large"/>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/md_grey_400"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"/>
+
+                            <!-- Blarga -->
+                            <LinearLayout
+                                android:id="@+id/sinal_indisp_wifi_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <!-- Icone da rede -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_weight="0.2">
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:src="@drawable/wifi_icon"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="WiFi"
+                                        android:gravity="center_horizontal"
+                                        android:textSize="20px"
+                                        android:textColor="@color/md_grey_800"/>
+                                </LinearLayout>
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/md_grey_400"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="18dp"
+                                    android:layout_marginBottom="18dp"
+                                    android:layout_weight="0.005"/>
+                                <!-- Conteudo -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.8">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="0.5">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Este Dispositivo"
+                                            android:textSize="20px"
+                                            android:textColor="@color/md_grey_800"/>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:id="@+id/sinal_indisp_wifi_dispositivo"
+                                            android:text="n/a"
+                                            android:layout_gravity="center_vertical"
+                                            style="@android:style/TextAppearance.Large"/>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Area (Dados online)  -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/md_grey_300"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:visibility="visible"/>
+
+                        <Button
+                            android:id="@+id/btnMediaRegiao_Indisp"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:text="Exibir Dados da Região"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:textSize="25px"/>
+
+                        <LinearLayout
+                            android:id="@+id/containerMediaRegiao_Indisp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingLeft="20dp"
+                            android:paddingBottom="7dp"
+                            android:paddingRight="20dp"
+                            android:visibility="gone">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/md_grey_300"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:visibility="visible"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:paddingLeft="20dp"
+                                android:paddingBottom="7dp"
+                                android:paddingRight="20dp"
+                                android:weightSum="1">
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="0.5">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+                                        <ImageView
+                                            android:layout_width="0dp"
+                                            android:layout_height="40dp"
+                                            android:src="@drawable/tower"
+                                            android:layout_weight="0.2"
+                                            android:layout_marginRight="10dp"/>
+                                        <TextView
+                                            android:id="@+id/sinal_indisp_gsm_regiao"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="n/a"
+                                            android:layout_weight="0.8"
+                                            android:layout_gravity="center_vertical"
+                                            style="@android:style/TextAppearance.Large"/>
+                                    </LinearLayout>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="GSM"
+                                        android:textSize="20px"
+                                        android:textColor="@color/md_grey_800"/>
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_weight="0.5">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+                                        <ImageView
+                                            android:layout_width="0dp"
+                                            android:layout_height="40dp"
+                                            android:src="@drawable/wifi_icon"
+                                            android:layout_weight="0.2"
+                                            android:layout_marginRight="10dp"/>
+                                        <TextView
+                                            android:id="@+id/sinal_indisp_wifi_regiao"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:text="n/a"
+                                            android:layout_weight="0.8"
+                                            android:layout_gravity="center_vertical"
+                                            style="@android:style/TextAppearance.Large"/>
+
+                                    </LinearLayout>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="WiFi"
+                                        android:textSize="20px"
+                                        android:textColor="@color/md_grey_800"/>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <!-- CARD - Consumo de Dados -->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="4dp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginTop="22dp"
+                    app:cardBackgroundColor="@color/md_white_1000"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Header -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:background="@color/md_grey_100"
+                            android:weightSum="1"
+                            android:padding="10dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="start|center"
+                                android:layout_weight="0.2">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/data_icon"/>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/md_grey_400"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="0.005"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="0.8"
+                                android:layout_gravity="start|center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sinal &amp; Dados"
+                                    android:textSize="19dp"
+                                    android:textColor="@color/md_black_1000"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Período: "
+                                        android:textStyle="bold"
+                                        android:layout_gravity="center"/>
+                                    <Spinner
+                                        android:id="@+id/sp_filters_dados"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:padding="5dp"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Content -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <!-- GSM -->
+                            <LinearLayout
+                                android:id="@+id/sinal_dados_gsm_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <!-- Icone da rede -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.2"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:src="@drawable/tower" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_horizontal"
+                                        android:text="GSM"
+                                        android:textColor="@color/md_grey_800"
+                                        android:textSize="20px" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="18dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_marginTop="18dp"
+                                    android:layout_weight="0.005"
+                                    android:background="@color/md_grey_400" />
+                                <!-- Conteudo -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.8"
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <!-- Sinal -->
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="0.5"
+                                        android:orientation="vertical">
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical"
+                                            android:weightSum="1">
+                                            <TextView
+                                                android:id="@+id/tvwGsmSinal"
+                                                style="@android:style/TextAppearance.Large"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:text="n/a" />
+                                            <TextView
+                                                android:id="@+id/tvwGsmOperadora"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Operadora GSM"
+                                                android:textColor="@color/md_grey_800"
+                                                android:textSize="20px" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <!-- Dados -->
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="0.5"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Dados Consumidos"
+                                            android:textColor="@color/md_grey_800"
+                                            android:textSize="20px" />
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:weightSum="1">
+
+                                            <TextView
+                                                style="@android:style/TextAppearance.Large"
+                                                android:id="@+id/sinal_dados_gsm_rx"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:text="n/a" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/md_grey_400"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"/>
+
+                            <!-- Blarga -->
+                            <LinearLayout
+                                android:id="@+id/sinal_dados_wifi_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <!-- Icone da rede -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.2"
+                                    android:orientation="vertical">
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:src="@drawable/wifi_icon" />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_horizontal"
+                                        android:text="WiFi"
+                                        android:textColor="@color/md_grey_800"
+                                        android:textSize="20px" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="18dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_marginTop="18dp"
+                                    android:layout_weight="0.005"
+                                    android:background="@color/md_grey_400" />
+
+                                <!-- Conteudo -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.8"
+                                    android:orientation="horizontal">
+                                    <!-- Sinal -->
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="0.5"
+                                        android:orientation="vertical">
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical"
+                                            android:weightSum="1">
+                                            <TextView
+                                                android:id="@+id/tvwWifiSpeedAverage"
+                                                style="@android:style/TextAppearance.Large"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:text="n/a" />
+                                            <TextView
+                                                android:id="@+id/tvwWifiISPName"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Operadora não identificada"
+                                                android:textColor="@color/md_grey_800"
+                                                android:textSize="20px" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <!-- Dados -->
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="0.5"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Dados Consumidos"
+                                            android:textColor="@color/md_grey_800"
+                                            android:textSize="20px" />
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:weightSum="1">
+
+                                            <TextView
+                                                style="@android:style/TextAppearance.Large"
+                                                android:id="@+id/sinal_dados_wifi_rx"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:text="n/a" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Area (Dados online)  -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/md_grey_300"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:visibility="visible"/>
+
+                        <Button
+                            android:id="@+id/btnMediaRegiao_Sinal"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:text="Exibir Dados da Região"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:textSize="25px"/>
+
+                        <LinearLayout
+                            android:id="@+id/containerMediaRegiao_Sinal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:paddingLeft="20dp"
+                            android:paddingBottom="7dp"
+                            android:paddingRight="20dp"
+                            android:visibility="gone"
+                            android:weightSum="1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/tower"
+                                        android:layout_weight="0.2"
+                                        android:layout_marginRight="10dp"/>
+                                    <TextView
+                                        android:id="@+id/sinal_gsm_regiao"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="n/a"
+                                        android:layout_weight="0.8"
+                                        android:layout_gravity="center_vertical"
+                                        style="@android:style/TextAppearance.Large"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tvwGsmOperadora_regiao"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Operadora GSM"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="0.5">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="1">
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/wifi_icon"
+                                        android:layout_weight="0.2"
+                                        android:layout_marginRight="10dp"/>
+                                    <TextView
+                                        android:id="@+id/sinal_wifi_regiao"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="n/a"
+                                        android:layout_weight="0.8"
+                                        android:layout_gravity="center_vertical"
+                                        style="@android:style/TextAppearance.Large"/>
+
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tvwWifiISPName_regiao"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="Operadora BLarga"
+                                    android:textSize="20px"
+                                    android:textColor="@color/md_grey_800"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+
+
+        </FrameLayout>
+
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

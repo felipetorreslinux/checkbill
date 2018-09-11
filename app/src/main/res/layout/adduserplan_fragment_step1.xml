@@ -142,4 +142,12 @@
             android:id="@+id/tipo_plano" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/info_tipo_plano"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dúvidas sobre o tipo do seu plano? Clique aqui para entender sobre."
+        android:textColor="@color/md_red_700"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
 </LinearLayout>

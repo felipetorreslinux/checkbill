@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
@@ -42,9 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="@dimen/fab_margin"
         android:layout_marginBottom="50dp"
-        app:backgroundTint="@color/colorPrimary"
-        android:src="@drawable/ic_add_white_24dp" />
+        android:layout_marginRight="@dimen/fab_margin"
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/colorPrimary" />
 
 </android.support.design.widget.CoordinatorLayout>

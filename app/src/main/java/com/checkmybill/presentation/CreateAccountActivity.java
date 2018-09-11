@@ -285,6 +285,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 // Mudando o Activity para o de login...
                                 dialogInterface.dismiss();
                                 Intent it = new Intent( IntentMap.LOGIN );
+                                finish();
                                 startActivity(it);
                             }
                         });

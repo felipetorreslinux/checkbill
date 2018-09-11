@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -75,19 +76,23 @@ public class MultiSpinner extends Spinner implements
 
     @Override
     public boolean performClick() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMultiChoiceItems(
-                items.toArray(new CharSequence[items.size()]), selected, this);
-        builder.setPositiveButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
+        try{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMultiChoiceItems(
+                    items.toArray(new CharSequence[items.size()]), selected, this);
+            builder.setPositiveButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        builder.setOnCancelListener(this);
-        builder.show();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.setOnCancelListener(this);
+            builder.show();
+        }catch (Exception e){
+            Log.e(getClass().getName(), "Error in: performClick()");
+        }
         return true;
     }
 

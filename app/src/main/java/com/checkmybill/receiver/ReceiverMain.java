@@ -27,10 +27,7 @@ public class ReceiverMain extends BroadcastReceiver {
         final String action = intent.getAction();
         Log.d(TAG, "Action -> " + action);
 
-        if ( action.equals("checkmybill.intent.action.SAVE_MY_POSITION_ALARM") ) {
-            // Salva a posicao atual (evita ficar sempre iniciando o servico para obter os dados)
-            context.startService(new Intent(context, ServiceSaveMyPosition.class));
-        } else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+        if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
             // Boot initialized... Starting Services and Alarms
             application.InitializeAlarms();
             application.InitializeServices();

@@ -23,4 +23,12 @@ public class TipoPlano {
     public void setDescricaoTipoPlano(String descricaoTipoPlano) {
         this.descricaoTipoPlano = descricaoTipoPlano;
     }
+
+    public TipoPlano() {
+    }
+
+    public TipoPlano(int id, String descricaoTipoPlano) {
+        this.id = id;
+        this.descricaoTipoPlano = descricaoTipoPlano;
+    }
 }

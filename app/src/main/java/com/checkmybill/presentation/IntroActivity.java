@@ -30,6 +30,7 @@ import org.androidannotations.annotations.ViewById;
 /**
  * Created by Victor Guerra on 09/03/2016.
  */
+
 @EActivity(R.layout.intro_layout)
 public class IntroActivity extends BaseActivity {
 

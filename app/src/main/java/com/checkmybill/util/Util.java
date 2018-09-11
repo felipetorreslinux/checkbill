@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Environment;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.checkmybill.R;
 import com.checkmybill.db.OrmLiteHelper;
@@ -179,28 +180,6 @@ public class Util {
                     alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, new DateTime().getMillis() + 10000,
                             INTERVAL_TIME_ALARM, alarmIntent);
                 }
-
-
-                /*
-
-                if(diff < INTERVAL_TIME_ALARM){
-                    Log.i("UTIL ALARM", "DIFF MENOR");
-                    //Current
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 8);
-                    calendar.set(Calendar.MINUTE, 30);
-
-                    alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, signalData.getMillis(),
-                            INTERVAL_TIME_ALARM, alarmIntent);
-                    Log.i("UTIL ALARM", "SCHENCULE DATE: " + signalData.getMillis());
-                }else if(diff == INTERVAL_TIME_ALARM || diff > INTERVAL_TIME_ALARM){
-                    Log.i("UTIL ALARM", "DIFF MAIOR");
-                    //Current Finished
-                    //context.startService(new Intent(context, ServiceSignalStrengthGET.class));
-                    alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, new DateTime().getMillis() + 10000,
-                            INTERVAL_TIME_ALARM, alarmIntent);
-                }*/
             } else {
                 Log.i("UTIL ALARM", "LIST EMPTY. NEW");
                 //new
@@ -217,20 +196,11 @@ public class Util {
         Log.i("ALARM STATUS", "Alarm measure signal strength create");
     }
 
-    /*public static void defineAlarmGetConfMob(Context context) {
-        final Intent intentAlarm = new Intent(context, ReceiverMain.class);
-        intentAlarm.setAction(context.getString(R.string.intent_action_conf_mob_alarm));
-
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, CONF_MOB_ALARM_ID, intentAlarm, PendingIntent.FLAG_CANCEL_CURRENT);
-        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, AlarmManager.INTERVAL_DAY, pendingIntent);
-    }*/
-
     public static void definirAlarmSaveMyPosition(Context context) {
         final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final Intent intentAlarm = new Intent(context, ReceiverMain.class);
         intentAlarm.setAction(context.getString(R.string.intent_action_save_my_position_alarm));
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, MY_POSITION_ID, intentAlarm, PendingIntent.FLAG_CANCEL_CURRENT);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, MY_POSITION_ID, intentAlarm, PendingIntent.FLAG_ONE_SHOT);
 
         // Criando o alarm...
         final long startDaley = System.currentTimeMillis() + (1000 * 10);
@@ -383,6 +353,10 @@ public class Util {
         return getSuperUrl(context) + getSubFoldersURI() + "/obter-detalhes-plano-usuario";
     }
 
+    public static String getSuperUrlServiceAvaliaPlanoUsuario(Context context) {
+        return getSuperUrl(context) + getSubFoldersURI() + "/analise-comparativa-plano";
+    }
+
     public static String getSuperUrlServiceSalvarPlanoUsuario(Context context) {
         return getSuperUrl(context) + getSubFoldersURI() + "/adicionar-plano-usuario";
     }
@@ -463,6 +437,15 @@ public class Util {
     }
     public static String getSuperUrlServiceObterRankingBandaLarga(Context context) {
         return getSuperUrl(context) + getSubFoldersURI() + "/obter-ranking-blarga";
+    }
+    public static String getInformacaoIndisponibilidadeRegiao(Context context) {
+        return getSuperUrl(context) + getSubFoldersURI() + "/informacao-regiao-indisponibilidade";
+    }
+    public static String getInformacaoIndisponibilidadeDetalhe(Context context) {
+        return getSuperUrl(context) + getSubFoldersURI() + "/informacao-indisponibilidade-usuario";
+    }
+    public static String getInformacaoSinalRegiao(Context context) {
+        return getSuperUrl(context) + getSubFoldersURI() + "/informacao-regiao-sinal";
     }
 
     // -- Not Implemented on Server
@@ -624,14 +607,17 @@ public class Util {
 
     }*/
 
-    public static void exportDatabase() {
+    public static void exportDatabase(Context hContext) {
+        Toast.makeText(hContext, "Iniciando exportação", Toast.LENGTH_SHORT).show();
         File sd = Environment.getExternalStorageDirectory();
         if (sd.canWrite()) {
+            Toast.makeText(hContext, "Acessando o SD", Toast.LENGTH_SHORT).show();
             String currentDBPath = "/data/data/com.checkmybill.app/databases";
             File currentDB = new File(currentDBPath, "check-my-bill.db");
             File backupDB = new File(sd, "check-my-bill.db" + "_" + new LocalTime().toString() + ".db");
 
             if (currentDB.exists()) {
+                Toast.makeText(hContext, "Acessando Base de DADOS", Toast.LENGTH_SHORT).show();
                 FileChannel src;
                 try {
                     src = new FileInputStream(currentDB).getChannel();
@@ -642,11 +628,17 @@ public class Util {
                     dst.close();
 
                 } catch (FileNotFoundException e) {
+                    Toast.makeText(hContext, "Falhou ao acessar Base de DADOS", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 } catch (IOException e) {
+                    Toast.makeText(hContext, "Falhou ao acessar Base de DADOS", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
+            }else{
+                Toast.makeText(hContext, "Acessando o SD", Toast.LENGTH_SHORT).show();
             }
+        }else{
+            Toast.makeText(hContext, "Não foi possível acessar o SD", Toast.LENGTH_SHORT).show();
         }
     }/*
 

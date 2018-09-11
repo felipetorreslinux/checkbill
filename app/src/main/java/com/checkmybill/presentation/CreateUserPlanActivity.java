@@ -109,15 +109,6 @@ public class CreateUserPlanActivity extends BaseActivity implements VerticalStep
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        // Cancelando todas a requisicoes
-        requestQueue.cancelAll( getClass().getName() );
-        setResult( RESULT_CANCELED );
-        finish();
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         if ( stepLayouts == null ) {
@@ -249,7 +240,8 @@ public class CreateUserPlanActivity extends BaseActivity implements VerticalStep
 
                 // Definindo o tipo atualmente selecionando (para já estar selecionando no Painel)
                 final Step1 stepClass = (Step1) stepLayouts[0];
-                final int selectedPosition = stepClass.tipo_plano.getSelectedItemPosition();
+                int selectedPosition = stepClass.tipo_plano.getSelectedItemPosition();
+                if ( selectedPosition >= 3 ) selectedPosition = 2; // Mensal
                 new SharedPrefsUtil(mContext).setSelectedPConsumoFilterPosition(selectedPosition);
 
                 // Plano salvo com sucesso

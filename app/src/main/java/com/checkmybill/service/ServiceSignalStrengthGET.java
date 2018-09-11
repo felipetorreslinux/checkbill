@@ -7,13 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -45,17 +42,19 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
+import io.nlopez.smartlocation.location.config.LocationAccuracy;
+import io.nlopez.smartlocation.location.config.LocationParams;
+
 /**
  * Created by Victor Guerra on 10/12/2015.
  */
 public class ServiceSignalStrengthGET extends Service {
-
+    private Context mContext;
     private MyPhoneStateListener myListener;
     private TelephonyManager tel;
-    private MyLocationListener myLocationListener;
-    private LocationManager locationManager;
     private SignalStrengthAverage signalStrengthAverage;
-    private int valueRssi;
 
     @Nullable
     @Override
@@ -65,82 +64,44 @@ public class ServiceSignalStrengthGET extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        myLocationListener = new MyLocationListener();
         signalStrengthAverage = new SignalStrengthAverage();
+        mContext = getApplicationContext();
 
-        if (!(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                Log.i("Start Service", "GPS ON");
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, myLocationListener);
-            } else {
-                Log.i("Start Service", "GPS OFF");
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    Log.d("ServiceSignalStrength", "PERMISSIONS PROBLEM");
-                } else {
-                    locationManager.removeUpdates(myLocationListener);
-                }
-                locationManager.removeUpdates(myLocationListener);
-                locationManager = null;
-                myLocationListener = null;
-
-                stopSelf();
-                /*
-                String provider = LocationManager.GPS_PROVIDER;
-                Location location = locationManager.getLastKnownLocation(provider);
-                if(location != null){
-                    double lat = location.getLatitude();
-                    double lon = location.getLongitude();
-                    signalStrengthAverage.setLat(lat);
-                    signalStrengthAverage.setLng(lon);
-                }*/
-            }
+        if ( ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+             ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            Log.i("Start Service", "GPS OFF");
+            stopSelf();
         }
+
+        // Requisitando posicao atual
+        SmartLocation.with(mContext)
+                .location()
+                .continuous()
+                .config(new LocationParams.Builder().setInterval(0).setDistance(0f).setAccuracy(LocationAccuracy.HIGH).build())
+                .oneFix()
+                .start(smartLocationUpdateListener);
 
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private class MyLocationListener implements LocationListener {
-
+    private OnLocationUpdatedListener smartLocationUpdateListener = new OnLocationUpdatedListener() {
         @Override
-        public void onLocationChanged(Location location) {
-            Log.i("GPS_PROVIDER Listener", "onLocationChanged: " + location.toString());
-            if (locationManager != null && location != null) {
+        public void onLocationUpdated(Location location) {
+            if ( location != null ) {
                 signalStrengthAverage.setLat(location.getLatitude());
                 signalStrengthAverage.setLng(location.getLongitude());
-                stopLocationLsitener();
             }
+
+            // Obtendo o status da rede telefonica
+            myListener = new MyPhoneStateListener();
+            tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            tel.listen(myListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+
+            // Finalizando servico
+            SmartLocation.with(mContext).location().stop();
+            //stopSelf();
         }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
-
-        }
-    }
-
-    private void stopLocationLsitener() {
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("ServiceSignalStrength", "PERMISSIONS PROBLEM");
-        } else {
-            locationManager.removeUpdates(myLocationListener);
-        }
-        locationManager = null;
-        myLocationListener = null;
-
-        myListener = new MyPhoneStateListener();
-        tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        tel.listen(myListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
-    }
+    };
 
     private class MyPhoneStateListener extends PhoneStateListener {
         /* Get the Signal strength from the provider, each tiome there is an update */
@@ -153,6 +114,7 @@ public class ServiceSignalStrengthGET extends Service {
                 TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
                 int networkType = telephonyManager.getNetworkType();
+                int valueRssi;
                 if (networkType == TelephonyManager.NETWORK_TYPE_LTE) {
                     //4G
                     String[] arraySignalValues = signalStrength.toString().split(" ");

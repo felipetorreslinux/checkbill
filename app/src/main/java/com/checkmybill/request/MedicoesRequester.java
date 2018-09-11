@@ -1,6 +1,8 @@
 package com.checkmybill.request;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -31,6 +33,86 @@ public class MedicoesRequester {
     private static final String PARAMETER_LATITUDE = "latitude";
     private static final String PARAMETER_LONGITUDE = "longitude";
 
+    public static JsonObjectRequest prepareInfoIndispRegiaoRequest(Date[] dateRange, String nomeOperadoraGSM, String nomeOperadoraBlarga, Response.Listener responseListener, Response.ErrorListener erroListener, Context context) {
+        final String url = Util.getInformacaoIndisponibilidadeRegiao(context);
+        JSONObject jsonObject = new JSONObject();
+        JSONObject gsmJsonObject = new JSONObject();
+        JSONObject blargaJsonObject = new JSONObject();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        GsmCellLocation cellLocation = (GsmCellLocation)telephonyManager.getCellLocation();
+        String networkOperator = telephonyManager.getNetworkOperator();
+        String mnc;
+        try{
+            mnc= networkOperator.substring(3);
+        }catch(RuntimeException e){
+            mnc = "";
+        }
+        final int cid = cellLocation.getCid();
+        final int lac = cellLocation.getLac();
+
+        try {
+            gsmJsonObject.put("mnc", mnc);
+            gsmJsonObject.put("cid", cid);
+            gsmJsonObject.put("lac", lac);
+            gsmJsonObject.put("operadora", nomeOperadoraGSM);
+            blargaJsonObject.put("operadora", nomeOperadoraBlarga);
+            jsonObject.put("inicio_data", sdf.format(dateRange[0]));
+            jsonObject.put("fim_data", sdf.format(dateRange[1]));
+            jsonObject.put("gsm", gsmJsonObject);
+
+            if ( nomeOperadoraBlarga != null && nomeOperadoraBlarga.length() > 0 )
+                jsonObject.put("blarga", blargaJsonObject);
+
+        } catch ( JSONException ex ) {
+            Log.e(TAG, "prepareInfoIndispRegiaoRequest | error: " + Util.getMessageErrorFromExcepetion(ex));
+        }
+
+        Log.d(TAG, "prepared request to: " + url);
+        Log.d(TAG, "json prepared: " + jsonObject.toString());
+
+        JsonObjectRequest genericJsonObjectRequest = RequesterUtil.createGenericJsonObjectRequest(Request.Method.POST, url, jsonObject.toString(), responseListener, erroListener);
+        return genericJsonObjectRequest;
+    }
+
+    public static JsonObjectRequest prepareInfoSinalRegiaoRequest(Date[] dateRange, String nomeOperadoraGSM, String nomeOperadoraBlarga, Response.Listener responseListener, Response.ErrorListener erroListener, Context context) {
+        final String url = Util.getInformacaoSinalRegiao(context);
+        JSONObject jsonObject = new JSONObject();
+        JSONObject gsmJsonObject = new JSONObject();
+        JSONObject blargaJsonObject = new JSONObject();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        GsmCellLocation cellLocation = (GsmCellLocation)telephonyManager.getCellLocation();
+        String networkOperator = telephonyManager.getNetworkOperator();
+        final String mnc = networkOperator.substring(3);
+        final int cid = cellLocation.getCid();
+        final int lac = cellLocation.getLac();
+
+        try {
+            gsmJsonObject.put("mnc", mnc);
+            gsmJsonObject.put("cid", cid);
+            gsmJsonObject.put("lac", lac);
+            gsmJsonObject.put("operadora", nomeOperadoraGSM);
+            blargaJsonObject.put("operadora", nomeOperadoraBlarga);
+            jsonObject.put("inicio_data", sdf.format(dateRange[0]));
+            jsonObject.put("fim_data", sdf.format(dateRange[1]));
+            jsonObject.put("gsm", gsmJsonObject);
+
+            if ( nomeOperadoraBlarga != null && nomeOperadoraBlarga.length() > 0 )
+                jsonObject.put("blarga", blargaJsonObject);
+
+        } catch ( JSONException ex ) {
+            Log.e(TAG, "prepareInfoSinalRegiaoRequest | error: " + Util.getMessageErrorFromExcepetion(ex));
+        }
+
+        Log.d(TAG, "prepared request to: " + url);
+        Log.d(TAG, "json prepared: " + jsonObject.toString());
+
+        JsonObjectRequest genericJsonObjectRequest = RequesterUtil.createGenericJsonObjectRequest(Request.Method.POST, url, jsonObject.toString(), responseListener, erroListener);
+        return genericJsonObjectRequest;
+    }
 
     public static JsonObjectRequest prepareGerarRelatorioConsumo(Response.Listener responseListener, Response.ErrorListener erroListener, Date periodo, int incSMS, long incCall, double incOffline, long incBytes, double latitude, double lontigude, Context context) {
         final String url = Util.getSuperUrlServiceGerarRelatorioConsumo(context);
@@ -58,4 +140,26 @@ public class MedicoesRequester {
         JsonObjectRequest genericJsonObjectRequest = RequesterUtil.createGenericJsonObjectRequest(Request.Method.POST, url, jsonObject.toString(), responseListener, erroListener);
         return genericJsonObjectRequest;
     }
+
+    public static JsonObjectRequest prepareIndispDetailRequest(Date[] dateRange, Response.Listener responseListener, Response.ErrorListener erroListener, Context context) {
+        final String url = Util.getInformacaoIndisponibilidadeDetalhe(context);
+        JSONObject jsonObject = new JSONObject();
+        final String accessKey = new SharedPrefsUtil(context).getAccessKey();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            jsonObject.put(PARAMETER_ACCESS_KEY, accessKey);
+            jsonObject.put("data_inicio", sdf.format(dateRange[0]));
+            jsonObject.put("data_fim", sdf.format(dateRange[1]));
+
+        } catch ( JSONException ex ) {
+            Log.e(TAG, "prepareIndispDetailRequest | error: " + Util.getMessageErrorFromExcepetion(ex));
+        }
+
+        Log.d(TAG, "prepared request to: " + url);
+        Log.d(TAG, "json prepared: " + jsonObject.toString());
+
+        JsonObjectRequest genericJsonObjectRequest = RequesterUtil.createGenericJsonObjectRequest(Request.Method.POST, url, jsonObject.toString(), responseListener, erroListener);
+        return genericJsonObjectRequest;
+    }
+
 }

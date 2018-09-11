@@ -1,10 +1,12 @@
 package com.checkmybill.service;
 
 import android.Manifest;
+import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.checkmybill.BuildConfig;
 import com.checkmybill.db.OrmLiteHelper;
 import com.checkmybill.entity.CallMonitor;
 import com.checkmybill.entity.NetworkQuality;
@@ -94,6 +97,12 @@ public class ServiceDataUploader extends Service {
                 jsonToSend.put("call_data", callData.jsonArray);
                 jsonToSend.put("sms_data", smsData.jsonArray);
                 jsonToSend.put("bytes_consumo_data", bytesConsumed.jsonArray);
+
+                // Anexando Informação sobre a versão do aplicativo
+                JSONObject versionInfo = new JSONObject();
+                versionInfo.put("code", BuildConfig.VERSION_CODE);
+                versionInfo.put("name", BuildConfig.VERSION_NAME);
+                jsonToSend.put("version_info", versionInfo);
             } else {
                 // Checando se deve anexar o imei...
                 callData = null;

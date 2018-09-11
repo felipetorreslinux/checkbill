@@ -10,24 +10,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Filtro do tipo de exibicao -->
+
+    <!-- Seção no canto superior -->
+    <!-- android:background="#50828282"-->
     <LinearLayout
         android:id="@+id/layout_exibicaoTipo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
         android:orientation="vertical"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:background="#50828282"
         android:visibility="visible">
 
-        <Spinner
-            android:id="@+id/filter_exibicao"
+        <EditText
+            android:id="@+id/filter_map_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:hint="Pesquisar um endereço..."
+            android:textStyle="italic"
+            android:layout_marginTop="2dp"
+            android:imeOptions="actionSearch"
+            android:drawableRight="@drawable/places_ic_search"
+            android:background="@drawable/mapview_searchview_style"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#50828282">
+            <Spinner
+                android:id="@+id/filter_exibicao"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
 
     <!-- MultiSpinner, para exibir o filtro de operadoras... -->
     <LinearLayout

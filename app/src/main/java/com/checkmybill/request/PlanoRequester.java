@@ -193,4 +193,21 @@ public class PlanoRequester {
         JsonObjectRequest genericJsonObjectRequest = RequesterUtil.createGenericJsonObjectRequest(Request.Method.POST, url, jsonObject.toString(), responseListener, erroListener);
         return genericJsonObjectRequest;
     }
+
+    public static JsonObjectRequest prepareAvaliaPlanoUsuarioRequest(Response.Listener responseListener, Response.ErrorListener erroListener, Context context) {
+        String url = Util.getSuperUrlServiceAvaliaPlanoUsuario(context);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            String accessKey = new SharedPrefsUtil(context).getAccessKey();
+            jsonObject.put(PARAMETER_ACCESS_KEY, accessKey);
+        } catch (JSONException e) {
+            Log.e(TAG, "error: " + Util.getMessageErrorFromExcepetion(e));
+        }
+
+        Log.i(TAG, "prepared request to: " + url);
+        Log.i(TAG, "json prepared: " + jsonObject.toString());
+
+        JsonObjectRequest genericJsonObjectRequest = RequesterUtil.createGenericJsonObjectRequest(Request.Method.POST, url, jsonObject.toString(), responseListener, erroListener);
+        return genericJsonObjectRequest;
+    }
 }

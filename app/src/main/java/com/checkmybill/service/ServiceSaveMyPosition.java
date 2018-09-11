@@ -18,6 +18,11 @@ import com.checkmybill.entity.MyLocationMonitor;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
+import io.nlopez.smartlocation.location.config.LocationAccuracy;
+import io.nlopez.smartlocation.location.config.LocationParams;
+
 /**
  * Created by Petrus A. (R@G3), ESPE... On 12/04/2017.
  */
@@ -25,9 +30,9 @@ import java.sql.SQLException;
 public class ServiceSaveMyPosition extends Service {
     final private static String TAG = ServiceSaveMyPosition.class.getName();
 
+    final private long EXECUTION_INTERVAL = (1000 * 60) * 30; // Salva a cada 30 minutos
     private MyLocationMonitor myLocation;
-    private MyLocationListener myLocationListener;
-    private LocationManager locationManager;
+    private Context mContext = null;
 
     @Nullable
     @Override
@@ -38,78 +43,45 @@ public class ServiceSaveMyPosition extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "Starting Service...");
-        this.myLocationListener = new MyLocationListener();
+        if ( mContext == null ) mContext = getApplicationContext();
 
-        if (!(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                Log.i(TAG, "GPS ON");
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, myLocationListener);
-            } else {
-                Log.i(TAG, "GPS OFF");
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    Log.d("ServiceSignalStrength", "PERMISSIONS PROBLEM");
-                }
-
-                locationManager.removeUpdates(myLocationListener);
-                locationManager = null;
-                myLocationListener = null;
-                stopSelf();
-            }
-        }
+        // Iniciando servico de localizacao
+        SmartLocation.with(mContext)
+                .location()
+                .continuous()
+                .config( new LocationParams.Builder().setAccuracy(LocationAccuracy.HIGH).setDistance(0).setInterval(EXECUTION_INTERVAL).build())
+                .start(smartLocationUpdateListener);
 
         return super.onStartCommand(intent, flags, startId);
     }
 
+    private OnLocationUpdatedListener smartLocationUpdateListener = new OnLocationUpdatedListener() {
+        @Override
+        public void onLocationUpdated(Location location) {
+            // Localizacao recebida?
+            if ( location == null ) return;
+
+            // Alimentando a classe de localizacao
+            Log.d(TAG, "Location received, Value -> " + location.getLatitude() + " <> " + location.getLongitude());
+            if ( myLocation == null ) myLocation = new MyLocationMonitor();
+            myLocation.setLat(location.getLatitude());
+            myLocation.setLng(location.getLongitude());
+
+            // Salvando localizacao
+            SaveMyLocation();
+        }
+    };
+
     private void SaveMyLocation() {
-        if ( myLocation == null ) return;
+        if ( myLocation == null )
+            return;
+
         try {
             Dao<MyLocationMonitor, Integer> myLocationMonitorDao = OrmLiteHelper.getInstance(getApplicationContext()).getMyLocationMonitorDao();
             myLocationMonitorDao.create(myLocation);
             Log.e(TAG, "Saved");
         } catch (SQLException e) {
             Log.e(TAG, "DB -> " + e.getMessage());
-        }
-    }
-
-    private void stopLocationListener() {
-        if ( ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-            Log.d(TAG, "PERMISSIONS PROBLEM");
-        } else if ( locationManager != null ) {
-            locationManager.removeUpdates(myLocationListener);
-        }
-        locationManager = null;
-        myLocationListener = null;
-        SaveMyLocation();
-    }
-
-
-    private class MyLocationListener implements LocationListener {
-
-        @Override
-        public void onLocationChanged(Location location) {
-            Log.i(TAG, "onLocationChanged: " + location.toString());
-            if ( myLocation == null ) myLocation = new MyLocationMonitor();
-            myLocation.setLat(location.getLatitude());
-            myLocation.setLng(location.getLongitude());
-
-            // Finalizando listener e salvandoos dados...
-            stopLocationListener();
-
-        }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String s) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String s) {
         }
     }
 }

@@ -130,6 +130,16 @@ public class BaseActivity extends AppCompatActivity {
             return true;
         }
 
+        if ( id == R.id.action_export ) {
+            try{
+                Util.exportDatabase(this);
+                Toast.makeText(this, "Exportação realizada com sucesso", Toast.LENGTH_SHORT).show();
+            }catch(RuntimeException e){
+                Toast.makeText(this, "Exportação falhou!", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+
         return false;
     }
 

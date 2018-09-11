@@ -12,6 +12,7 @@ import com.checkmybill.presentation.IntroFragments.IntroFragment;
  */
 public class IntroAdapter extends FragmentPagerAdapter {
     private boolean showOnlyLoginFragment;
+
     public IntroAdapter(FragmentManager fm) {
         super(fm);
         this.showOnlyLoginFragment = false;
