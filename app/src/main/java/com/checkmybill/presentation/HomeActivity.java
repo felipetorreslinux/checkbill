@@ -147,8 +147,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(LOG_TAG, "On Resume");
-
         this.initializeTabIcons();
     }
 

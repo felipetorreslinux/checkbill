@@ -102,6 +102,7 @@ import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.google.maps.android.ui.IconGenerator;
 import com.squareup.picasso.Picasso;
 
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.EditorAction;
 import org.androidannotations.annotations.ViewById;
@@ -118,7 +119,8 @@ import java.util.List;
  * Created by Petrus A. (R@G3), ESPE... On 15/12/2016.
  */
 @EFragment(R.layout.fragment_coverage_map)
-public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     final private static int HEARTMAP_RED_POSITION = 0;
     final private static int HEARTMAP_GREEN_POSITION = 1;
 
@@ -132,6 +134,7 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     @ViewById(R.id.filter_operadoras) protected MultiSpinner mspFilterOperadoras;
     @ViewById(R.id.progressLoadMap) protected ProgressBar progressLoadMap;
     @ViewById(R.id.customBtnRanking) protected LinearLayout customBtnRanking;
+    @ViewById(R.id.btnLocalUser) protected LinearLayout btnLocalUser;
 
     private boolean refreshMapData = false;
 
@@ -153,6 +156,11 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
+
+    private double localLatitude;
+    private double localLongitude;
+
+    private LatLng localUser;
 
     /* ------------------------------------------------------------------------------------------ */
     // Metodos da classe (Construtores/Inicializadores/Eventos da Acitivty/Layout)
@@ -201,6 +209,8 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
 
         setUpGoogleLocationItens();
         setUpCustomBtnRanking();
+        btnLocalUser();
+
     }
 
     private void setUpGoogleLocationItens() {
@@ -235,6 +245,18 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
                         Toast.makeText(getActivity(), "Não foi possível abrir o ranking. Tente mais tarde.", Toast.LENGTH_SHORT).show();
                     }
                 }
+
+            }
+        });
+    }
+
+    private void btnLocalUser(){
+        btnLocalUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                obterDadosMapas();
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(localLatitude, localLongitude))
+                        , 1000, null);
 
             }
         });
@@ -284,7 +306,8 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
         this.googleMap.moveCamera(zoom);
         this.googleMap.setMaxZoomPreference(maxZoomValue);
         this.googleMap.setMinZoomPreference(minZoomValue);
-        this.googleMap.getUiSettings().setZoomControlsEnabled(true);
+        this.googleMap.getUiSettings().setZoomControlsEnabled(false);
+        this.googleMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         // Definindo eventos (Camera Idle Event)
         this.googleMap.setOnCameraIdleListener(this.googleMap_OnCamareraIdleListener );
@@ -860,6 +883,9 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
                                             Manifest.permission.ACCESS_FINE_LOCATION)
                                             == PackageManager.PERMISSION_GRANTED) {
                                         googleMap.setMyLocationEnabled(true);
+
+                                        localLatitude = location.getLatitude();
+                                        localLongitude = location.getLongitude();
 
                                         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                                         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(latLng);

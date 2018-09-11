@@ -116,9 +116,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!--Felipe Torres-->
         <activity
             android:name=".presentation.HomeActivity_"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:theme="@style/CustomActionBarThemeWelcomeActivity">
             <intent-filter>
                 <action android:name="com.checkmybill.intents.HOME" />

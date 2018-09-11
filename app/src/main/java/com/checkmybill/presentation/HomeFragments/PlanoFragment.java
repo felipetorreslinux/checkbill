@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.NetworkError;
@@ -61,7 +62,7 @@ public class PlanoFragment extends BaseFragment {
     @ViewById(R.id.btnCreditos) LinearLayout btnCreditos;
     @ViewById(R.id.btnSubstituirPlano) protected LinearLayout btnSubstituirPlano;
     @ViewById(R.id.layoutNoPlan) protected LinearLayout layoutNoPlan;
-    @ViewById(R.id.layoutWithPlan) protected LinearLayout layoutWithPlan;
+    @ViewById(R.id.layoutWithPlan) protected RelativeLayout layoutWithPlan;
     @ViewById(R.id.layoutLoading) protected LinearLayout layoutLoading;
     @ViewById(R.id.layoutError) protected LinearLayout layoutError;
     @ViewById(R.id.layoutNotLogged) protected LinearLayout layoutNotLogged;
