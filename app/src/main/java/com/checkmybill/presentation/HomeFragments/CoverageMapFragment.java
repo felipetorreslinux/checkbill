@@ -160,8 +160,6 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     private double localLatitude;
     private double localLongitude;
 
-    private LatLng localUser;
-
     /* ------------------------------------------------------------------------------------------ */
     // Metodos da classe (Construtores/Inicializadores/Eventos da Acitivty/Layout)
     @Override
@@ -236,7 +234,6 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
                 String area = "";
                 try {
                     area = coverageMapAreaClass.ObterAreaCobertura();
-
                     Intent it = new Intent(IntentMap.RANKING);
                     it.putExtra(RankingActivity.EXTRA_AREA, area);
                     startActivity(it);

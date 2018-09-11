@@ -1,5 +1,6 @@
 package com.checkmybill.util;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 
 
+@SuppressLint("AppCompatCustomView")
 public class MultiSpinner extends Spinner implements
         DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
 
@@ -62,7 +64,7 @@ public class MultiSpinner extends Spinner implements
             if (spinnerText.length() > 2) {
                 spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
             } else {
-                spinnerText = "Todas as operadoras";
+                spinnerText = "Operadoras";
             }
         } else {
             spinnerText = defaultText;
@@ -78,6 +80,7 @@ public class MultiSpinner extends Spinner implements
     public boolean performClick() {
         try{
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Escolha");
             builder.setMultiChoiceItems(
                     items.toArray(new CharSequence[items.size()]), selected, this);
             builder.setPositiveButton(android.R.string.ok,

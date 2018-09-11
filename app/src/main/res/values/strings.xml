@@ -110,7 +110,7 @@
 
     <!--Arrays -->
     <string-array name="filters_analytics_list_array">
-        <item>Rede Móvel (GSM)</item>
+        <item>Rede Móvel</item>
         <item>Banda Larga</item>
     </string-array>
 
