@@ -85,7 +85,8 @@ import java.util.Locale;
  */
 
 @EFragment(R.layout.fragment_sinal)
-public class SinalFragment extends BaseFragment {
+public class SinalFragment extends BaseFragment implements View.OnClickListener {
+
     @ViewById(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
     // Indisponibilidade
@@ -124,6 +125,13 @@ public class SinalFragment extends BaseFragment {
     @ViewById(R.id.btn_filter_plan_4) Button btn_filter_plan_4;
     @ViewById(R.id.btn_filter_total_5) Button btn_filter_total_5;
     @ViewById(R.id.labelFilterDate) TextView labelFilterDate;
+
+    // Felipe Torres
+    // 12/09/2018
+    @ViewById(R.id.txtTodaySinal) TextView txtTodaySinal;
+    @ViewById(R.id.txtSevenDaySinal) TextView txtSevenDaySinal;
+    @ViewById(R.id.txtThirtyDay) TextView txtThirtyDay;
+    @ViewById(R.id.txtSixtyDay) TextView txtSixtyDay;
 
     //Anatel
     @ViewById(R.id.textViewConsultaAnatel) TextView textViewConsultaAnatel;
@@ -223,6 +231,8 @@ public class SinalFragment extends BaseFragment {
         myPhoneStateListener = new MyPhoneStateListener();
         telManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         telManager.listen(myPhoneStateListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+
+        btnFilterToday1();
     }
 
     private void isLogged(){
@@ -392,7 +402,7 @@ public class SinalFragment extends BaseFragment {
         getActivity().startActivityForResult(it, ReclameAquiActivity.REQUEST_CODE);
     }
 
-    @Click(R.id.btn_filter_today_1)
+    @Click(R.id.txtTodaySinal)
     public void btnFilterToday1() {
         DateTime auxD = new DateTime();
         auxD = auxD.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
@@ -400,10 +410,24 @@ public class SinalFragment extends BaseFragment {
 
         auxD = new DateTime();
         eD = auxD.toDate();
+
         setMenuFilter(btn_filter_today_1);
+
+        txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtTodaySinal.setTextColor(getResources().getColor(R.color.colorWhite));
+
+        txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.primary));
+
+        txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtThirtyDay.setTextColor(getResources().getColor(R.color.primary));
+
+        txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
+
     }
 
-    @Click(R.id.btn_filter_7_2)
+    @Click(R.id.txtSevenDaySinal)
     public void btnFilter72() {
 
         DateTime auxSd = new DateTime();
@@ -415,9 +439,21 @@ public class SinalFragment extends BaseFragment {
         eD = auxEd.toDate();
 
         setMenuFilter(btn_filter_7_2);
+
+        txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtTodaySinal.setTextColor(getResources().getColor(R.color.primary));
+
+        txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.colorWhite));
+
+        txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtThirtyDay.setTextColor(getResources().getColor(R.color.primary));
+
+        txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
     }
 
-    @Click(R.id.btn_filter_30_2)
+    @Click(R.id.txtThirtyDay)
     public void btnFilter302() {
         DateTime auxSd = new DateTime();
         auxSd = auxSd.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
@@ -428,9 +464,21 @@ public class SinalFragment extends BaseFragment {
         eD = auxEd.toDate();
 
         setMenuFilter(btn_filter_30_2);
+
+        txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtTodaySinal.setTextColor(getResources().getColor(R.color.primary));
+
+        txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.primary));
+
+        txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtThirtyDay.setTextColor(getResources().getColor(R.color.colorWhite));
+
+        txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
     }
 
-    @Click(R.id.btn_filter_60_3)
+    @Click(R.id.txtSixtyDay)
     public void btnFilter603() {
         DateTime auxSd = new DateTime();
         auxSd = auxSd.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
@@ -441,6 +489,19 @@ public class SinalFragment extends BaseFragment {
         eD = auxEd.toDate();
 
         setMenuFilter(btn_filter_60_3);
+
+        txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtTodaySinal.setTextColor(getResources().getColor(R.color.primary));
+
+        txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.primary));
+
+        txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        txtThirtyDay.setTextColor(getResources().getColor(R.color.primary));
+
+        txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtSixtyDay.setTextColor(getResources().getColor(R.color.colorWhite));
+
     }
 
     @Click(R.id.btn_filter_plan_4)
@@ -865,6 +926,19 @@ public class SinalFragment extends BaseFragment {
             }
         }
     };
+
+    // Felipe Torres
+    // 12/09/2018
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.txtTodaySinal:
+                IndisponibilidadeAsyncClass indispClass = new IndisponibilidadeAsyncClass();
+                indispClass.execute();
+                break;
+        }
+    }
 
     // PhoneStateListener Class
     private class MyPhoneStateListener extends PhoneStateListener {
