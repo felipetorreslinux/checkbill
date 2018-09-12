@@ -1037,27 +1037,27 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
                 }
             }
 
-            indisponibilidadeMain.setText(String.format(Locale.getDefault(), "%.0f", value));
-            indisponibilidadeMainVariable.setText(variable);
+            try{
+                indisponibilidadeMain.setText(String.format(Locale.getDefault(), "%.0f", value));
+                indisponibilidadeMainVariable.setText(variable);gsmLepMinutes = (gsmLepMinutes > 0) ? (gsmLepMinutes / 60) : gsmLepMinutes;
+                // Definindo valores com base no tipo recebido
+                if ( gsmLepMinutes > 99.9 ) {
+                    gsmLepMinutes /= 60;
+                    sinalIndispGSMDispostivo.setText(String.format(Locale.getDefault(), "%.02f hrs", gsmLepMinutes));
+                } else {
+                    sinalIndispGSMDispostivo.setText(String.format(Locale.getDefault(), "%.02f mins", gsmLepMinutes));
+                }
 
-            gsmLepMinutes = (gsmLepMinutes > 0) ? (gsmLepMinutes / 60) : gsmLepMinutes;
-            // Definindo valores com base no tipo recebido
-            if ( gsmLepMinutes > 99.9 ) {
-                gsmLepMinutes /= 60;
-                sinalIndispGSMDispostivo.setText(String.format(Locale.getDefault(), "%.02f hrs", gsmLepMinutes));
-            } else {
-                sinalIndispGSMDispostivo.setText(String.format(Locale.getDefault(), "%.02f mins", gsmLepMinutes));
-            }
+                if ( wifiLepMinutes > 99.9 ) {
+                    wifiLepMinutes /= 60;
+                    sinalIndispWiFiDispositivo.setText(String.format(Locale.getDefault(), "%.02f hrs", wifiLepMinutes));
+                } else {
+                    sinalIndispWiFiDispositivo.setText(String.format(Locale.getDefault(), "%.02f mins", wifiLepMinutes));
+                }
 
-            if ( wifiLepMinutes > 99.9 ) {
-                wifiLepMinutes /= 60;
-                sinalIndispWiFiDispositivo.setText(String.format(Locale.getDefault(), "%.02f hrs", wifiLepMinutes));
-            } else {
-                sinalIndispWiFiDispositivo.setText(String.format(Locale.getDefault(), "%.02f mins", wifiLepMinutes));
-            }
-
-            showMediaRegiaoIndisp();
-            showIndispDetail();
+                showMediaRegiaoIndisp();
+                showIndispDetail();
+            }catch (NullPointerException e){}catch (Exception e){}
 
             //sinalIndispGSMDispostivo.setText(getFormmatedSecondsToStrTime(gsmLepSecods));
             //sinalIndispWiFiDispositivo.setText(getFormmatedSecondsToStrTime(wifiLepSeconds));

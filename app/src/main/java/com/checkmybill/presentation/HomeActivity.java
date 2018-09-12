@@ -119,8 +119,6 @@ public class HomeActivity extends BaseActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(1);
 
-        this.initializeTabIcons();
-
         // Checando statrPoint
         if (this.startPoint > 0) {
             this.mViewPager.setCurrentItem(startPoint);
@@ -147,7 +145,8 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        this.initializeTabIcons();
+//        this.initializeTabIcons();
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
@@ -157,12 +156,10 @@ public class HomeActivity extends BaseActivity {
         super.onPause();
     }
 
-
     /**
      * Metodo para a definição dos icones das tabs
      */
     private void initializeTabIcons() {
-        tabLayout.setupWithViewPager(mViewPager);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             int icon = 0;
             switch (i) {
@@ -248,7 +245,7 @@ public class HomeActivity extends BaseActivity {
                 break;
             default:
                 this.startPoint = 0;
-                fragmentList.get(0).onActivityResult(requestCode, resultCode, data);
+                fragmentList.get(3).onActivityResult(requestCode, resultCode, data);
                 break;
         }
     }

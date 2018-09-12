@@ -33,10 +33,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -132,8 +130,8 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     @ViewById(R.id.mapView) protected MapView mapView;
     @ViewById(R.id.filter_exibicao) protected Spinner spFilterExibicao;
     @ViewById(R.id.filter_operadoras) protected MultiSpinner mspFilterOperadoras;
-    @ViewById(R.id.progressLoadMap) protected ProgressBar progressLoadMap;
     @ViewById(R.id.customBtnRanking) protected LinearLayout customBtnRanking;
+    @ViewById(R.id.loading_info_map) protected TextView loading_info_map;
     @ViewById(R.id.btnLocalUser) protected LinearLayout btnLocalUser;
 
     private boolean refreshMapData = false;
@@ -204,6 +202,8 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
         mapView.onCreate( this.savedInstanceState );
         mapView.onResume();
         mapView.getMapAsync(this);
+
+        loading_info_map.setVisibility(View.VISIBLE);
 
         setUpGoogleLocationItens();
         setUpCustomBtnRanking();
@@ -509,11 +509,9 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
 
     private void showLoadingInfoImage(final boolean show) {
         try {
-            if ( show ) progressLoadMap.setVisibility(View.VISIBLE);
-            else progressLoadMap.setVisibility(View.GONE);
-        } catch(Exception e) {
-            Log.e(LOG_TAG, "Error onPostExcecute. maybe the activity has been destroyed", e);
-        }
+            if ( show ) loading_info_map.setVisibility(View.VISIBLE);
+            else loading_info_map.setVisibility(View.INVISIBLE);
+        } catch(Exception e) {}
     }
 
     private void populateMapaData_BLarga(JSONObject response) throws JSONException {

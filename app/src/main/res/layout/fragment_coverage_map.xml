@@ -52,15 +52,14 @@
             <android.support.v7.widget.CardView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="2.5dp">
+                android:layout_height="wrap_content">
 
                 <Spinner
                     android:id="@+id/filter_exibicao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"/>
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
 
             </android.support.v7.widget.CardView>
 
@@ -84,53 +83,70 @@
 
     </LinearLayout>
 
-    <!--Botao de Localização-->
     <LinearLayout
-        android:id="@+id/btnLocalUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/floating_button_primary"
-        android:elevation="2dp"
-        android:padding="12dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:weightSum="1">
 
-        <ImageView
+        <!--Botao de Ranking-->
+        <LinearLayout
+            android:id="@+id/customBtnRanking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_location"/>
+            android:background="@drawable/floating_button_primary"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ranking_icon"/>
+
+        </LinearLayout>
+
+        <!--Info Loading-->
+        <TextView
+            android:id="@+id/loading_info_map"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Carregando..."
+            android:background="@drawable/floating_button_primary"
+            android:elevation="2dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
+
+        <!--Botao de Localização-->
+        <LinearLayout
+            android:id="@+id/btnLocalUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/floating_button_primary"
+            android:elevation="2dp"
+            android:padding="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <!--Botao de Ranking-->
-    <LinearLayout
-        android:id="@+id/customBtnRanking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/floating_button_primary"
-        android:elevation="4dp"
-        android:padding="12dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="65dp">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ranking_icon"/>
-
-    </LinearLayout>
-
-    <!-- Loading geral do mapa... -->
-    <ProgressBar
-        android:id="@+id/progressLoadMap"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/progress_bar"/>
 
 </RelativeLayout>
