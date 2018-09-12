@@ -16,6 +16,7 @@ import com.checkmybill.R;
 public class RankingPlano extends AppCompatActivity implements View.OnClickListener{
 
     Toolbar toolbar;
+    public static final int REQUEST_CODE = 1226;
     
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

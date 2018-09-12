@@ -90,7 +90,7 @@ public class PlanoFragment extends BaseFragment {
 
 
     //Felipe Torres 11/09;2018
-    static final int REQUEST_AVALIAR_PLANO = 1010;
+    static final int REQUEST_AVALIAR_PLANO = 1200;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -157,8 +157,7 @@ public class PlanoFragment extends BaseFragment {
     public void btnRankingPlano() {
         //Felipe Torres
         //Abre activity de Ranking de Planos
-        Intent intent_avaliar_plano = new Intent(getActivity(), RankingPlano.class);
-        startActivityForResult(intent_avaliar_plano, REQUEST_AVALIAR_PLANO);
+        startActivityForResult(new Intent(getActivity(), RankingPlano.class), RankingPlano.REQUEST_CODE);
     }
 
     @Click(R.id.btnPacotes)
@@ -490,17 +489,6 @@ public class PlanoFragment extends BaseFragment {
             if ( new SharedPrefsUtil(mContext).getPlanoIsFirstVisualization() ) {
                 startTutorial();
             }
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-            case REQUEST_AVALIAR_PLANO:
-                if(resultCode == Activity.RESULT_OK){
-
-                }
-                break;
         }
     }
 }

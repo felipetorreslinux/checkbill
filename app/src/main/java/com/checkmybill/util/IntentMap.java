@@ -21,6 +21,7 @@ public class IntentMap {
     public static final String CREATE_USER_PLAN = PKG + "CREATE_USER_PLAN";
     public static final String CREDITOS_PLANO = PKG + "CREDITOS_PLANO";
     public static final String AVALIA_PLANO = PKG + "AVALIA_PLANO";
+    public static final String RANKING_PLANO = PKG + "RANKING_PLANO";
     public static final String RECLAME_AQUI = PKG + "RECLAME_AQUI";
     public static final String CONSULT_HISTORY = PKG + "CONSULT_HISTORY";
     public static final String PACOTES_PLANO = PKG + "PACOTES_PLANO";

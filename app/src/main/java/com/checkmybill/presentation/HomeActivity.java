@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.checkmybill.CheckBillApplication;
 import com.checkmybill.R;
+import com.checkmybill.felipecode.Views.RankingPlano;
 import com.checkmybill.presentation.HomeFragments.CoverageMapFragment;
 import com.checkmybill.presentation.HomeFragments.CoverageMapFragment_;
 import com.checkmybill.presentation.HomeFragments.InformacoesFragment_;
@@ -238,14 +239,15 @@ public class HomeActivity extends BaseActivity {
             case GerCreditosPlanoActivity.REQUEST_CODE:
             case AvaliaPlanoActivity.REQUEST_CODE:
             case GerPacotesActivity.REQUEST_CODE:
+            case RankingPlano.REQUEST_CODE:
                 this.startPoint = 3;
+                fragmentList.get(3).onActivityResult(requestCode, resultCode, data);
                 break;
             case CoverageMapFragment.REQUEST_CODE_LOCATION_ACTIVITY:
                 fragmentList.get(2).onActivityResult(requestCode, resultCode , data);
                 break;
             default:
-                this.startPoint = 0;
-                fragmentList.get(3).onActivityResult(requestCode, resultCode, data);
+                fragmentList.get(startPoint).onActivityResult(requestCode, resultCode, data);
                 break;
         }
     }
