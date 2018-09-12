@@ -1,15 +1,11 @@
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeRefreshLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <RelativeLayout
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <ScrollView
+            android:id="@+id/scrollview_sinal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="55dp">
@@ -1499,4 +1495,3 @@
 
     </RelativeLayout>
 
-</android.support.v4.widget.SwipeRefreshLayout>

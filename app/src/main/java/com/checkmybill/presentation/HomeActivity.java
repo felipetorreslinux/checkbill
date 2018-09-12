@@ -246,6 +246,10 @@ public class HomeActivity extends BaseActivity {
             case CoverageMapFragment.REQUEST_CODE_LOCATION_ACTIVITY:
                 fragmentList.get(2).onActivityResult(requestCode, resultCode , data);
                 break;
+            default:
+                this.startPoint = 0;
+                fragmentList.get(0).onActivityResult(requestCode, resultCode, data);
+                break;
         }
     }
 

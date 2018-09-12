@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,8 +87,7 @@ import java.util.Locale;
 @EFragment(R.layout.fragment_sinal)
 public class SinalFragment extends BaseFragment implements View.OnClickListener {
 
-    @ViewById(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
-
+    @ViewById(R.id.scrollview_sinal) ScrollView scrollview_sinal;
     // Indisponibilidade
     @ViewById(R.id.sp_filters_indisp) Spinner spFilterIndisp;
     @ViewById(R.id.sinal_indisp_gsm_container) LinearLayout sinalIndispGSMContainer;
@@ -177,7 +176,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         }catch(RuntimeException e){
             Log.e(LOG_TAG, Util.getMessageErrorFromExcepetion(e));
         }
-        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -204,11 +202,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         mLayoutManagerRecyclerView = new LinearLayoutManager(getActivity());
         setUpRecyclerView();
 
-        // Definindo evento do Swipe
-        swipeRefreshLayout.setOnRefreshListener(this.swipeOnRefreshListener);
-
-        // Obtendo os dados iniciais...
-        //swipeRefreshLayout.setRefreshing(true);
         PopulateNetworkCard();
 
         //Preparando datas
@@ -219,7 +212,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         eD = auxD.toDate();
         setLabelFilterDate();
 
-        swipeRefreshLayout.setRefreshing(true);
         IndisponibilidadeAsyncClass indispClass = new IndisponibilidadeAsyncClass();
         indispClass.execute();
 
@@ -425,6 +417,8 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
         txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
 
+        scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);
+
     }
 
     @Click(R.id.txtSevenDaySinal)
@@ -451,6 +445,8 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
 
         txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
         txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
+
+        scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);
     }
 
     @Click(R.id.txtThirtyDay)
@@ -476,6 +472,8 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
 
         txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
         txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
+
+        scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);
     }
 
     @Click(R.id.txtSixtyDay)
@@ -501,6 +499,8 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
 
         txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.primary));
         txtSixtyDay.setTextColor(getResources().getColor(R.color.colorWhite));
+
+        scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);
 
     }
 
@@ -798,13 +798,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
                     Util.getMessageErrorFromExcepetion(exTwo);
                 }
             }
-
-            try{
-                swipeRefreshLayout.setRefreshing(false);
-            } catch (Exception exTwo) {
-                Util.getMessageErrorFromExcepetion(exTwo);
-            }
-
         }
     };
 
@@ -869,13 +862,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
             } catch (Exception ex) {
                 Util.getMessageErrorFromExcepetion(ex);
             }
-
-            try{
-                swipeRefreshLayout.setRefreshing(false);
-            } catch (Exception exTwo) {
-                Util.getMessageErrorFromExcepetion(exTwo);
-            }
-
         }
     };
 
@@ -900,17 +886,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) { }
-    };
-
-    private SwipeRefreshLayout.OnRefreshListener swipeOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-
-            // Atualizando TODOS os dados/Cards
-            IndisponibilidadeAsyncClass indispClass = new IndisponibilidadeAsyncClass();
-            indispClass.execute();
-            PopulateNetworkCard();
-        }
     };
 
     // Broadcast, Airplane Mode
@@ -1029,7 +1004,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         @Override
         protected void onPreExecute() {
             dateRange = GetPeriodFilterDateRange(spFilterIndisp.getSelectedItemPosition());
-            swipeRefreshLayout.setRefreshing(true);
         }
 
         @Override
@@ -1042,10 +1016,6 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-            if ( swipeRefreshLayout == null )
-                return;
-
-            //swipeRefreshLayout.setRefreshing(false);
             if ( !aBoolean ) {
                 Log.e(LOG_TAG, "Erro obendo indisponibilidade");
                 return;
