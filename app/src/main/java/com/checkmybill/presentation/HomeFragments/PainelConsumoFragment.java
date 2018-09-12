@@ -75,8 +75,8 @@ public class PainelConsumoFragment extends BaseFragment {
     @ViewById(R.id.layoutContentBody) protected ScrollView layoutContentBody;
     @ViewById(R.id.filterSettingsLayoutContent) LinearLayout filterSettingsLayoutContent;
     @ViewById(R.id.filterDateRangeText) TextView filterDateRangeText;
-    @ViewById(R.id.cardAlertaCadastraPlano) CardView cardAlertaCadastraPlano;
-    @ViewById(R.id.pconsumo_report_card) CardView pconsumo_report_card;
+    @ViewById(R.id.cardAlertaCadastraPlano) LinearLayout cardAlertaCadastraPlano;
+    @ViewById(R.id.pconsumo_report_card) LinearLayout pconsumo_report_card;
 
     // -> SMS
     @ViewById(R.id.pieView_sms) protected  PieView pieView_sms;

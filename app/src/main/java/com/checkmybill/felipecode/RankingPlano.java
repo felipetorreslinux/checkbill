@@ -1,4 +1,4 @@
-package com.checkmybill.felipecode.Views;
+package com.checkmybill.felipecode;
 
 import android.app.Activity;
 import android.content.Intent;

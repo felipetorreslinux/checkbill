@@ -4,25 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:plainpie="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/md_white_1000"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
-    <!-- card com o alerta informando que não existe plano -->
-    <android.support.v7.widget.CardView
+    <!-- alerta informando que não existe plano -->
+    <LinearLayout
         android:id="@+id/cardAlertaCadastraPlano"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="4dp"
-        app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="@color/md_grey_200"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:background="@color/md_white_1000"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -41,678 +39,702 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
-
-    <!-- Filtro Area -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/filterSettingsLayoutContent"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="0.2"
-                android:layout_height="wrap_content"
-                android:text="Periodo/Datas: "/>
-            <TextView
-                android:id="@+id/filterDateRangeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:textStyle="bold"
-                android:text="10/10/1000 à 11/11/2000"/>
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@mipmap/gear_bw_menu"
-                android:id="@+id/sms_settingBtnImg"/>
-        </LinearLayout>
     </LinearLayout>
 
-    <!-- Card com o Alerta, permitando a visualização de um relatorio -->
-    <android.support.v7.widget.CardView
-        android:id="@+id/pconsumo_report_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="4dp"
-        app:cardUseCompatPadding="true">
-
-        <LinearLayout
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="Visualizar Consumo em Relatório"/>
-            <ImageView
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:src="@drawable/icon_report"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <!-- Layout a ser exiido durante o carregamento -->
-    <LinearLayout
-        android:id="@+id/layoutProgress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:visibility="gone">
-        <ProgressBar
-            android:id="@+id/progressLoadMap"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateDrawable="@drawable/progress_bar"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Carregando..."/>
-    </LinearLayout>
-
-    <!-- Layout a ser exibido apos os dados serem carregados -->
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:id="@+id/layoutContentBody"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:layout_above="@+id/pconsumo_report_card">
 
+            <!-- Filtro Area -->
             <LinearLayout
+                android:id="@+id/filterSettingsLayoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/md_white_1000"
+                android:padding="5dp"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Periodo"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="0.7"/>
+
+                    <TextView
+                        android:layout_weight="0.3"
+                        android:id="@+id/filterDateRangeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="10/10/1000 à 11/11/2000"/>
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/md_black_1000"
+                    android:src="@mipmap/gear_bw_menu"
+                    android:id="@+id/sms_settingBtnImg"/>
+            </LinearLayout>
+
+            <!-- Layout a ser exiido durante o carregamento -->
+            <LinearLayout
+                android:id="@+id/layoutProgress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                    <!-- NET -->
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/cardview_default_radius"
-                        app:cardCornerRadius="4dp"
-                        app:cardUseCompatPadding="true"
-                        app:cardBackgroundColor="@color/md_white_1000"
-                        android:layout_marginTop="5dp"
-                        android:layout_alignParentEnd="true">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-                            <!-- Header -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:background="@color/md_grey_100"
-                                android:paddingBottom="5dp"
-                                android:paddingTop="5dp"
-                                android:weightSum="1">
-
-                                <!-- Logo -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp">
-                                    <ImageView
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
-                                        android:src="@mipmap/net_logo"/>
-                                </LinearLayout>
-
-                                <!-- Info Text -->
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:layout_weight="1">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Dados Móveis"
-                                        android:layout_gravity="start"
-                                        android:textSize="16dp"
-                                        android:id="@+id/net_header_periodo_text"
-                                        android:textColor="@color/md_black_1000"/>
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <!-- Content -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="5dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp">
-                                <!-- PieView (O grafico em si) -->
-                                <az.plainpie.PieView
-                                    android:id="@+id/pieView_net"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    plainpie:inner_pie_padding="10"
-                                    plainpie:percentage="100"
-                                    plainpie:percentage_size="15"
-                                    plainpie:inner_text_visibility="true"/>
-
-                                <!-- Container dos textos -->
-                                <LinearLayout
-                                    android:orientation="vertical"
-                                    android:layout_width="match_parent"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="center|left">
-
-                                    <!-- First Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:paddingRight="5dp"
-                                            android:text="Contratado:"/>
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:text="0"
-                                            android:textStyle="bold"
-                                            android:id="@+id/net_limiteDoPlano" />
-                                    </LinearLayout>
-
-                                    <!-- Second Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:paddingRight="5dp"
-                                            android:text="Consumido:" />
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:textStyle="bold"
-                                            android:text="0"
-                                            android:id="@+id/net_totalUsados" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/layoutDadosImprecisosWeb"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:orientation="horizontal"
-                                        android:weightSum="1"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp"
-                                        android:background="@color/md_grey_100"
-                                        android:visibility="gone">
-
-                                        <ImageView
-                                            android:layout_width="0dp"
-                                            android:layout_height="25dp"
-                                            android:src="@drawable/alert"
-                                            android:layout_weight="0.1"/>
-
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_weight="0.9"
-                                            android:layout_height="wrap_content"
-                                            android:text="Alerta! Seus dados estão imprecisos!"
-                                            android:textColor="@color/md_red_A700"
-                                            android:textSize="25px"/>
-
-                                    </LinearLayout>
-
-                                    <View
-                                        android:layout_width="match_parent"
-                                        android:layout_height="2dp"
-                                        android:background="@color/md_grey_100"
-                                        android:layout_marginBottom="8dp"
-                                        android:layout_marginTop="8dp"/>
-
-                                    <!-- Third Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceMedium"
-                                            android:paddingRight="5dp"
-                                            android:text="SALDO:"/>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceMedium"
-                                            android:textStyle="bold"
-                                            android:text="0"
-                                            android:id="@+id/net_restantes" />
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <!-- CALL (Ligação) -->
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/cardview_default_radius"
-                        app:cardCornerRadius="4dp"
-                        app:cardUseCompatPadding="true"
-                        app:cardBackgroundColor="@color/md_white_1000"
-                        android:layout_alignParentEnd="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-                            <!-- Header -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:background="@color/md_grey_100"
-                                android:paddingBottom="5dp"
-                                android:paddingTop="5dp"
-                                android:weightSum="1">
-
-                                <!-- Logo -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp">
-                                    <ImageView
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
-                                        android:src="@mipmap/orange_call_logo"/>
-                                </LinearLayout>
-
-                                <!-- Info Text -->
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:layout_weight="1">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Minutos"
-                                        android:textSize="16dp"
-                                        android:layout_gravity="start"
-                                        android:id="@+id/call_header_periodo_text"
-                                        android:textColor="@color/md_black_1000"/>
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <!-- Content -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="5dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp">
-
-                                <!-- PieView (O grafico em si) -->
-                                <az.plainpie.PieView
-                                    android:id="@+id/pieView_call"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    plainpie:inner_pie_padding="10"
-                                    plainpie:percentage="100"
-                                    plainpie:percentage_size="15"
-                                    plainpie:inner_text_visibility="true"/>
-
-                                <!-- Container dos textos -->
-                                <LinearLayout
-                                    android:orientation="vertical"
-                                    android:layout_width="match_parent"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center|left">
-
-                                    <!-- First Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:paddingRight="5dp"
-                                            android:text="Contratado:"/>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:textStyle="bold"
-                                            android:text="00:00:00 (Semanal)"
-                                            android:id="@+id/call_limiteDoPlano" />
-                                    </LinearLayout>
-
-                                    <!-- Seconds Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:paddingRight="5dp"
-                                            android:text="Consumido:"/>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:text="00:00:00"
-                                            android:textStyle="bold"
-                                            android:id="@+id/call_totalUsados" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/layoutDadosImprecisosCall"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:orientation="horizontal"
-                                        android:weightSum="1"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp"
-                                        android:visibility="gone"
-                                        android:background="@color/md_grey_100"
-                                        android:clickable="true">
-
-                                        <ImageView
-                                            android:layout_width="0dp"
-                                            android:layout_height="25dp"
-                                            android:src="@drawable/alert"
-                                            android:layout_weight="0.1"/>
-
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_weight="0.9"
-                                            android:layout_height="wrap_content"
-                                            android:text="Alerta! Seus dados estão imprecisos!"
-                                            android:textColor="@color/md_red_A700"
-                                            android:textSize="25px"/>
-
-                                    </LinearLayout>
-
-                                    <View
-                                        android:layout_width="match_parent"
-                                        android:layout_height="2dp"
-                                        android:background="@color/md_grey_100"
-                                        android:layout_marginBottom="8dp"
-                                        android:layout_marginTop="8dp"/>
-
-                                    <!-- Third Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceMedium"
-                                            android:paddingRight="5dp"
-                                            android:text="SALDO:"/>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceMedium"
-                                            android:textStyle="bold"
-                                            android:text="00:00:00"
-                                            android:id="@+id/call_restantes" />
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <!-- SMS -->
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/md_white_1000"
-                        android:padding="@dimen/cardview_default_radius"
-                        app:cardCornerRadius="4dp"
-                        app:cardUseCompatPadding="true"
-                        android:layout_marginTop="5dp">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-                            <!-- Header -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:background="@color/md_grey_100"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
-                                android:weightSum="1">
-
-                                <!-- Logo -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp">
-                                    <ImageView
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
-                                        android:src="@mipmap/sms_logo"/>
-                                </LinearLayout>
-
-                                <!-- Info Text -->
-                                <LinearLayout
-                                    android:layout_width="40dp"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:layout_gravity="center"
-                                    android:layout_weight="1">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="SMS"
-                                        android:textSize="16dp"
-                                        android:layout_gravity="start"
-                                        android:id="@+id/sms_header_periodo_text"
-                                        android:textColor="@color/md_black_1000"/>
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <!-- Content -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="5dp"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp">
-
-                                <!-- PieView (O grafico em si) -->
-                                <az.plainpie.PieView
-                                    android:id="@+id/pieView_sms"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    plainpie:inner_pie_padding="10"
-                                    plainpie:percentage="100"
-                                    plainpie:percentage_size="15"
-                                    plainpie:inner_text_visibility="true"/>
-
-                                <!-- Container dos textos -->
-                                <LinearLayout
-                                    android:orientation="vertical"
-                                    android:layout_width="match_parent"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center|left">
-
-                                    <!-- First Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:paddingRight="5dp"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:text="Contratado:" />
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:textStyle="bold"
-                                            android:text="0"
-                                            android:id="@+id/sms_limiteDoPlano" />
-                                    </LinearLayout>
-
-                                    <!-- Second Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:text="Consumido:"
-                                            android:paddingRight="5dp"/>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceSmall"
-                                            android:textStyle="bold"
-                                            android:text="0"
-                                            android:id="@+id/sms_totalEnviados" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/layoutDadosImprecisosSms"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:orientation="horizontal"
-                                        android:weightSum="1"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp"
-                                        android:visibility="gone"
-                                        android:background="@color/md_grey_100"
-                                        android:clickable="true">
-
-                                        <ImageView
-                                            android:layout_width="0dp"
-                                            android:layout_height="25dp"
-                                            android:src="@drawable/alert"
-                                            android:layout_weight="0.1"/>
-
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_weight="0.9"
-                                            android:layout_height="wrap_content"
-                                            android:text="Alerta! Seus dados estão imprecisos!"
-                                            android:textColor="@color/md_red_A700"
-                                            android:textSize="25px"/>
-
-                                    </LinearLayout>
-
-                                    <View
-                                        android:layout_width="match_parent"
-                                        android:layout_height="2dp"
-                                        android:background="@color/md_grey_100"
-                                        android:layout_marginBottom="8dp"
-                                        android:layout_marginTop="8dp"/>
-
-                                    <!-- Third Row -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:paddingBottom="5dp"
-                                        android:paddingTop="5dp">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:paddingRight="5dp"
-                                            android:textAppearance="?android:attr/textAppearanceMedium"
-                                            android:text="SALDO:"/>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textAppearance="?android:attr/textAppearanceMedium"
-                                            android:text="0"
-                                            android:textStyle="bold"
-                                            android:id="@+id/sms_restantes" />
-                                    </LinearLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone">
+                <ProgressBar
+                    android:id="@+id/progressLoadMap"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminateDrawable="@drawable/progress_bar"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Carregando..."/>
             </LinearLayout>
-        </ScrollView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <!-- Layout a ser exibido apos os dados serem carregados -->
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:id="@+id/layoutContentBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <!-- NET -->
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/cardview_default_radius"
+                            app:cardCornerRadius="4dp"
+                            android:layout_marginTop="5dp"
+                            app:cardUseCompatPadding="true"
+                            app:cardBackgroundColor="@color/md_white_1000"
+                            android:layout_alignParentEnd="true">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <!-- Header -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    android:paddingBottom="5dp"
+                                    android:paddingTop="5dp"
+                                    android:weightSum="1">
+
+                                    <!-- Logo -->
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="10dp">
+                                        <ImageView
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:src="@mipmap/net_logo"/>
+                                    </LinearLayout>
+
+                                    <!-- Info Text -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Dados Móveis"
+                                            android:layout_gravity="start"
+                                            android:textSize="16dp"
+                                            android:id="@+id/net_header_periodo_text"
+                                            android:textColor="@color/md_black_1000"/>
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <!-- Content -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="5dp"
+                                    android:paddingRight="5dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp">
+                                    <!-- PieView (O grafico em si) -->
+                                    <az.plainpie.PieView
+                                        android:id="@+id/pieView_net"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        plainpie:inner_pie_padding="10"
+                                        plainpie:percentage="100"
+                                        plainpie:percentage_size="15"
+                                        plainpie:inner_text_visibility="true"/>
+
+                                    <!-- Container dos textos -->
+                                    <LinearLayout
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center|left">
+
+                                        <!-- First Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:paddingRight="5dp"
+                                                android:text="Contratado:"/>
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:text="0"
+                                                android:textStyle="bold"
+                                                android:id="@+id/net_limiteDoPlano" />
+                                        </LinearLayout>
+
+                                        <!-- Second Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:paddingRight="5dp"
+                                                android:text="Consumido:" />
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:textStyle="bold"
+                                                android:text="0"
+                                                android:id="@+id/net_totalUsados" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/layoutDadosImprecisosWeb"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:orientation="horizontal"
+                                            android:weightSum="1"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp"
+                                            android:background="@color/md_grey_100"
+                                            android:visibility="gone">
+
+                                            <ImageView
+                                                android:layout_width="0dp"
+                                                android:layout_height="25dp"
+                                                android:src="@drawable/alert"
+                                                android:layout_weight="0.1"/>
+
+                                            <TextView
+                                                android:layout_width="0dp"
+                                                android:layout_weight="0.9"
+                                                android:layout_height="wrap_content"
+                                                android:text="Alerta! Seus dados estão imprecisos!"
+                                                android:textColor="@color/md_red_A700"
+                                                android:textSize="25px"/>
+
+                                        </LinearLayout>
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="2dp"
+                                            android:background="@color/md_grey_100"
+                                            android:layout_marginBottom="8dp"
+                                            android:layout_marginTop="8dp"/>
+
+                                        <!-- Third Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                                android:paddingRight="5dp"
+                                                android:text="SALDO:"/>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                                android:textStyle="bold"
+                                                android:text="0"
+                                                android:id="@+id/net_restantes" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <!-- CALL (Ligação) -->
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/cardview_default_radius"
+                            android:layout_marginTop="10dp"
+                            app:cardCornerRadius="4dp"
+                            app:cardUseCompatPadding="true"
+                            app:cardBackgroundColor="@color/md_white_1000"
+                            android:layout_alignParentEnd="true">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <!-- Header -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    android:paddingBottom="5dp"
+                                    android:paddingTop="5dp"
+                                    android:weightSum="1">
+
+                                    <!-- Logo -->
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="10dp">
+                                        <ImageView
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:src="@mipmap/orange_call_logo"/>
+                                    </LinearLayout>
+
+                                    <!-- Info Text -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Minutos"
+                                            android:textSize="16dp"
+                                            android:layout_gravity="start"
+                                            android:id="@+id/call_header_periodo_text"
+                                            android:textColor="@color/md_black_1000"/>
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <!-- Content -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="5dp"
+                                    android:paddingRight="5dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp">
+
+                                    <!-- PieView (O grafico em si) -->
+                                    <az.plainpie.PieView
+                                        android:id="@+id/pieView_call"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        plainpie:inner_pie_padding="10"
+                                        plainpie:percentage="100"
+                                        plainpie:percentage_size="15"
+                                        plainpie:inner_text_visibility="true"/>
+
+                                    <!-- Container dos textos -->
+                                    <LinearLayout
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center|left">
+
+                                        <!-- First Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:paddingRight="5dp"
+                                                android:text="Contratado:"/>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:textStyle="bold"
+                                                android:text="00:00:00 (Semanal)"
+                                                android:id="@+id/call_limiteDoPlano" />
+                                        </LinearLayout>
+
+                                        <!-- Seconds Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:paddingRight="5dp"
+                                                android:text="Consumido:"/>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:text="00:00:00"
+                                                android:textStyle="bold"
+                                                android:id="@+id/call_totalUsados" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/layoutDadosImprecisosCall"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:orientation="horizontal"
+                                            android:weightSum="1"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp"
+                                            android:visibility="gone"
+                                            android:background="@color/md_grey_100"
+                                            android:clickable="true">
+
+                                            <ImageView
+                                                android:layout_width="0dp"
+                                                android:layout_height="25dp"
+                                                android:src="@drawable/alert"
+                                                android:layout_weight="0.1"/>
+
+                                            <TextView
+                                                android:layout_width="0dp"
+                                                android:layout_weight="0.9"
+                                                android:layout_height="wrap_content"
+                                                android:text="Alerta! Seus dados estão imprecisos!"
+                                                android:textColor="@color/md_red_A700"
+                                                android:textSize="25px"/>
+
+                                        </LinearLayout>
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="2dp"
+                                            android:background="@color/md_grey_100"
+                                            android:layout_marginBottom="8dp"
+                                            android:layout_marginTop="8dp"/>
+
+                                        <!-- Third Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                                android:paddingRight="5dp"
+                                                android:text="SALDO:"/>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                                android:textStyle="bold"
+                                                android:text="00:00:00"
+                                                android:id="@+id/call_restantes" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <!-- SMS -->
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/md_white_1000"
+                            android:padding="@dimen/cardview_default_radius"
+                            app:cardCornerRadius="4dp"
+                            app:cardUseCompatPadding="true"
+                            android:layout_marginTop="10dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <!-- Header -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    android:weightSum="1">
+
+                                    <!-- Logo -->
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="10dp">
+                                        <ImageView
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
+                                            android:src="@mipmap/sms_logo"/>
+                                    </LinearLayout>
+
+                                    <!-- Info Text -->
+                                    <LinearLayout
+                                        android:layout_width="40dp"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="SMS"
+                                            android:textSize="16dp"
+                                            android:layout_gravity="start"
+                                            android:id="@+id/sms_header_periodo_text"
+                                            android:textColor="@color/md_black_1000"/>
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <!-- Content -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="5dp"
+                                    android:paddingRight="5dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp">
+
+                                    <!-- PieView (O grafico em si) -->
+                                    <az.plainpie.PieView
+                                        android:id="@+id/pieView_sms"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        plainpie:inner_pie_padding="10"
+                                        plainpie:percentage="100"
+                                        plainpie:percentage_size="15"
+                                        plainpie:inner_text_visibility="true"/>
+
+                                    <!-- Container dos textos -->
+                                    <LinearLayout
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center|left">
+
+                                        <!-- First Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingRight="5dp"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:text="Contratado:" />
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:textStyle="bold"
+                                                android:text="0"
+                                                android:id="@+id/sms_limiteDoPlano" />
+                                        </LinearLayout>
+
+                                        <!-- Second Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:text="Consumido:"
+                                                android:paddingRight="5dp"/>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                                android:textStyle="bold"
+                                                android:text="0"
+                                                android:id="@+id/sms_totalEnviados" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/layoutDadosImprecisosSms"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:orientation="horizontal"
+                                            android:weightSum="1"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp"
+                                            android:visibility="gone"
+                                            android:background="@color/md_grey_100"
+                                            android:clickable="true">
+
+                                            <ImageView
+                                                android:layout_width="0dp"
+                                                android:layout_height="25dp"
+                                                android:src="@drawable/alert"
+                                                android:layout_weight="0.1"/>
+
+                                            <TextView
+                                                android:layout_width="0dp"
+                                                android:layout_weight="0.9"
+                                                android:layout_height="wrap_content"
+                                                android:text="Alerta! Seus dados estão imprecisos!"
+                                                android:textColor="@color/md_red_A700"
+                                                android:textSize="25px"/>
+
+                                        </LinearLayout>
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="2dp"
+                                            android:background="@color/md_grey_100"
+                                            android:layout_marginBottom="8dp"
+                                            android:layout_marginTop="8dp"/>
+
+                                        <!-- Third Row -->
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="5dp"
+                                            android:paddingTop="5dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingRight="5dp"
+                                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                                android:text="SALDO:"/>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                                android:text="0"
+                                                android:textStyle="bold"
+                                                android:id="@+id/sms_restantes" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+
+        <!-- Card com o Alerta, permitando a visualização de um relatorio -->
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/pconsumo_report_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/md_orange_500"
+            android:padding="16dp"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/md_white_1000"
+                android:text="Relatórios"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/icon_report"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>
