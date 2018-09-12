@@ -4,28 +4,28 @@
     android:id="@+id/plano_fragment_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
     <!-- Area do Layout a ser exibida durente o carreamento -->
     <LinearLayout
         android:id="@+id/layoutLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical"
-        android:weightSum="1"
-        android:gravity="center_vertical|center_horizontal"
         android:visibility="gone">
         <ProgressBar
             android:id="@+id/progressLoadMap"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateDrawable="@drawable/progress_bar"
-            android:layout_margin="15dp"/>
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/progress_bar"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Carregando..."/>
     </LinearLayout>
 
@@ -39,214 +39,203 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="50dp">
+            android:layout_above="@+id/bottomButtonContainer">
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
+                    android:id="@+id/myPlanCardItem"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/myPlanCardItem"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/md_white_1000">
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:cardCornerRadius="4dp"
-                        app:cardUseCompatPadding="true"
-                        app:cardBackgroundColor="@color/md_white_1000">
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nome_plano"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Meu Plano"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:padding="10dp"
+                            android:gravity="center_horizontal"
+                            android:textAppearance="@android:style/TextAppearance.Small"
+                            android:textColor="@color/md_grey_800"
+                            android:background="@color/md_orange_200"/>
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/nome_plano"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Meu Plano"
-                                android:textStyle="bold"
-                                android:textAllCaps="true"
-                                android:padding="10dp"
-                                android:gravity="center_horizontal"
-                                android:textAppearance="@android:style/TextAppearance.Small"
-                                android:textColor="@color/md_grey_800"
-                                android:background="@color/md_orange_200"/>
+                                android:orientation="horizontal"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Modalidade"
+                                    android:layout_weight="0.7"
+                                    style="@android:style/TextAppearance.Small"/>
+
+                                <TextView
+                                    android:id="@+id/modalidade_plano"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pré-pago"
+                                    android:layout_weight="0.6"
+                                    style="@android:style/TextAppearance.Small"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Operadora"
+                                    android:layout_weight="0.7"
+                                    style="@android:style/TextAppearance.Small"/>
+
+                                <TextView
+                                    android:id="@+id/nome_operadora"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Claro"
+                                    android:layout_weight="0.6"
+                                    style="@android:style/TextAppearance.Small"/>
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="10dp">
+                                android:orientation="horizontal"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Preço"
+                                    android:layout_weight="0.7"
+                                    style="@android:style/TextAppearance.Small"/>
+
+                                <TextView
+                                    android:id="@+id/preco_plano"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="R$ 20,00"
+                                    android:layout_weight="0.6"
+                                    style="@android:style/TextAppearance.Small"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pacotes Anexados"
+                                    android:layout_weight="0.7"
+                                    style="@android:style/TextAppearance.Small"/>
+
+                                <TextView
+                                    android:id="@+id/num_pacotes_anexados"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:layout_weight="0.6"
+                                    style="@android:style/TextAppearance.Small"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/prepago_det_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:orientation="vertical">
+                                <!-- Separator -->
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="horizontal"
-                                    android:layout_margin="5dp"
-                                    android:layout_weight="1">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="Modalidade"
-                                        android:layout_weight="0.7"
-                                        style="@android:style/TextAppearance.Small"/>
-
-                                    <TextView
-                                        android:id="@+id/modalidade_plano"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="Pré-pago"
-                                        android:layout_weight="0.6"
-                                        style="@android:style/TextAppearance.Small"/>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="horizontal"
-                                    android:layout_margin="5dp"
-                                    android:layout_weight="1">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="Operadora"
-                                        android:layout_weight="0.7"
-                                        style="@android:style/TextAppearance.Small"/>
-
-                                    <TextView
-                                        android:id="@+id/nome_operadora"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="Claro"
-                                        android:layout_weight="0.6"
-                                        style="@android:style/TextAppearance.Small"/>
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="horizontal"
-                                    android:layout_margin="5dp"
-                                    android:layout_weight="1">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="Preço"
-                                        android:layout_weight="0.7"
-                                        style="@android:style/TextAppearance.Small"/>
-
-                                    <TextView
-                                        android:id="@+id/preco_plano"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:text="R$ 20,00"
-                                        android:layout_weight="0.6"
-                                        style="@android:style/TextAppearance.Small"/>
-
+                                    android:layout_height="wrap_content"
+                                    android:padding="10dp">
+                                    <View
+                                        android:layout_marginLeft="15dp"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="@android:color/darker_gray"/>
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="horizontal"
-                                    android:layout_margin="5dp"
+                                    android:padding="5dp"
                                     android:layout_weight="1">
 
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Pacotes Anexados"
+                                        android:text="Nº Recargas Feitas"
                                         android:layout_weight="0.7"
                                         style="@android:style/TextAppearance.Small"/>
 
                                     <TextView
-                                        android:id="@+id/num_pacotes_anexados"
+                                        android:id="@+id/num_recargas_realizadas"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="0"
                                         android:layout_weight="0.6"
                                         style="@android:style/TextAppearance.Small"/>
-
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:id="@+id/prepago_det_container"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:orientation="vertical">
-                                    <!-- Separator -->
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:padding="10dp">
-                                        <View
-                                            android:layout_marginLeft="15dp"
-                                            android:layout_marginRight="15dp"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="1dp"
-                                            android:background="@android:color/darker_gray"/>
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:orientation="horizontal"
-                                        android:padding="5dp"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:text="Nº Recargas Feitas"
-                                            android:layout_weight="0.7"
-                                            style="@android:style/TextAppearance.Small"/>
-
-                                        <TextView
-                                            android:id="@+id/num_recargas_realizadas"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:text="0"
-                                            android:layout_weight="0.6"
-                                            style="@android:style/TextAppearance.Small"/>
-                                    </LinearLayout>
-
-                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
-                </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
                 <TextView
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="10dp"
                     android:text="Lembre-se, você pode modificar o seu modelo de plano fácilmente clicando em: 'Substituir Plano'."
-                    style="@android:style/TextAppearance.Small"/>
+                    style="@android:style/TextAppearance.Small"
+                    android:textSize="12dp"/>
 
                 <TextView
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Dica: Você também pode procurar o melhor plano para o seu perfil, clicando em: 'Avaliar Plano'."
-                    style="@android:style/TextAppearance.Small"/>
+                    style="@android:style/TextAppearance.Small"
+                    android:textSize="12dp"/>
+
             </LinearLayout>
 
         </ScrollView>
@@ -400,43 +389,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="1"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:visibility="gone"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="0.9">
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="Cadastre seu plano e acompanhe o uso de dados, ligações e sms no painel de consumo do CheckBill. \n\nComece agora :D"
-            android:layout_weight="0.3"
-            style="@android:style/TextAppearance.Small"/>
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
 
         <LinearLayout
             android:id="@+id/layoutBtnCadastrarPlano"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@drawable/button_green_shape"
             android:clickable="true"
-            android:layout_weight="0.15"
             android:gravity="center_horizontal"
-            android:layout_margin="10dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/ic_check_circle_white_24dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="25dp"/>
+                android:layout_marginRight="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="CADASTRAR PLANO"
+                android:text="Cadastrar Plano"
+                android:textSize="16dp"
                 android:textColor="@color/md_white_1000"
                 style="@android:style/TextAppearance.Large"/>
 
@@ -448,37 +436,50 @@
     <LinearLayout
         android:id="@+id/layoutError"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_weight="0.9">
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_not_found"
+            android:tint="@color/md_blue_grey_300"
+            android:layout_marginBottom="16dp"/>
+
         <TextView
             android:id="@+id/tvwErrorMsg"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/md_red_900"
+            android:layout_gravity="center"
+            android:textColor="@color/md_blue_grey_300"
             android:textStyle="bold"
             android:text="Não foi possível carregar o seu plano"/>
+
     </LinearLayout>
 
     <!-- Area do Layout a ser exibido caso o usuario não esteja logado -->
     <LinearLayout
         android:id="@+id/layoutNotLogged"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:visibility="visible"
-        android:layout_weight="0.9">
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -499,20 +500,17 @@
                     style="@android:style/TextAppearance.Small" />
             </LinearLayout>
         </LinearLayout>
+
         <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             style="@android:style/TextAppearance.Small"
+            android:layout_marginBottom="16dp"
             android:text="Click no botão abaixo e realize o seu login para desfrutar de todos os recursos do Checkbill."/>
 
         <Button
             android:id="@+id/noLoggedArea_DoLoginBtn"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_green_shape"
