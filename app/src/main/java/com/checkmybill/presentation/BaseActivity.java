@@ -54,11 +54,10 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void initToolbar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo_small);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo_small);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override

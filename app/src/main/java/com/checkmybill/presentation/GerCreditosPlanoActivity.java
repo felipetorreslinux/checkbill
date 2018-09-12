@@ -3,14 +3,14 @@ package com.checkmybill.presentation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -27,7 +27,6 @@ import com.checkmybill.adapters.AdapterRecargas;
 import com.checkmybill.adapters.CustomItemClickListener;
 import com.checkmybill.entity.RecargasPlano;
 import com.checkmybill.request.PlanoRequester;
-import com.checkmybill.request.RequesterUtil;
 import com.checkmybill.util.DatePickers;
 import com.checkmybill.util.NotifyWindow;
 import com.checkmybill.util.Util;
@@ -38,8 +37,6 @@ import org.androidannotations.annotations.ViewById;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,6 +62,8 @@ public class GerCreditosPlanoActivity extends BaseActivity {
     private Context mContext;
     private ProgressDialog loadingWindow;
 
+    Toolbar toolbar;
+
     /* ------------------------------------------------------------------------------------------ */
     // Metodos da classe (Construtores/Inicializadores/Eventos da Acitivty/Layout)
     @Override
@@ -86,6 +85,30 @@ public class GerCreditosPlanoActivity extends BaseActivity {
         // Inicializando Adapter
         this.recargasPlanoList = new ArrayList<>();
         this.adapterRecargas = new AdapterRecargas(this.recargasPlanoList, this, removerRecarga);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Créditos");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ger_creditos, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+
+            case R.id.add_creditos:
+                gerCreditosFabButtonClick();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -150,7 +173,6 @@ public class GerCreditosPlanoActivity extends BaseActivity {
         dateRangeDatePicker.showDialogWindow();
     }
 
-    @Click(R.id.gerCreditos_fabButton)
     public void gerCreditosFabButtonClick() {
         final View pickerLayout = getLayoutInflater().inflate(R.layout.dialog_add_recarga_layout, null);
         final View manualDateContainer = pickerLayout.findViewById(R.id.manualDateContainer);

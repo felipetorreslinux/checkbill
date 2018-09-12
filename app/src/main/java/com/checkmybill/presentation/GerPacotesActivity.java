@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.checkmybill.R;
 import com.checkmybill.entity.Plano;
@@ -34,7 +36,6 @@ public class GerPacotesActivity extends BaseActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Plano planoUsuario;
 
-    @ViewById(R.id.fab) protected FloatingActionButton fab;
     @ViewById(R.id.toolbar) protected Toolbar toolbar;
     @ViewById(R.id.tabs) protected TabLayout tabLayout;
     @ViewById(R.id.container) protected ViewPager mViewPager;
@@ -47,18 +48,37 @@ public class GerPacotesActivity extends BaseActivity {
 
         // Obtendo plano selecionado...
         planoUsuario = (Plano) getIntent().getSerializableExtra(PLANO_EXTRA);
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         this.initToolbar(this.toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Pacotes");
 
         this.mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         this.mViewPager.setAdapter(mSectionsPagerAdapter);
         this.mViewPager.setOffscreenPageLimit(1);
 
         this.tabLayout.setupWithViewPager(this.mViewPager);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -73,19 +93,9 @@ public class GerPacotesActivity extends BaseActivity {
     @PageSelected(R.id.container)
     void onPageSelected(ViewPager view, int state) {
         final int position = view.getCurrentItem();
-        if ( position != 0 ) this.fab.hide();
-        else this.fab.show();
-
         // Disparando evento de 'focusRecived' do BaseFragment
         BaseFragment focusedFragment = (BaseFragment) this.mSectionsPagerAdapter.getItem(position);
         focusedFragment.focusReceived();
-    }
-
-    @Click(R.id.fab)
-    public void fabClick() {
-        // Movendo a Tab para o item com as listas de Pacotes da Operadora
-        Log.d(LOG_TAG, "FAB -> Changing to PlanListFragment");
-        this.mViewPager.setCurrentItem(1, true);
     }
 
     public Plano getPlanoUsuario() {

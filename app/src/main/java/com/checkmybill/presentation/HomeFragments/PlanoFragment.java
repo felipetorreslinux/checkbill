@@ -25,7 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.checkmybill.R;
 import com.checkmybill.entity.Plano;
-import com.checkmybill.felipecode.Views.RankingPlano;
+import com.checkmybill.felipecode.RankingPlano;
 import com.checkmybill.presentation.AvaliaPlanoActivity;
 import com.checkmybill.presentation.BaseFragment;
 import com.checkmybill.presentation.CreateUserPlanActivity;

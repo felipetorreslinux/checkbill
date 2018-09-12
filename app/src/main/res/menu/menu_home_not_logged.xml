@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.HomeActivity">
     <item
+        android:visible="false"
         android:id="@+id/action_teste_speed"
         android:orderInCategory="100"
         android:title="@string/teste_sua_velocidade"
@@ -11,7 +12,7 @@
     <item
         android:id="@+id/action_report"
         android:orderInCategory="100"
-        android:title="Colabore/Ajuda"
+        android:title="Colabore"
         app:showAsAction="never" />
 
     <item
@@ -34,6 +35,7 @@
         app:showAsAction="never" />
     -->
     <item
+        android:visible="false"
         android:id="@+id/action_teste"
         android:orderInCategory="100"
         android:title="Acesso testador"
@@ -42,10 +44,11 @@
     <item
         android:id="@+id/action_login"
         android:orderInCategory="100"
-        android:title="Realizar Login"
+        android:title="Login"
         app:showAsAction="never" />
 
     <item
+        android:visible="false"
         android:id="@+id/action_export"
         android:orderInCategory="100"
         android:title="Exportar base"

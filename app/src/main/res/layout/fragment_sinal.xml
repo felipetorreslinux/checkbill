@@ -1433,7 +1433,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/primary"
+        android:background="@color/md_orange_400"
         android:orientation="horizontal"
         android:weightSum="4">
 

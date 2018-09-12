@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:background="@color/md_white_1000">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/primary">
+
+            <TextView
+                android:id="@+id/nome_plano"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_white_1000"
+                android:text="Nome do Plano"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/operadora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_white_1000"
+                android:text="Operadora"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/observacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Observacao"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_black_1000"
+                android:singleLine="true"
+                android:text="Velocidade"
+                android:layout_marginBottom="2.5dp"/>
+
+            <TextView
+                android:id="@+id/velocidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Velocidade MB"
+                android:textAllCaps="true"
+                android:singleLine="true"
+                android:textColorHint="@color/md_green_600"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_black_1000"
+                android:singleLine="true"
+                android:text="Valor do Plano"
+                android:layout_marginBottom="2.5dp"/>
+
+            <TextView
+                android:id="@+id/valor_plano"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="R$"
+                android:textAllCaps="true"
+                android:singleLine="true"
+                android:textColorHint="@color/md_green_600"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/md_black_1000"
+                    android:singleLine="true"
+                    android:text="Tipo do Contrato"
+                    android:layout_marginBottom="2.5dp"/>
+
+                <TextView
+                    android:id="@+id/tipo_plano"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Anual"
+                    android:textAllCaps="true"
+                    android:singleLine="true"
+                    android:textColorHint="@color/md_green_600"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/md_black_1000"
+                    android:singleLine="true"
+                    android:text="Modalidade"
+                    android:layout_marginBottom="2.5dp"/>
+
+                <TextView
+                    android:id="@+id/modalidade_plano"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Anual"
+                    android:textAllCaps="true"
+                    android:singleLine="true"
+                    android:textColorHint="@color/md_green_600"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>

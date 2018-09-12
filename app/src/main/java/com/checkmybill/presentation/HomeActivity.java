@@ -1,8 +1,6 @@
 package com.checkmybill.presentation;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -10,23 +8,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.checkmybill.CheckBillApplication;
 import com.checkmybill.R;
-import com.checkmybill.felipecode.Views.RankingPlano;
+import com.checkmybill.felipecode.RankingPlano;
 import com.checkmybill.presentation.HomeFragments.CoverageMapFragment;
 import com.checkmybill.presentation.HomeFragments.CoverageMapFragment_;
-import com.checkmybill.presentation.HomeFragments.InformacoesFragment_;
 import com.checkmybill.presentation.HomeFragments.PainelConsumoFragment_;
-import com.checkmybill.presentation.HomeFragments.PlanoFragment;
 import com.checkmybill.presentation.HomeFragments.PlanoFragment_;
 import com.checkmybill.presentation.HomeFragments.SinalFragment_;
-import com.checkmybill.service.ServiceAutoStarter;
 import com.checkmybill.service.ServiceInitialDataReader;
 
 import org.androidannotations.annotations.EActivity;
@@ -120,7 +113,7 @@ public class HomeActivity extends BaseActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(1);
 
-        // Checando statrPoint
+        // Checando startPoint
         if (this.startPoint > 0) {
             this.mViewPager.setCurrentItem(startPoint);
             this.mSectionsPagerAdapter.notifyDataSetChanged();

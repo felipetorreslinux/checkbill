@@ -3,51 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.HomeActivity">
+
     <item
         android:id="@+id/action_teste_speed"
         android:orderInCategory="100"
         android:title="@string/teste_sua_velocidade"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="Configurações"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_report"
         android:orderInCategory="100"
-        android:title="Colabore/Ajuda"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_rate"
-        android:orderInCategory="100"
-        android:title="Avaliar CheckBill"
+        android:title="Colabore"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_quer_reclamar"
         android:orderInCategory="100"
-        android:title="Quer reclamar?"
+        android:title="Reclamar?"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_reclame"
         android:orderInCategory="100"
-        android:title="Registre divergência"
+        android:title="Divergência"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_auditoria"
         android:orderInCategory="100"
-        android:title="Comprar auditoria"
+        android:title="Comprar Auditoria"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_teste"
         android:orderInCategory="100"
-        android:title="Acesso testador"
+        android:title="Testador"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_rate"
+        android:orderInCategory="100"
+        android:title="Avaliar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Configurações"
         app:showAsAction="never" />
 
     <item
@@ -60,5 +62,6 @@
         android:id="@+id/action_export"
         android:orderInCategory="100"
         android:title="Exportar base"
+        android:visible="false"
         app:showAsAction="never" />
 </menu>

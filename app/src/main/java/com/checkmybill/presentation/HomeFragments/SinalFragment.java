@@ -405,17 +405,17 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
 
         setMenuFilter(btn_filter_today_1);
 
-        txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.md_orange_400));
         txtTodaySinal.setTextColor(getResources().getColor(R.color.colorWhite));
 
         txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.primary));
+        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtThirtyDay.setTextColor(getResources().getColor(R.color.primary));
+        txtThirtyDay.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
+        txtSixtyDay.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);
 
@@ -435,16 +435,16 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         setMenuFilter(btn_filter_7_2);
 
         txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtTodaySinal.setTextColor(getResources().getColor(R.color.primary));
+        txtTodaySinal.setTextColor(getResources().getColor(R.color.md_orange_400));
 
-        txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.md_orange_400));
         txtSevenDaySinal.setTextColor(getResources().getColor(R.color.colorWhite));
 
         txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtThirtyDay.setTextColor(getResources().getColor(R.color.primary));
+        txtThirtyDay.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
+        txtSixtyDay.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);
     }
@@ -462,16 +462,16 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         setMenuFilter(btn_filter_30_2);
 
         txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtTodaySinal.setTextColor(getResources().getColor(R.color.primary));
+        txtTodaySinal.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.primary));
+        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.md_orange_400));
 
-        txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.md_orange_400));
         txtThirtyDay.setTextColor(getResources().getColor(R.color.colorWhite));
 
         txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtSixtyDay.setTextColor(getResources().getColor(R.color.primary));
+        txtSixtyDay.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);
     }
@@ -489,15 +489,15 @@ public class SinalFragment extends BaseFragment implements View.OnClickListener 
         setMenuFilter(btn_filter_60_3);
 
         txtTodaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtTodaySinal.setTextColor(getResources().getColor(R.color.primary));
+        txtTodaySinal.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         txtSevenDaySinal.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.primary));
+        txtSevenDaySinal.setTextColor(getResources().getColor(R.color.md_orange_400));
 
         txtThirtyDay.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        txtThirtyDay.setTextColor(getResources().getColor(R.color.primary));
+        txtThirtyDay.setTextColor(getResources().getColor(R.color.md_orange_400));
 
-        txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.primary));
+        txtSixtyDay.setBackgroundColor(getResources().getColor(R.color.md_orange_400));
         txtSixtyDay.setTextColor(getResources().getColor(R.color.colorWhite));
 
         scrollview_sinal.fullScroll(ScrollView.FOCUS_UP);

@@ -12,10 +12,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.androidnetworking.AndroidNetworking;
 import com.checkmybill.service.ServiceAutoStarter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Petrus A. (R@G3), ESPE... On 08/05/2017.

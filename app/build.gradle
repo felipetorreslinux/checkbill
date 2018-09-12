@@ -14,8 +14,8 @@ android {
             keyPassword "nemlembro"
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
     defaultConfig {
         applicationId "com.checkmybill.app"
         minSdkVersion 17
@@ -56,7 +56,9 @@ android {
     }
     useLibrary 'org.apache.http.legacy'
 }
-def AAVersion = '4.1.0'
+
+def AAVersion = '4.4.0'
+
 dependencies {
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
@@ -73,10 +75,10 @@ dependencies {
     compile 'com.ernestoyaquello.stepperform:vertical-stepper-form:0.9.9'
     compile 'com.shaishavgandhi:login-buttons:0.1.1'
     //noinspection GradleCompatible
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:cardview-v7:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:appcompat-v7:26.0.1'
+    compile 'com.android.support:cardview-v7:26.0.1'
+    compile 'com.android.support:support-v4:26.0.1'
+    compile 'com.android.support:design:26.0.1'
     compile 'com.layer-net:step-indicator:1.1.0'
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile 'com.j256.ormlite:ormlite-android:5.0'
@@ -91,6 +93,8 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.zurche:plain-pie:v0.1.1'
+    compile 'com.amitshekhar.android:android-networking:1.0.1'
+
     testCompile 'junit:junit:4.12'
 }
 apt {

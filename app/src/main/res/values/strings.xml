@@ -204,7 +204,7 @@
     <string name="title_activity_reclame">Reclame</string>
     <string name="title_activity_test_main">Painel teste</string>
     <string name="menu_painel_consumo">PAINEL</string>
-    <string name="teste_sua_velocidade">Teste sua velocidade</string>
+    <string name="teste_sua_velocidade">Testar Velocidade</string>
 
     <!--URL API -->
     <string name="url_base">@string/url_base_debug</string>

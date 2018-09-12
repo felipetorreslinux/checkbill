@@ -155,8 +155,8 @@ public class CoverageMapFragment extends BaseFragment implements OnMapReadyCallb
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
 
-    private double localLatitude;
-    private double localLongitude;
+    public static double localLatitude;
+    public static double localLongitude;
 
     /* ------------------------------------------------------------------------------------------ */
     // Metodos da classe (Construtores/Inicializadores/Eventos da Acitivty/Layout)

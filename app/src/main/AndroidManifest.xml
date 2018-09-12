@@ -387,7 +387,7 @@
 
 
         <!--Felipe Torres Activities-->
-        <activity android:name=".felipecode.Views.RankingPlano"
+        <activity android:name=".felipecode.RankingPlano"
             android:theme="@style/AvaliarPlano"
             android:screenOrientation="portrait"/>
 
